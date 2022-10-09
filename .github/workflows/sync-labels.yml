@@ -29,5 +29,6 @@ jobs:
               continue
             }
 
+            Write-Output $repository
             gh label clone $actor/$currentRepository --force --repo $actor/$repository
           }
