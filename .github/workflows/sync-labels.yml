@@ -22,7 +22,7 @@ jobs:
           $actor = '${{ github.actor }}'
           $currentRepository = '${{ github.event.repository.name }}'
 
-          gh label list
+          gh label list --repo $actor/$currentRepository
 
           foreach ($repository in $repositories) {
             if ($repository -eq $currentRepository) {
