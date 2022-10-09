@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: '0 0 */3 * *'
 
+permissions: {}
+
 jobs:
   labels:
     name: 'Sync: labels'
@@ -14,7 +16,7 @@ jobs:
       - name: Sync labels
         shell: pwsh
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
         run: |
           $repositories = gh repo list --source --no-archived --visibility=public --limit 1000 --json name --jq '.[].name'
           $actor = '${{ github.actor }}'
