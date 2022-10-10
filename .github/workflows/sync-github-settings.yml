@@ -24,7 +24,7 @@ jobs:
           Write-Output "::set-output name=repositories::$repositories"
 
       - name: Sync github settings
-        uses: finphie/GitHubSettingsSync@main
+        uses: finphie/git-hub-settings-sync@v0.1.0.1
         with:
           repositories: |
             ${{ steps.get.outputs.repositories }}
