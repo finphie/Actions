@@ -1,0 +1,54 @@
+name: Sync secrets
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  secrets:
+    name: 'Sync: github settings'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repositories
+        id: get
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+        run: |
+          $repositories = gh repo list --source --no-archived --visibility=public --limit 1000 --json name --jq '.[].name'
+          $currentRepository = '${{ github.event.repository.name }}'
+          $repositories = ($repositories | Where-Object { $_ -ne $currentRepository }) -Join '%0A'
+
+          Write-Output "::set-output name=repositories::$repositories"
+
+      - name: Sync github settings
+        uses: finphie/git-hub-settings-sync
+        with:
+          repositories: |
+            ${{ steps.get.outputs.repositories }}
+          has-issues: true
+          has-projects: false
+          has-wiki: false
+          allow-merge-commit: true
+          allow-rebase-merge: false
+          allow-squash-merge: true
+          allow-auto-merge: false
+          delete-branch-on-merge: true
+          allow-update-branch: true
+          branch-protection: true
+          branch-protection-name: main
+          branch-protection-enforce-admins: false
+          branch-protection-required-linear-history: true
+          branch-protection-allow-force-pushes: false
+          branch-protection-allow-deletions: false
+          branch-protection-required-conversation-resolution: true
+          branch-protection-required-status-checks-strict: false
+          branch-protection-required-status-checks-contexts: null
+          branch-protection-required-reviews: true
+          branch-protection-required-reviews-dismiss-stale-reviews: true
+          branch-protection-required-reviews-require-code-owner-review: true
+          branch-protection-required-reviews-required-approving-review-count: 1
+        env:
+          TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
