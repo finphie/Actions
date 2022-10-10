@@ -1,4 +1,4 @@
-name: Sync secrets
+name: Sync github settings
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
           Write-Output "::set-output name=repositories::$repositories"
 
       - name: Sync github settings
-        uses: finphie/git-hub-settings-sync
+        uses: finphie/git-hub-settings-sync@main
         with:
           repositories: |
             ${{ steps.get.outputs.repositories }}
