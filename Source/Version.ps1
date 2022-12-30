@@ -7,7 +7,7 @@ param (
     [ValidatePattern('^[0-9a-fA-F]{40}$')]
     [string]$sha,
 
-    [ValidateRange("NonNegative")]
+    [ValidateRange('NonNegative')]
     [int]$revision = -1
 )
 
