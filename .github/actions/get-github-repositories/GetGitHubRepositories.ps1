@@ -22,7 +22,8 @@ function Write-RepositoryNames
         [string[]]$repositories
     )
 
-    Write-Output "repositories=[`"$($repositories -Join ',"')`"]"
+    $json = ConvertTo-Json $repositories
+    Write-Output "repositories=$json"
 }
 
 $repositories = gh repo list `
