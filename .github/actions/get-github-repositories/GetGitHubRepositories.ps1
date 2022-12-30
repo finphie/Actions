@@ -22,7 +22,7 @@ function Write-RepositoryNames
         [string[]]$repositories
     )
 
-    Write-Output "repositories=$repositories"
+    Write-Output "repositories=[$($repositories -Join ',')]"
 }
 
 $repositories = gh repo list `
@@ -54,5 +54,5 @@ Write-Output $output
 if ($Env:GITHUB_ACTIONS)
 {
     Write-Output 'Set GITHUB_OUTPUT'
-    "[$($output -Join ',')]" | Out-File $Env:GITHUB_OUTPUT -Append
+    $output | Out-File $Env:GITHUB_OUTPUT -Append
 }
