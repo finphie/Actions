@@ -48,9 +48,9 @@ runs:
   using: composite
   steps:
     - run: |
-      ls
-      ls Source
-      ls .github
+        ls
+        ls Source
+        ls .github
     - name: 'Get GitHub repositories'
       id: x
       shell: pwsh
