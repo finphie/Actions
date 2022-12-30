@@ -22,7 +22,9 @@ function Write-RepositoryNames
         [string[]]$repositories
     )
 
-    Write-Output "repositories=$($repositories -Join '%0A')"
+    Write-Output 'repositories<<EOF'
+    $repositories | ForEach-Object { Write-Output $_ }
+    Write-Output 'EOF'
 }
 
 $repositories = gh repo list `
@@ -36,14 +38,11 @@ $repositories = gh repo list `
     --json nameWithOwner `
     --jq '.[].nameWithOwner'
 
+# 除外関連
 if ($exclude -ne '')
 {
     $excludeRepositories = $exclude -Split ','
-
-    if ($excludeRepositories.Count -gt 0)
-    {
-        $repositories = $repositories | Where-Object { !($_ -in $exclude) }
-    }
+    $repositories = $repositories | Where-Object { !($_ -in $exclude) }
 }
 
 $output = Write-RepositoryNames $repositories
