@@ -22,7 +22,7 @@ function Write-RepositoryNames
         [string[]]$repositories
     )
 
-    $json = ConvertTo-Json $repositories
+    $json = ConvertTo-Json $repositories -Compress
     Write-Output "repositories=$json"
 }
 
