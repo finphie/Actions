@@ -56,7 +56,7 @@ runs:
             ${{ (inputs.fork && '-Fork') || '' }} `
             -Language '${{ inputs.language }}' `
             -Limit ${{ inputs.limit }} `
-            ${{ inputs.no-archived && '-NoArchived' }} `
-            ${{ inputs.source && '-Source' }} `
+            ${{ (inputs.no-archived && '-NoArchived') || '' }} `
+            ${{ (inputs.source && '-Source') || '' }} `
             -Visibility ${{ inputs.visibility }} `
             -Exclude '${{ inputs.exclude }}'
