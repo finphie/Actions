@@ -22,7 +22,7 @@ function Write-RepositoryNames
         [string[]]$repositories
     )
 
-    Write-Output "repositories=[$($repositories -Join ',')]"
+    Write-Output "repositories=[`"$($repositories -Join ',"')`"]"
 }
 
 $repositories = gh repo list `
