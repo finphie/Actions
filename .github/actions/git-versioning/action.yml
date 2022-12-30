@@ -3,14 +3,14 @@ description: バージョン情報を取得するGitHub Actionです。
 
 inputs:
   file-name:
-    description:
+    description: バージョンを設定しているJSONファイルの名前。
     required: false
     default: version.json
   sha:
-    description:
+    description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなる。
     required: true
   revision:
-    description:
+    description: リビジョン番号。
     required: true
 
 outputs:
