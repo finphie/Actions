@@ -1,6 +1,5 @@
 param (
     [Parameter(Mandatory)]
-    [ValidateScript({Test-Path $_}, ErrorMessage='"{0}" does not exist.')]
     [ValidateScript({(Split-Path $_ -Parent) -eq ''}, ErrorMessage='Invalid file name.')]
     [string]$versionFileName,
 
@@ -59,6 +58,11 @@ function Write-Version
     }
 
     Write-Output "version-revision=$($version.Revision)"
+}
+
+if (!(Test-Path $versionFileName))
+{
+    exit
 }
 
 $version = Get-Version $versionFileName
