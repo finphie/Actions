@@ -52,8 +52,8 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/GetGitHubRepositories.ps1 `
-            ${{ (inputs.archived && '-Archived') }} `
-            ${{ (inputs.fork && '-Fork') }} `
+            ${{ (inputs.archived && '-Archived') || '' }} `
+            ${{ (inputs.fork && '-Fork') || '' }} `
             -Language '${{ inputs.language }}' `
             -Limit ${{ inputs.limit }} `
             ${{ inputs.no-archived && '-NoArchived' }} `
