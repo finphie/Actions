@@ -52,11 +52,11 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/GetGitHubRepositories.ps1 `
-            ${{ (inputs.archived == 'True' && '-Archived') || '' }} `
-            ${{ (inputs.fork == 'True' && '-Fork') || '' }} `
+            ${{ inputs.archived == 'true' && '-Archived' || '' }} `
+            ${{ inputs.fork == 'true' && '-Fork' || '' }} `
             -Language '${{ inputs.language }}' `
             -Limit ${{ inputs.limit }} `
-            ${{ (inputs.no-archived == 'True' && '-NoArchived') || '' }} `
-            ${{ (inputs.source == 'True' && '-Source') || '' }} `
+            ${{ inputs.no-archived == 'true' && '-NoArchived' || '' }} `
+            ${{ inputs.source == 'true' && '-Source' || '' }} `
             -Visibility ${{ inputs.visibility }} `
             -Exclude '${{ inputs.exclude }}'
