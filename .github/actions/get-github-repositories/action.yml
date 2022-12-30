@@ -57,7 +57,7 @@ runs:
       id: x
       shell: pwsh
       run: |
-        ${{ github.action_path }}/Source/GetGitHubRepositories.ps1 `
+        ${{ github.action_path }}../../Source/GetGitHubRepositories.ps1 `
             -Archived=${{ inputs.archived }} `
             -Fork=${{ inputs.fork }} `
             -Language '${{ inputs.language }}' `
