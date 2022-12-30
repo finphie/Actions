@@ -47,12 +47,6 @@ outputs:
 runs:
   using: composite
   steps:
-    - run: ls
-      shell: bash
-    - run: ls Source
-      shell: bash
-    - run: ls .github
-      shell: bash
     - name: 'Get GitHub repositories'
       id: x
       shell: pwsh
