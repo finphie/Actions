@@ -28,7 +28,7 @@ function Write-RepositoryNames
 $repositories = gh repo list `
     --archived=$archived `
     --fork=$fork `
-    --language "$language" `
+    --language '$language' `
     --limit=$limit `
     --no-archived=$noArchived `
     --source=$source `
@@ -54,5 +54,5 @@ Write-Output $output
 if ($Env:GITHUB_ACTIONS)
 {
     Write-Output 'Set GITHUB_OUTPUT'
-    $output | Out-File $Env:GITHUB_OUTPUT -Append
+    "[$($output -Join ',')]" | Out-File $Env:GITHUB_OUTPUT -Append
 }
