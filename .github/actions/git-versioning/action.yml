@@ -1,0 +1,42 @@
+name: Git Versioning
+description: バージョン情報を取得するGitHub Actionです。
+
+inputs:
+  file-name:
+    description:
+    required: false
+    default: version.json
+  sha:
+    description:
+    required: true
+  revision:
+    description:
+    required: true
+
+outputs:
+  version:
+    description: バージョン
+    value: ${{ steps.x.outputs.version }}
+  version-major:
+    description: メジャー番号
+    value: ${{ steps.x.outputs.version-major }}
+  version-minor:
+    description: マイナー番号
+    value: ${{ steps.x.outputs.version-minor }}
+  version-build:
+    description: ビルド番号
+    value: ${{ steps.x.outputs.version-build }}
+  version-revision:
+    description: リビジョン番号
+    value: ${{ steps.x.outputs.version-revision }}
+  release:
+    description: 安定版リリースかどうか
+    value: ${{ steps.x.outputs.release }}
+
+runs:
+  using: composite
+  steps:
+    - name: 'Get version'
+      id: x
+      shell: pwsh
+      run: ${{ github.action_path }}/Source/Version.ps1 ${{ inputs.file-name }} ${{ inputs.sha }} ${{ inputs.revision }}
