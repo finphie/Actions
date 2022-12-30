@@ -1,0 +1,62 @@
+name: Get GitHub repositories
+description: GitHubリポジトリ名を取得するGitHub Actionです。
+
+inputs:
+  archived:
+    description: アーカイブされたリポジトリを取得する。
+    required: false
+    default: false
+  fork:
+    description: フォークしたリポジトリを取得する。
+    required: false
+    default: false
+  language:
+    description: 指定された言語が主要なリポジトリを取得する。
+    required: false
+    default: null
+  limit:
+    description: 取得するリポジトリの最大数。
+    required: false
+    default: 10
+  no-archived:
+    description: アーカイブされていないリポジトリを取得する。
+    required: false
+    default: false
+  source:
+    description: フォークではないリポジトリを取得する。
+    required: false
+    default: false
+  visibility:
+    description: 指定された可視性のリポジトリを取得する。
+    required: false
+    options:
+      - public
+      - private
+      - internal
+    default: public
+  exclude:
+    description: 除外するリポジトリ名のリスト。
+    required: false
+    default: null
+
+outputs:
+  repositories:
+    description: リポジトリ名のリスト。
+    value: ${{ steps.x.outputs.repositories }}
+
+runs:
+  using: composite
+  steps:
+    - name: 'Get GitHub repositories'
+      id: x
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/Source/GetGitHubRepositories.ps1 `
+            -Archived=${{ inputs.archived }} `
+            -Fork=${{ inputs.fork }} `
+            -Language '${{ inputs.language }}' `
+            -Limit ${{ inputs.limit }} `
+            -NoArchived=${{ inputs.no-archived }} `
+            -Source=${{ inputs.source }} `
+            -Visibility ${{ inputs.visibility }} `
+            -Exclude '${{ inputs.exclude }}'
