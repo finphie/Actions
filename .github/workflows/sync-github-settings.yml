@@ -1,4 +1,4 @@
-name: Sync github settings
+name: Sync(GitHub settings)
 
 on:
   workflow_dispatch:
@@ -6,8 +6,8 @@ on:
 permissions: {}
 
 jobs:
-  secrets:
-    name: 'Sync: github settings'
+  github-settings:
+    name: Main
     runs-on: ubuntu-latest
 
     steps:

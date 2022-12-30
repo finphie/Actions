@@ -1,14 +1,11 @@
-name: Sync
+name: Sync(dotfiles)
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   dotfiles:
-    name: 'Sync: dotfiles'
-    if: github.event.repository.name == 'dotfiles'
+    name: Main
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
