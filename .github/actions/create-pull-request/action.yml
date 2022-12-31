@@ -1,0 +1,59 @@
+name: Create pull request
+description: プルリクエストを作成するGitHub Actionです。
+
+inputs:
+  path:
+    description: リポジトリのパス。
+    required: false
+    default: ${{ github.workspace }}
+  commit-message:
+    description: コミットメッセージ。
+    required: true
+  title:
+    description: プルリクエストのタイトル。
+    required: false
+    default: ${{ inputs.commit-message }}
+  body:
+    description: プルリクエストの本文。
+    required: false
+    default: null
+  branch:
+    description: ブランチ名。
+    required: false
+    default: create-pull-request/
+  labels:
+    description: ラベルのリスト。
+    required: false
+    default: null
+
+runs:
+  using: composite
+  steps:
+    - name: Git diff
+      shell: pwsh
+      id: diff
+      continue-on-error: true
+      run: |
+        cd '${{ inputs.path }}'
+        git add -N .
+        git diff --name-only --exit-code
+
+    - name: Create pull request
+      if: steps.diff.outcome == 'failure'
+      shell: pwsh
+      run: |
+        $date = Get-Date -Format 'yyyyMMddHHmmss'
+        $branchName = "${{ inputs.branch }}$date"
+
+        git config --local user.name 'github-actions[bot]'
+        git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+        git checkout -b $branchName
+        git add .
+        git commit -m '${{ inputs.commit-message }}'
+        git push --set-upstream origin $branchName
+
+        gh pr create `
+            --title '${{ inputs.title }}' `
+            --label '${{ join(inputs.labels, ',') }}' `
+            --body '${{ inputs.body }}'

@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  test:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Checkout Benchmarks repository
+        uses: actions/checkout@v3
+        with:
+          repository: finphie/Benchmarks
+          path: Benchmarks
+          token: ${{ secrets.SYNC_DOTFILES_PAT }}
+
+      - name: Create PR
+        uses: ./.github/actions/create-pull-request
+        with:
+          path: Benchmarks
+          commit-message: Test commit
+          branch: t
+          labels: |
+            a
+            b
