@@ -14,34 +14,7 @@ jobs:
       - name: Checkout Benchmarks repository
         uses: actions/checkout@v3
         with:
-          repository: finphie/Benchmarks
-          path: Benchmarks
-          token: ${{ secrets.SYNC_DOTFILES_PAT }}
-
-      - run: |
-          cd Benchmarks
-          echo -n > empty.txt
-
-      - name: Create PR
-        uses: finphie/Actions/.github/actions/create-pull-request@20221230
-        with:
-          path: Benchmarks
-          commit-message: Test commit
-          branch: t
-          labels: |
-            performance
-            refactor
-        env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
-  test2:
-    name: Main
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Benchmarks repository
-        uses: actions/checkout@v3
-        with:
-          repository: finphie/Benchmarks
+          repository: finphie/__test__20201003__
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
 
       - run: |
@@ -51,9 +24,3 @@ jobs:
         uses: finphie/Actions/.github/actions/create-pull-request@20221230
         with:
           commit-message: Test commit
-          branch: t
-          labels: |
-            performance
-            refactor
-        env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
