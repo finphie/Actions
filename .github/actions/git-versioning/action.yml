@@ -39,4 +39,8 @@ runs:
     - name: Get version
       id: x
       shell: pwsh
-      run: ${{ github.action_path }}/Source/Version.ps1 ${{ inputs.file-name }} ${{ inputs.sha }} ${{ inputs.revision }}
+      run: |
+        ${{ github.action_path }}/Source/Version.ps1 `
+            -VersionFileName ${{ inputs.file-name }} `
+            -Sha ${{ inputs.sha }} `
+            -Revision ${{ inputs.revision }}
