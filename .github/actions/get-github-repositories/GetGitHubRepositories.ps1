@@ -30,7 +30,7 @@ function Write-RepositoryNames
 $repositories = gh repo list `
     --archived=$archived `
     --fork=$fork `
-    --language "$language" `
+    --language `"$language`" `
     --limit=$limit `
     --no-archived=$noArchived `
     --source=$source `

@@ -23,8 +23,8 @@ Write-Output "branch: $branchName"
 Write-Output "label: $labelList"
 Write-Output ''
 
-git checkout -b "$branchName"
+git checkout -b `"$branchName`"
 git add .
-git commit -m "$commitMessage"
-git push --set-upstream origin "$branchName"
-gh pr create --label `"$labelList`" --fill
+git commit -m `"$commitMessage`"
+git push --set-upstream origin `"$branchName`"
+gh pr create --fill --label `"$labelList`"
