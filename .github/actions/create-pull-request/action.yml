@@ -9,10 +9,6 @@ inputs:
   commit-message:
     description: コミットメッセージ。
     required: true
-  title:
-    description: プルリクエストのタイトル。
-    required: false
-    default: ''
   branch:
     description: ブランチ名。
     required: false
@@ -41,6 +37,5 @@ runs:
       run: |
         ${{ github.action_path }}/CreatePullRequest.ps1 `
             -CommitMessage '${{ inputs.commit-message }}' `
-            -Title '${{ inputs.title }}' `
             -Branch '${{ inputs.branch }}' `
             -Labels '${{ inputs.labels }}'

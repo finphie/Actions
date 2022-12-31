@@ -3,7 +3,6 @@
     [ValidateNotNullOrEmpty()]
     [string]$commitMessage,
 
-    [string]$title = '',
     [string]$branch = 'create-pull-request/',
     [string]$labels = ''
 )
@@ -15,17 +14,11 @@ if ($Env:GITHUB_ACTIONS)
     git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
 }
 
-if ($title -eq '')
-{
-    $title = $commitMessage
-}
-
 $date = Get-Date -Format 'yyyyMMddHHmmss'
 $branchName = "$branch$date"
 $labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
 Write-Output "commit message: $commitMessage"
-Write-Output "title: $title"
 Write-Output "branch: $branchName"
 Write-Output "label: $labelList"
 Write-Output ''
@@ -34,4 +27,4 @@ git checkout -b "$branchName"
 git add .
 git commit -m "$commitMessage"
 git push --set-upstream origin "$branchName"
-gh pr create --title "$title" --label "$labelList"
+gh pr create --fill --label "$labelList"
