@@ -46,7 +46,7 @@ runs:
         git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
         $commitMessage = '${{ inputs.commit-message }}'
-        $title = '${{ inputs.title == '' && inputs.commit-message || inputs.title }}''
+        $title = '${{ inputs.title == '' && inputs.commit-message || inputs.title }}'
 
         $date = Get-Date -Format 'yyyyMMddHHmmss'
         $branchName = "${{ inputs.branch }}$date"
