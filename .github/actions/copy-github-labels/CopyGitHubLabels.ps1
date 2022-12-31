@@ -9,7 +9,7 @@
 Write-Output $sourceRepository
 gh label list --repo $sourceRepository
 
-$repositoryList = $repositories -Split "[, `r`n]"
+$repositoryList = $repositories.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
 
 Write-Output ''
 Write-Output 'Clone labels'

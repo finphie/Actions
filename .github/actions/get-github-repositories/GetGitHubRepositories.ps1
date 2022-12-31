@@ -41,7 +41,7 @@ $repositories = gh repo list `
 # 除外関連
 if ($exclude -ne '')
 {
-    $excludeRepositories = $exclude -Split "[, `r`n]"
+    $excludeRepositories = $exclude.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
     $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 

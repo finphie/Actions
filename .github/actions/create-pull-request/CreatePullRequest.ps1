@@ -22,7 +22,7 @@ if ($title -eq '')
 
 $date = Get-Date -Format 'yyyyMMddHHmmss'
 $branchName = "$branch$date"
-$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ',';
+$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
 Write-Output "commit message: $commitMessage"
 Write-Output "title: $title"
