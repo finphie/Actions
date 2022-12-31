@@ -17,6 +17,7 @@ jobs:
           repository: finphie/Benchmarks
           path: Benchmarks
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
+          persist-credentials: false
 
       - run: |
           cd Benchmarks
@@ -41,6 +42,7 @@ jobs:
         with:
           repository: finphie/Benchmarks
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
+          persist-credentials: false
 
       - run: |
           echo -n > empty.txt
