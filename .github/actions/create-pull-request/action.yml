@@ -32,15 +32,16 @@ runs:
     - name: Git diff
       shell: pwsh
       id: diff
+      working-directory: ${{ inputs.path }}
       continue-on-error: true
       run: |
-        cd '${{ inputs.path }}'
         git add -N .
         git diff --name-only --exit-code
 
     - name: Create pull request
       if: steps.diff.outcome == 'failure'
       shell: pwsh
+      working-directory: ${{ inputs.path }}
       run: |
         ${{ github.action_path }}/CreatePullRequest.ps1 `
             -CommitMessage '${{ inputs.commit-message }}' `
