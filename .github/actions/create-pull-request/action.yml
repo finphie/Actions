@@ -47,9 +47,9 @@ runs:
 
         $commitMessage = '${{ inputs.commit-message }}'
         $title = '${{ inputs.title == '' && inputs.commit-message || inputs.title }}'
-
         $date = Get-Date -Format 'yyyyMMddHHmmss'
         $branchName = "${{ inputs.branch }}$date"
+        $labels = '${{ inputs.labels }}' -Replace "[ `r`n]", ','
 
         git checkout -b $branchName
         git add .
@@ -58,5 +58,5 @@ runs:
 
         gh pr create `
             --title "$title" `
-            --label '${{ join(inputs.labels, ',') }}' `
+            --label "$labels" `
             --body '${{ inputs.body }}'

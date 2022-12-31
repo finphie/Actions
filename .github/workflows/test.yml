@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
       - name: Checkout Benchmarks repository
         uses: actions/checkout@v3
         with:
@@ -26,14 +23,14 @@ jobs:
           echo -n > empty.txt
 
       - name: Create PR
-        uses: ./.github/actions/create-pull-request
+        uses: finphie/Actions/.github/actions/create-pull-request@main
         with:
           path: Benchmarks
           commit-message: Test commit
           branch: t
           labels: |
-            a
-            b
+            performance
+            refactor
 
   test-a:
     name: Main
@@ -56,5 +53,5 @@ jobs:
           commit-message: Test commit
           branch: t
           labels: |
-            a
-            b
+            performance
+            refactor
