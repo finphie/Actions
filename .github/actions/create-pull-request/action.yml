@@ -13,10 +13,6 @@ inputs:
     description: プルリクエストのタイトル。
     required: false
     default: ''
-  body:
-    description: プルリクエストの本文。
-    required: false
-    default: null
   branch:
     description: ブランチ名。
     required: false
@@ -46,6 +42,5 @@ runs:
         ${{ github.action_path }}/CreatePullRequest.ps1 `
             -CommitMessage '${{ inputs.commit-message }}' `
             -Title '${{ inputs.title }}' `
-            -Body '${{ inputs.body }}' `
             -Branch '${{ inputs.branch }}' `
             -Labels '${{ inputs.labels }}'

@@ -5,7 +5,6 @@
 
     [string]$title = '',
     [string]$branch = 'create-pull-request/',
-    [string]$body = '',
     [string]$labels = ''
 )
 
@@ -23,14 +22,16 @@ if ($title -eq '')
 
 $date = Get-Date -Format 'yyyyMMddHHmmss'
 $branchName = "$branch$date"
-$labelList = $labels -Replace "[ `r`n]", ','
+$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ',';
+
+Write-Output "commit message: $commitMessage"
+Write-Output "title: $title"
+Write-Output "branch: $branchName"
+Write-Output "label: $labelList"
+Write-Output ''
 
 git checkout -b "$branchName"
 git add .
 git commit -m "$commitMessage"
 git push --set-upstream origin "$branchName"
-
-gh pr create `
-    --body "$body" `
-    --title "$title" `
-    --label "$labelList"
+gh pr create --title "$title" --label "$labelList"
