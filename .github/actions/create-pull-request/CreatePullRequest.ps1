@@ -31,6 +31,6 @@ git commit -m $commitMessage
 git push --set-upstream origin $branchName
 
 gh pr create `
+    --body "$body" `
     --title "$title" `
-    --label "$labelList" `
-    --body "$body"
+    --label "$labelList"
