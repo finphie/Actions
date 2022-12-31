@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: finphie/__test__20201003__
+          fetch-depth: 0
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
 
       - run: |
