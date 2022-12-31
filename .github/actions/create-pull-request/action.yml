@@ -42,21 +42,9 @@ runs:
       if: steps.diff.outcome == 'failure'
       shell: pwsh
       run: |
-        git config --local user.name 'github-actions[bot]'
-        git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
-
-        $commitMessage = '${{ inputs.commit-message }}'
-        $title = '${{ inputs.title == '' && inputs.commit-message || inputs.title }}'
-        $date = Get-Date -Format 'yyyyMMddHHmmss'
-        $branchName = "${{ inputs.branch }}$date"
-        $labels = '${{ inputs.labels }}' -Replace "[ `r`n]", ','
-
-        git checkout -b $branchName
-        git add .
-        git commit -m $commitMessage
-        git push --set-upstream origin $branchName
-
-        gh pr create `
-            --title "$title" `
-            --label "$labels" `
-            --body '${{ inputs.body }}'
+        ${{ github.action_path }}/CreatePullRequest.ps1 `
+            -CommitMessage '${{ inputs.commit-message }}' `
+            -Title '${{ inputs.title }}' `
+            -Body '${{ inputs.body }}' `
+            -Branch '${{ inputs.branch }}' `
+            -Labels '${{ inputs.labels }}'
