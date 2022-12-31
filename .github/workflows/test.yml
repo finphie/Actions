@@ -22,8 +22,8 @@ jobs:
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
 
       - run: |
-        cd Benchmarks
-        git commit --allow-empty -m "commit"
+          cd Benchmarks
+          echo -n > empty.txt
 
       - name: Create PR
         uses: ./.github/actions/create-pull-request
@@ -48,7 +48,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - run: git commit --allow-empty -m "commit"
+      - run: echo -n > empty.txt
 
       - name: Create PR
         uses: ./.github/actions/create-pull-request
