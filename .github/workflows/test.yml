@@ -16,7 +16,6 @@ jobs:
         with:
           repository: finphie/__test__20201003__
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
-          persist-credentials: false
 
       - run: |
           echo -n > empty.txt
@@ -25,3 +24,5 @@ jobs:
         uses: finphie/Actions/.github/actions/create-pull-request@20221230
         with:
           commit-message: Test commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
