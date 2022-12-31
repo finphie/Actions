@@ -3,7 +3,7 @@
     [ValidateNotNullOrEmpty()]
     [string]$commitMessage,
 
-    [string]$branch = 'create-pull-request/',
+    [string]$branch = 'create-pull-request',
     [string]$labels = ''
 )
 
@@ -15,7 +15,7 @@ if ($Env:GITHUB_ACTIONS)
 }
 
 $date = Get-Date -Format 'yyyyMMddHHmmss'
-$branchName = "$branch$date"
+$branchName = "$branch/$date"
 $labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
 Write-Output "commit message: $commitMessage"

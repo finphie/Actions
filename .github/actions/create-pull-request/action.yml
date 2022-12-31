@@ -12,7 +12,7 @@ inputs:
   branch:
     description: ブランチ名。
     required: false
-    default: create-pull-request/
+    default: create-pull-request
   labels:
     description: ラベルのリスト。
     required: false
