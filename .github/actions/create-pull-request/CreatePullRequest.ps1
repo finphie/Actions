@@ -27,4 +27,4 @@ git checkout -b "$branchName"
 git add .
 git commit -m "$commitMessage"
 git push --set-upstream origin "$branchName"
-gh pr create --fill --label "$labelList"
+gh pr create --label "$labelList" --fill
