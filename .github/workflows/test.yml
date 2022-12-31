@@ -23,33 +23,9 @@ jobs:
           echo -n > empty.txt
 
       - name: Create PR
-        uses: finphie/Actions/.github/actions/create-pull-request@main
+        uses: finphie/Actions/.github/actions/create-pull-request@20221230
         with:
           path: Benchmarks
-          commit-message: Test commit
-          branch: t
-          labels: |
-            performance
-            refactor
-
-  test-a:
-    name: Main
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: read
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - run: echo -n > empty.txt
-
-      - name: Create PR
-        uses: ./.github/actions/create-pull-request
-        with:
           commit-message: Test commit
           branch: t
           labels: |
