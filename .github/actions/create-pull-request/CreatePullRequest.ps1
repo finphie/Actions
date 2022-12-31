@@ -25,10 +25,10 @@ $date = Get-Date -Format 'yyyyMMddHHmmss'
 $branchName = "$branch$date"
 $labelList = $labels -Replace "[ `r`n]", ','
 
-git checkout -b $branchName
+git checkout -b "$branchName"
 git add .
-git commit -m $commitMessage
-git push --set-upstream origin $branchName
+git commit -m "$commitMessage"
+git push --set-upstream origin "$branchName"
 
 gh pr create `
     --body "$body" `
