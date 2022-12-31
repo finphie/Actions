@@ -1,4 +1,4 @@
-# .github
+# Actions
 
 このリポジトリでは、GitHub関連の設定を行っています。
 
