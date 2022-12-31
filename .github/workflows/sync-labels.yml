@@ -13,22 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sync labels
-        shell: pwsh
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get repositories
+        uses: ./.github/actions/get-github-repositories
+        id: get
+        with:
+          no-archived: true
+          source: true
+          exclude: ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
-        run: |
-          $repositories = gh repo list --source --no-archived --visibility=public --limit 1000 --json name --jq '.[].name'
-          $actor = '${{ github.actor }}'
-          $currentRepository = '${{ github.event.repository.name }}'
 
-          gh label list --repo $actor/$currentRepository
-
-          foreach ($repository in $repositories) {
-            if ($repository -eq $currentRepository) {
-              continue
-            }
-
-            Write-Output $repository
-            gh label clone $actor/$currentRepository --force --repo $actor/$repository
-          }
+      - name: Sync labels
+        uses: ./.github/actions/copy-github-labels
+        with:
+          repositories: ${{ steps.get.outputs.repositories }}
+          source-repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
