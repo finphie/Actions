@@ -30,3 +30,25 @@ jobs:
           labels: |
             a
             b
+
+  test-a:
+    name: Main
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create PR
+        uses: ./.github/actions/create-pull-request
+        with:
+          commit-message: Test commit
+          branch: t
+          labels: |
+            a
+            b
