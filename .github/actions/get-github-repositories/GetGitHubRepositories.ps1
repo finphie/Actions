@@ -41,8 +41,8 @@ $repositories = gh repo list `
 # 除外関連
 if ($exclude -ne '')
 {
-    $excludeRepositories = $exclude -Split ','
-    $repositories = $repositories | Where-Object { !($_ -in $exclude) }
+    $excludeRepositories = $exclude -Split "[, `r`n]"
+    $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 
 $output = Write-RepositoryNames $repositories
