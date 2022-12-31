@@ -17,7 +17,6 @@ jobs:
           repository: finphie/Benchmarks
           path: Benchmarks
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
-          persist-credentials: false
 
       - run: |
           cd Benchmarks
@@ -32,6 +31,8 @@ jobs:
           labels: |
             performance
             refactor
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
   test2:
     name: Main
     runs-on: ubuntu-latest
@@ -42,7 +43,6 @@ jobs:
         with:
           repository: finphie/Benchmarks
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
-          persist-credentials: false
 
       - run: |
           echo -n > empty.txt
@@ -55,3 +55,5 @@ jobs:
           labels: |
             performance
             refactor
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
