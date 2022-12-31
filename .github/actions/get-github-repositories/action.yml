@@ -47,7 +47,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: 'Get GitHub repositories'
+    - name: Get GitHub repositories
       id: x
       shell: pwsh
       run: |

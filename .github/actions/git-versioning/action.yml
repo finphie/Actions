@@ -36,7 +36,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: 'Get version'
+    - name: Get version
       id: x
       shell: pwsh
       run: ${{ github.action_path }}/Source/Version.ps1 ${{ inputs.file-name }} ${{ inputs.sha }} ${{ inputs.revision }}
