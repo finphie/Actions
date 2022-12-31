@@ -6,7 +6,9 @@
     [string]$sourceRepository
 )
 
+Write-Output $sourceRepository
 gh label list --repo $sourceRepository
+
 $repositoryList = $repositories -Split "[, `r`n]"
 
 Write-Output ''
