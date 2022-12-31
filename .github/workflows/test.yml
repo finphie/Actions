@@ -16,6 +16,7 @@ jobs:
         with:
           repository: finphie/__test__20201003__
           token: ${{ secrets.SYNC_DOTFILES_PAT }}
+          persist-credentials: false
 
       - run: |
           echo -n > empty.txt
