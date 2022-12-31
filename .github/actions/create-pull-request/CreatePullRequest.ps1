@@ -14,7 +14,7 @@ if ($Env:GITHUB_ACTIONS)
     git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
 }
 
-$date = Get-Date -Format 'yyyyMMddHHmmss'
+$date = Get-Date -Format 'yyyyMMddHHmmss K'
 $branchName = "$branch/$date"
 $labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
