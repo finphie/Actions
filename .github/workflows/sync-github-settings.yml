@@ -6,7 +6,7 @@ on:
 permissions: {}
 
 jobs:
-  github-settings:
+  main:
     name: Main
     runs-on: ubuntu-latest
 
@@ -21,7 +21,7 @@ jobs:
           no-archived: true
           source: true
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
       - name: Sync github settings
         uses: finphie/GitHubSettingsSync@v0.3.0
@@ -40,4 +40,4 @@ jobs:
           branch-protection-required-reviews-require-code-owner-review: true
           branch-protection-required-reviews-required-approving-review-count: 1
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}

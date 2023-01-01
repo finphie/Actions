@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: finphie/__test__20201003__
-          token: ${{ secrets.SYNC_DOTFILES_PAT }}
+          token: ${{ secrets.ACTIONS_SYNC_DOTFILES_PAT }}
 
       - run: |
           echo -n > empty.txt
@@ -25,4 +25,4 @@ jobs:
         with:
           commit-message: Test commit
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_DOTFILES_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_SYNC_DOTFILES_PAT }}

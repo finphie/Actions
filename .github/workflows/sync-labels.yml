@@ -8,7 +8,7 @@ on:
 permissions: {}
 
 jobs:
-  labels:
+  main:
     name: Main
     runs-on: ubuntu-latest
 
@@ -24,7 +24,7 @@ jobs:
           source: true
           exclude: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
       - name: Sync labels
         uses: ./.github/actions/copy-github-labels
@@ -32,4 +32,4 @@ jobs:
           repositories: ${{ steps.get.outputs.repositories }}
           source-repository: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
