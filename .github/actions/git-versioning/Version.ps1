@@ -1,5 +1,5 @@
 ﻿param (
-    [ValidateScript({(Split-Path $_ -Parent) -eq ''}, ErrorMessage='Invalid file name.')]
+    [ValidateScript({ (Split-Path $_ -Parent) -eq '' }, ErrorMessage='Invalid file name.')]
     [string]$versionFileName = 'version.json',
 
     [Parameter(Mandatory)]
