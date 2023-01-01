@@ -3,20 +3,21 @@
     [ValidateNotNullOrEmpty()]
     [string]$commitMessage,
 
+    [ValidateNotNullOrEmpty()]
     [string]$branch = 'create-pull-request',
+
     [string]$labels = ''
 )
 
-# GitHub Actionsで実行している場合
 if ($Env:GITHUB_ACTIONS)
 {
     git config --local user.name 'github-actions[bot]'
     git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
 }
 
-$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
-$branchName = "$branch/$date"
-$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
+[string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
+[string]$branchName = "$branch/$date"
+[string]$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
 Write-Output "commit message: $commitMessage"
 Write-Output "branch: $branchName"

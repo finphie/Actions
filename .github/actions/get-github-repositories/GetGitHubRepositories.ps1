@@ -19,6 +19,8 @@ function Write-RepositoryNames
 {
     [CmdletBinding()]
     param (
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [string[]]$repositories
     )
 
@@ -27,7 +29,7 @@ function Write-RepositoryNames
     Write-Output 'EOF'
 }
 
-$repositories = gh repo list `
+[string[]]$repositories = gh repo list `
     --archived=$archived `
     --fork=$fork `
     --language `"$language`" `
@@ -41,15 +43,14 @@ $repositories = gh repo list `
 # 除外関連
 if ($exclude -ne '')
 {
-    $excludeRepositories = $exclude.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+    [string[]]$excludeRepositories = $exclude.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
     $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 
-$output = Write-RepositoryNames $repositories
+[string[]]$output = Write-RepositoryNames -Repositories $repositories
 Write-Output ''
 Write-Output $output
 
-# GitHub Actionsで実行している場合
 if ($Env:GITHUB_ACTIONS)
 {
     Write-Output 'Set GITHUB_OUTPUT'

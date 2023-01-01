@@ -1,15 +1,17 @@
 ﻿param (
     [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
     [string]$repositories,
 
     [Parameter(Mandatory)]
+    [ValidateNotNullOrEmpty()]
     [string]$sourceRepository
 )
 
 Write-Output $sourceRepository
 gh label list --repo $sourceRepository
 
-$repositoryList = $repositories.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+[string[]]$repositoryList = $repositories.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
 
 Write-Output ''
 Write-Output 'Clone labels'

@@ -6,7 +6,7 @@ inputs:
     description: バージョンを設定しているJSONファイルの名前。
     required: false
     default: version.json
-  sha:
+  hash:
     description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなる。
     required: true
   revision:
@@ -42,5 +42,5 @@ runs:
       run: |
         ${{ github.action_path }}/Source/Version.ps1 `
             -VersionFileName ${{ inputs.file-name }} `
-            -Sha ${{ inputs.sha }} `
+            -Hash ${{ inputs.hash }} `
             -Revision ${{ inputs.revision }}
