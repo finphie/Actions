@@ -38,4 +38,6 @@ runs:
         ${{ github.action_path }}/CreatePullRequest.ps1 `
             -CommitMessage '${{ inputs.commit-message }}' `
             -Branch '${{ inputs.branch }}' `
-            -Labels '${{ inputs.labels }}'
+            -Labels '${{ inputs.labels }}' `
+            -Verbose `
+            -ErrorAction Stop

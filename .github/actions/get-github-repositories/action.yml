@@ -59,4 +59,6 @@ runs:
             ${{ inputs.no-archived == 'true' && '-NoArchived' || '' }} `
             ${{ inputs.source == 'true' && '-Source' || '' }} `
             -Visibility ${{ inputs.visibility }} `
-            -Exclude '${{ inputs.exclude }}'
+            -Exclude '${{ inputs.exclude }}' `
+            -Verbose `
+            -ErrorAction Stop

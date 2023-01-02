@@ -43,4 +43,6 @@ runs:
         ${{ github.action_path }}/Source/Version.ps1 `
             -VersionFileName ${{ inputs.file-name }} `
             -Hash ${{ inputs.hash }} `
-            -Revision ${{ inputs.revision }}
+            -Revision ${{ inputs.revision }} `
+            -Verbose `
+            -ErrorAction Stop
