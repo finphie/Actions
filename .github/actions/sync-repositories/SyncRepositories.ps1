@@ -210,9 +210,11 @@ function Delete-File
     Remove-Item $filePath -Verbose -ErrorAction SilentlyContinue
 }
 
-Write-Verbose "DryRun: $($PSBoundParameters.ContainsKey('WhatIf'))"
+[string]$configFullFilePath = Get-FilePath -Path $targetPath -ChildPath $configFilePath
+[string]$hash = Get-CurrentGitHash -ConfigFilePath $configFullFilePath
 
-[string]$hash = Get-CurrentGitHash -ConfigFilePath $configFilePath
+Write-Verbose "DryRun: $($PSBoundParameters.ContainsKey('WhatIf'))"
+Write-Verbose "Config File: $configFullFilePath"
 Write-Verbose "Hash: $hash"
 
 # ソース元リポジトリのファイルを、ターゲットリポジトリへコピーする。
@@ -229,5 +231,5 @@ $deletedFiles | ForEach-Object { Delete-File -FilePath $_ }
     'hash' = $newHash
 }
 
-Write-Verbose "Write: $configFilePath"
-$json | ConvertTo-Json | Out-File $configFilePath -NoNewline
+Write-Verbose "Write: $configFullFilePath"
+$json | ConvertTo-Json | Out-File $configFullFilePath -NoNewline
