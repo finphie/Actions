@@ -18,12 +18,13 @@ function Get-Version
         [string]$versionFileName
     )
 
-    $json = Get-Content $versionFileName | ConvertFrom-Json -AsHashtable
-    $version = $json['version'] -as [Version]
+    [Hashtable]$json = Get-Content $versionFileName | ConvertFrom-Json -AsHashtable
+    [Version]$version = $json['version']
 
     if ($version -eq $null)
     {
-        throw 'Parse error.'
+        Write-Error 'Error: Invalid version'
+        return
     }
 
     return $version
@@ -38,7 +39,16 @@ function Get-ChangedFiles
         [string]$hash
     )
 
-    return git diff-tree --no-commit-id --name-only -r $hash
+    [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash
+
+    # 2以上の場合は、何らかのエラー発生のはず。
+    if ($LastExitCode -gt 1)
+    {
+        Write-Error 'Error: git diff-tree command'
+        return
+    }
+
+    return $changedFiles
 }
 
 function Write-Version
