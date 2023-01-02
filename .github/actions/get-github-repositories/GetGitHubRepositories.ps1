@@ -25,7 +25,7 @@ function Write-RepositoryNames
     )
 
     Write-Output 'repositories<<EOF'
-    $repositories | ForEach-Object { Write-Output $_ }
+    Write-Output $repositories
     Write-Output 'EOF'
 }
 
