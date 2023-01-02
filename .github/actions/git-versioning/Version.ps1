@@ -40,7 +40,7 @@ function Get-ChangedFiles
         [string]$hash
     )
 
-    [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash
+    [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash --exit-code
 
     # 2以上の場合は、何らかのエラー発生のはず。
     if ($LastExitCode -gt 1)
