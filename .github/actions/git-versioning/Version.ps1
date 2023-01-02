@@ -80,15 +80,14 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 # JSONファイルが更新されている場合はa.b.c形式、それ以外はa.b.c.d形式のバージョンとする。
 [Version]$displayVersion = $release ? $version : "$version.$revision"
 
-Write-Output "version: $displayVersion"
-Write-Output "release: $release"
+Write-Verbose "version: $displayVersion"
+Write-Verbose "release: $release"
 
 [string[]]$output = Write-Version -Version $displayVersion -Release $release
-Write-Output ''
 Write-Output $output
 
 if ($Env:GITHUB_ACTIONS)
 {
-    Write-Output 'Set GITHUB_OUTPUT'
+    Write-Verbose 'Set GITHUB_OUTPUT'
     $output | Out-File $Env:GITHUB_OUTPUT -Append
 }

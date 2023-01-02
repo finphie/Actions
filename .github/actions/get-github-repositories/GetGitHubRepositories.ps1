@@ -48,11 +48,10 @@ if ($exclude -ne '')
 }
 
 [string[]]$output = Write-RepositoryNames -Repositories $repositories
-Write-Output ''
 Write-Output $output
 
 if ($Env:GITHUB_ACTIONS)
 {
-    Write-Output 'Set GITHUB_OUTPUT'
+    Write-Verbose 'Set GITHUB_OUTPUT'
     $output | Out-File $Env:GITHUB_OUTPUT -Append
 }

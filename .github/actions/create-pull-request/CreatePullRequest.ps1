@@ -19,10 +19,9 @@ if ($Env:GITHUB_ACTIONS)
 [string]$branchName = "$branch/$date"
 [string]$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
 
-Write-Output "commit message: $commitMessage"
-Write-Output "branch: $branchName"
-Write-Output "label: $labelList"
-Write-Output ''
+Write-Verbose "commit message: $commitMessage"
+Write-Verbose "branch: $branchName"
+Write-Verbose "label: $labelList"
 
 git checkout -b `"$branchName`"
 git add .
