@@ -68,7 +68,7 @@ function Write-Version
 }
 
 # JSONファイルが存在しない場合、以降の処理をスキップして正常終了する。
-if (!(Test-Path $versionFileName))
+if (!(Test-Path $versionFileName -PathType Leaf))
 {
     exit
 }
