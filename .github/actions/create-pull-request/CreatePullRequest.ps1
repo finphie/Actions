@@ -24,8 +24,8 @@ Write-Verbose "Commit message: $commitMessage"
 Write-Verbose "Branch: $branchName"
 Write-Verbose "Label: $labelList"
 
-git checkout -b `"$branchName`"
+git checkout -b $branchName
 git add .
-git commit -m `"$commitMessage`"
-git push --set-upstream origin `"$branchName`"
-gh pr create --fill --label `"$labelList`"
+git commit -m $commitMessage
+git push --set-upstream origin $branchName
+gh pr create --fill --label $labelList
