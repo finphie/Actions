@@ -90,8 +90,8 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 # JSONファイルが更新されている場合はa.b.c形式、それ以外はa.b.c.d形式のバージョンとする。
 [Version]$displayVersion = $release ? $version : "$version.$revision"
 
-Write-Verbose "version: $displayVersion"
-Write-Verbose "release: $release"
+Write-Verbose "Version: $displayVersion"
+Write-Verbose "Release: $release"
 
 [string[]]$output = Write-Version -Version $displayVersion -Release $release
 Write-Output $output
