@@ -10,7 +10,7 @@ param (
 
     [Parameter(Mandatory)]
     [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
-    [string]$configFilePath,
+    [string]$settingsFilePath,
 
     [Parameter(ValueFromRemainingArguments)]
     [ValidateScript({ ($_ | ForEach-Object { Test-Path $_ }) -contains $true }, ErrorMessage='"{0}" does not exist.')]
@@ -48,13 +48,13 @@ function Get-CurrentGitHash
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$configFilePath
+        [string]$settingsFilePath
     )
 
     # 初回実行時などには、設定ファイルが存在しない場合がある。
-    if (Test-Path $configFilePath -PathType Leaf)
+    if (Test-Path $settingsFilePath -PathType Leaf)
     {
-        [Hashtable]$json = Get-Content $configFilePath | ConvertFrom-Json -AsHashtable
+        [Hashtable]$json = Get-Content $settingsFilePath | ConvertFrom-Json -AsHashtable
 
         if ($json.ContainsKey('hash'))
         {
@@ -210,11 +210,11 @@ function Delete-File
     Remove-Item $filePath -Verbose -ErrorAction SilentlyContinue
 }
 
-[string]$configFullFilePath = Get-FilePath -Path $targetPath -ChildPath $configFilePath
-[string]$hash = Get-CurrentGitHash -ConfigFilePath $configFullFilePath
+[string]$settingsFullFilePath = Get-FilePath -Path $targetPath -ChildPath $settingsFilePath
+[string]$hash = Get-CurrentGitHash -SettingsFilePath $settingsFullFilePath
 
 Write-Verbose "DryRun: $($PSBoundParameters.ContainsKey('WhatIf'))"
-Write-Verbose "Config File: $configFullFilePath"
+Write-Verbose "Settings File: $settingsFullFilePath"
 Write-Verbose "Hash: $hash"
 
 # ソース元リポジトリのファイルを、ターゲットリポジトリへコピーする。
@@ -231,5 +231,5 @@ $deletedFiles | ForEach-Object { Delete-File -FilePath $_ }
     'hash' = $newHash
 }
 
-Write-Verbose "Write: $configFullFilePath"
-$json | ConvertTo-Json | Out-File $configFullFilePath -NoNewline
+Write-Verbose "Write: $settingsFullFilePath"
+$json | ConvertTo-Json | Out-File $settingsFullFilePath -NoNewline
