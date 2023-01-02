@@ -1,4 +1,5 @@
-﻿param (
+﻿[CmdletBinding()]
+param (
     [switch]$archived,
     [switch]$fork,
     [string]$language = '',
