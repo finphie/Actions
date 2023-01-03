@@ -1,0 +1,41 @@
+name: Check extension
+description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+
+outputs:
+  dotnet:
+    description: .NETファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.dotnet }}
+  powershell:
+    description: PowerShellファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.powershell }}
+  python:
+    description: Pythonファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.python }}
+  html:
+    description: HTMLファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.html }}
+  javascript:
+    description: JavaScriptファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.javascript }}
+  typescript:
+    description: TypeScriptファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.typescript }}
+  json:
+    description: JSONファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.json }}
+  yaml:
+    description: YAMLファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.yaml }}
+  markdown:
+    description: Markdownファイルが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.markdown }}
+
+runs:
+  using: composite
+  steps:
+    - name: Check extension
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/CheckLanguage.ps1 `
+            -Verbose `
+            -ErrorAction Stop
