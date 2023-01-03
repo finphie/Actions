@@ -9,6 +9,8 @@ on:
       - '**/*.psm1'
       - .github/workflows/build-powershell.yml
 
+permissions: {}
+
 jobs:
   main:
     name: Lint

@@ -3,6 +3,8 @@ name: Build(Python)
 on:
   workflow_call:
 
+permissions: {}
+
 jobs:
   main:
     name: Lint
