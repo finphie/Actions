@@ -64,7 +64,7 @@ function Get-GitHubOutput
         [bool]$release
     )
 
-    $outputs = @{
+    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
         'version' = $version
         'version-major' = $version.Major
         'version-minor' = $version.Minor
@@ -83,7 +83,7 @@ function Get-GitHubOutput
     return $outputs
 }
 
-$rootPath = Split-Path $PSScriptRoot
+[string]$rootPath = Split-Path $PSScriptRoot
 . $rootPath/WriteGitHubOutput.ps1
 
 # JSONファイルが存在しない場合、以降の処理をスキップして正常終了する。
@@ -103,5 +103,5 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
-$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
 Write-GitHubOutput -OutputList $outputs
