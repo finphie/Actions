@@ -39,6 +39,6 @@ runs:
     - name: Check extension
       shell: pwsh
       run: |
-        ${{ github.action_path }}/CheckLanguage.ps1 `
+        ${{ github.action_path }}/CheckExtension.ps1 `
             -Verbose `
             -ErrorAction Stop
