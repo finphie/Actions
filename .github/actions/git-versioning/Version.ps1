@@ -64,7 +64,7 @@ function Get-GitHubOutput
         [bool]$release
     )
 
-    $output = @{
+    $outputs = @{
         'version' = $version
         'version-major' = $version.Major
         'version-minor' = $version.Minor
@@ -73,14 +73,14 @@ function Get-GitHubOutput
 
     if ($release)
     {
-        $output['release'] = $true
+        $outputs['release'] = $true
     }
     else
     {
-        $output['version-revision'] = $version.Revision
+        $outputs['version-revision'] = $version.Revision
     }
 
-    return $output
+    return $outputs
 }
 
 $rootPath = Split-Path $PSScriptRoot
