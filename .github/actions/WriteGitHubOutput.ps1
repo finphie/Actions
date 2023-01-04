@@ -7,7 +7,6 @@
         [Collections.Specialized.OrderedDictionary]$outputList
     )
 
-    $outputList
     [string[]]$output = $outputList.GetEnumerator() | ForEach-Object {
         $key = $_.Key
         $value = $_.Value
