@@ -17,6 +17,6 @@ runs:
       run: |
         ${{ github.action_path }}/CopyGitHubLabels.ps1 `
             -Repositories '${{ inputs.repositories }}' `
-            -SourceRepository ${{ inputs.source-repository }} `
+            -SourceRepository '${{ inputs.source-repository }}' `
             -Verbose `
             -ErrorAction Stop
