@@ -3,6 +3,7 @@ param ()
 
 function Check-Extension
 {
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -18,17 +19,17 @@ function Get-GitHubOutput
     param ()
 
     [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
-        'dotnet' = $(Check-Extension -Extension 'sln')
-        'powershell' = $(Check-Extension -Extension 'ps1')
-        'python' = $(Check-Extension -Extension 'py')
-        'html' = $(Check-Extension -Extension 'html')
-        'css' = $(Check-Extension -Extension 'css')
-        'javascript' = $(Check-Extension -Extension 'js')
-        'typescript' = $(Check-Extension -Extension 'ts')
-        'json' = $(Check-Extension -Extension 'json')
-        'yaml' = $(Check-Extension -Extension 'yml')
-        'markdown' = $(Check-Extension -Extension 'md')
-        'docker' = $(Test-Path 'Dockerfile')
+        'dotnet' = Check-Extension -Extension 'sln'
+        'powershell' = Check-Extension -Extension 'ps1'
+        'python' = Check-Extension -Extension 'py'
+        'html' = Check-Extension -Extension 'html'
+        'css' = Check-Extension -Extension 'css'
+        'javascript' = Check-Extension -Extension 'js'
+        'typescript' = Check-Extension -Extension 'ts'
+        'json' = Check-Extension -Extension 'json'
+        'yaml' = Check-Extension -Extension 'yml'
+        'markdown' = Check-Extension -Extension 'md'
+        'docker' = Test-Path 'Dockerfile'
     }
 
     return $outputs
