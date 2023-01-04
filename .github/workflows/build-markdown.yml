@@ -8,7 +8,8 @@ on:
       - .markdownlint.yml
       - .github/workflows/build-markdown.yml
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   main:

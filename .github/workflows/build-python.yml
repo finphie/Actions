@@ -3,7 +3,8 @@ name: Build(Python)
 on:
   workflow_call:
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   main:
