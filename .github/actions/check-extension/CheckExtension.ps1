@@ -22,6 +22,7 @@ function Get-GitHubOutput
         'powershell' = $(Check-Extension -Extension 'ps1')
         'python' = $(Check-Extension -Extension 'py')
         'html' = $(Check-Extension -Extension 'html')
+        'css' = $(Check-Extension -Extension 'css')
         'javascript' = $(Check-Extension -Extension 'js')
         'typescript' = $(Check-Extension -Extension 'ts')
         'json' = $(Check-Extension -Extension 'json')
