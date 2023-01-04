@@ -3,34 +3,34 @@ description: リポジトリ内に特定拡張子のファイルが含まれて�
 
 outputs:
   dotnet:
-    description: .NETファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: .NETファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.dotnet }}
   powershell:
-    description: PowerShellファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: PowerShellファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.powershell }}
   python:
-    description: Pythonファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: Pythonファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.python }}
   html:
-    description: HTMLファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: HTMLファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.html }}
   javascript:
-    description: JavaScriptファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: JavaScriptファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.javascript }}
   typescript:
-    description: TypeScriptファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: TypeScriptファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.typescript }}
   json:
-    description: JSONファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: JSONファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.json }}
   yaml:
-    description: YAMLファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: YAMLファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.yaml }}
   markdown:
-    description: Markdownファイルが含まれている場合はtrue、それ以外はfalseになります。
+    description: Markdownファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.markdown }}
   docker:
-    description: Dockerfileが含まれている場合はtrue、それ以外はfalseになります。
+    description: Dockerfileが含まれているかどうか。
     value: ${{ steps.x.outputs.docker }}
 
 runs:
