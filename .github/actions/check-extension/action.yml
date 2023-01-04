@@ -29,6 +29,9 @@ outputs:
   markdown:
     description: Markdownファイルが含まれている場合はtrue、それ以外はfalseになります。
     value: ${{ steps.x.outputs.markdown }}
+  docker:
+    description: Dockerfileが含まれている場合はtrue、それ以外はfalseになります。
+    value: ${{ steps.x.outputs.docker }}
 
 runs:
   using: composite

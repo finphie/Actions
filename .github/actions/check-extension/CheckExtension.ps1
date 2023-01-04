@@ -28,6 +28,7 @@ function Write-GitHubOutputExtension
     Write-GitHubOutput -Key 'json' -Extension 'json'
     Write-GitHubOutput -Key 'yaml' -Extension 'yml'
     Write-GitHubOutput -Key 'markdown' -Extension 'md'
+    Write-Output "docker=$(Test-Path 'Dockerfile')"
 }
 
 $output = Write-GitHubOutputExtension
