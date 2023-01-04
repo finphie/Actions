@@ -19,7 +19,7 @@ jobs:
         id: get
         uses: finphie/Actions/.github/actions/pascal-to-kebab@20221230
         with:
-          text: GitHubSettingsSync
+          text: GitHubSettingsSync Abc
 
       - uses: finphie/Actions/.github/actions/git-versioning@20221230
         with:
