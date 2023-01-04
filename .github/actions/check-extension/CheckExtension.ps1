@@ -1,41 +1,40 @@
 ﻿[CmdletBinding()]
 param ()
 
-function Write-GitHubOutput
+function Check-Extension
 {
     param (
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        $key,
-
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         $extension
     )
 
-    $check = (Test-Path "*.$extension") -or (Test-Path "Source/*.$extension")
-    Write-Output "$key=$($check)"
+    return (Test-Path "*.$extension") -or (Test-Path "Source/*.$extension")
 }
 
-function Write-GitHubOutputExtension
+function Get-GitHubOutput
 {
-    Write-GitHubOutput -Key 'dotnet' -Extension 'sln'
-    Write-GitHubOutput -Key 'powershell' -Extension 'ps1'
-    Write-GitHubOutput -Key 'python' -Extension 'py'
-    Write-GitHubOutput -Key 'html' -Extension 'html'
-    Write-GitHubOutput -Key 'javascript' -Extension 'js'
-    Write-GitHubOutput -Key 'typescript' -Extension 'ts'
-    Write-GitHubOutput -Key 'json' -Extension 'json'
-    Write-GitHubOutput -Key 'yaml' -Extension 'yml'
-    Write-GitHubOutput -Key 'markdown' -Extension 'md'
-    Write-Output "docker=$(Test-Path 'Dockerfile')"
+    [CmdletBinding()]
+    param ()
+
+    $outputs = [Ordered]@{
+        'dotnet' = $(Check-Extension -Extension 'sln')
+        'powershell' = $(Check-Extension -Extension 'ps1')
+        'python' = $(Check-Extension -Extension 'py')
+        'html' = $(Check-Extension -Extension 'html')
+        'javascript' = $(Check-Extension -Extension 'js')
+        'typescript' = $(Check-Extension -Extension 'ts')
+        'json' = $(Check-Extension -Extension 'json')
+        'yaml' = $(Check-Extension -Extension 'yml')
+        'markdown' = $(Check-Extension -Extension 'md')
+        'docker' = $(Test-Path 'Dockerfile')
+    }
+
+    return $outputs
 }
 
-$output = Write-GitHubOutputExtension
-Write-Verbose $output
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
 
-if ($Env:GITHUB_ACTIONS)
-{
-    Write-Verbose 'Set GITHUB_OUTPUT'
-    $output | Out-File $Env:GITHUB_OUTPUT -Append
-}
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput
+Write-GitHubOutput -OutputList $outputs
