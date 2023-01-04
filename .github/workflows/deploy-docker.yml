@@ -31,3 +31,8 @@ jobs:
         uses: finphie/Actions/.github/actions/pascal-to-kebab@20221230
         with:
           text: GitHubSettingsSync
+
+      - uses: finphie/Actions/.github/actions/git-versioning@20221230
+        with:
+          hash: ${{ github.sha }}
+          revision:  ${{ github.run_number }}
