@@ -40,7 +40,7 @@ runs:
       id: x
       shell: pwsh
       run: |
-        ${{ github.action_path }}/Source/Version.ps1 `
+        ${{ github.action_path }}/Version.ps1 `
             -VersionFileName ${{ inputs.file-name }} `
             -Hash ${{ inputs.hash }} `
             -Revision ${{ inputs.revision }} `
