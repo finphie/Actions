@@ -52,7 +52,7 @@ function Get-ChangedFiles
     return $changedFiles
 }
 
-function Write-Version
+function Get-GitHubOutput
 {
     [CmdletBinding()]
     param (
@@ -64,18 +64,41 @@ function Write-Version
         [bool]$release
     )
 
-    Write-Output "version={$version}"
-    Write-Output "version-major=$($version.Major)"
-    Write-Output "version-minor=$($version.Minor)"
-    Write-Output "version-build=$($version.Build)"
+    $output = @{
+        'version' = $version
+        'version-major' = $version.Major
+        'version-minor' = $version.Minor
+        'version-build' = $version.Build
+    }
 
     if ($release)
     {
-        Write-Output "release=$true"
-        return
+        $output['release'] = $true
+    }
+    else
+    {
+        $output['version-revision'] = $version.Revision
     }
 
-    Write-Output "version-revision=$($version.Revision)"
+    return $output
+}
+
+function Write-GitHubOutput
+{
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNull()]
+        [Hashtable]$outputList
+    )
+
+    [string[]]$output = ($outputList.GetEnumerator()) | ForEach-Object { "$($_.Key)=$($_.Value)" }
+
+    if ($Env:GITHUB_ACTIONS)
+    {
+        Write-Verbose 'Set GITHUB_OUTPUT'
+        $output | Out-File $Env:GITHUB_OUTPUT -Append
+    }
 }
 
 # JSONファイルが存在しない場合、以降の処理をスキップして正常終了する。
@@ -95,11 +118,7 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
-[string[]]$output = Write-Version -Version $displayVersion -Release $release
-Write-Verbose $output
+$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
+$outputs
 
-if ($Env:GITHUB_ACTIONS)
-{
-    Write-Verbose 'Set GITHUB_OUTPUT'
-    $output | Out-File $Env:GITHUB_OUTPUT -Append
-}
+Write-GitHubOutput -OutputList $outputs
