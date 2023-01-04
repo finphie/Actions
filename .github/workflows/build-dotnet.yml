@@ -22,7 +22,7 @@ env:
 
 jobs:
   main:
-    name: Test
+    name: Main
     runs-on: windows-latest
 
     steps:

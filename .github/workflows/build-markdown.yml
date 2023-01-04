@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   main:
-    name: Lint
+    name: Main
     runs-on: ubuntu-latest
 
     steps:
