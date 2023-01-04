@@ -27,6 +27,6 @@ jobs:
           revision:  ${{ github.run_number }}
 
       - run: |
-          echo "${{ steps.versioning.version }}"
-          echo "${{ steps.versioning.version-major }}"
-          echo "${{ steps.versioning.release }}"
+          echo "${{ steps.versioning.outputs.version }}"
+          echo "${{ steps.versioning.outputs.version-major }}"
+          echo "${{ steps.versioning.outputs.release }}"

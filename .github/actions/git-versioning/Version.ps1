@@ -104,6 +104,4 @@ Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
 $outputs = Get-GitHubOutput -Version $displayVersion -Release $release
-$outputs
-
 Write-GitHubOutput -OutputList $outputs
