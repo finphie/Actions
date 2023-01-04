@@ -1,0 +1,32 @@
+name: Test
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  test2:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get repository name
+        id: get
+        uses: finphie/Actions/.github/actions/pascal-to-kebab@20221230
+        with:
+          text: GitHubSettingsSync Abc
+
+      - uses: finphie/Actions/.github/actions/git-versioning@20221230
+        id: versioning
+        with:
+          hash: ${{ github.sha }}
+          revision:  ${{ github.run_number }}
+
+      - run: |
+          echo "${{ steps.versioning.version }}"
+          echo "${{ steps.versioning.version-major }}"
+          echo "${{ steps.versioning.release }}"
