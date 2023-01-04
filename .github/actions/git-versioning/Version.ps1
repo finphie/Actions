@@ -83,23 +83,8 @@ function Get-GitHubOutput
     return $output
 }
 
-function Write-GitHubOutput
-{
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateNotNull()]
-        [Hashtable]$outputList
-    )
-
-    [string[]]$output = ($outputList.GetEnumerator()) | ForEach-Object { "$($_.Key)=$($_.Value)" }
-
-    if ($Env:GITHUB_ACTIONS)
-    {
-        Write-Verbose 'Set GITHUB_OUTPUT'
-        $output | Out-File $Env:GITHUB_OUTPUT -Append
-    }
-}
+$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
 
 # JSONファイルが存在しない場合、以降の処理をスキップして正常終了する。
 if (!(Test-Path $versionFileName -PathType Leaf))
