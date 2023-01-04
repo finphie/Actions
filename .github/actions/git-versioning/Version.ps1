@@ -42,7 +42,7 @@ function Get-ChangedFiles
 
     [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash --exit-code
 
-    # 2以上の場合は、何らかのエラー発生のはず。
+    # 終了コードが2以上の場合は、何らかのエラー発生のはず。
     if ($LastExitCode -gt 1)
     {
         Write-Error 'Error: git diff-tree command'
