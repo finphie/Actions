@@ -3,11 +3,11 @@ description: GitHubリポジトリ名を取得するGitHub Actionです。
 
 inputs:
   archived:
-    description: アーカイブされたリポジトリを取得する。
+    description: アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
     required: false
     default: false
   fork:
-    description: フォークしたリポジトリを取得する。
+    description: フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
     required: false
     default: false
   language:
@@ -19,15 +19,15 @@ inputs:
     required: false
     default: 1000
   no-archived:
-    description: アーカイブされていないリポジトリを取得する。
+    description: アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
     required: false
     default: false
   source:
-    description: フォークではないリポジトリを取得する。
+    description: フォークではないリポジトリを取得する。forkと同時に有効にはできない。
     required: false
     default: false
   visibility:
-    description: 指定された可視性のリポジトリを取得する。
+    description: 指定された可視性（public/private/internal）のリポジトリを取得する。
     required: false
     options:
       - public
@@ -35,13 +35,13 @@ inputs:
       - internal
     default: public
   exclude:
-    description: 除外するリポジトリ名のリスト。
+    description: 除外する「オーナー名/リポジトリ名」形式のリスト。
     required: false
     default: null
 
 outputs:
   repositories:
-    description: リポジトリ名のリスト。
+    description: 「オーナー名/リポジトリ名」のリスト。
     value: ${{ steps.x.outputs.repositories }}
 
 runs:
