@@ -8,9 +8,10 @@ param (
 [string]$pascalText = $text.Trim()
 [string]$lowerText = $pascalText.ToLowerInvariant()
 
-Write-Verbose "Text: $text"
-Write-Verbose "PascalText: $pascalText"
-Write-Verbose "LowerText: $lowerText"
+Write-Verbose "Text: `"$text`""
+Write-Verbose "Length: $($text.Length)"
+Write-Verbose "PascalText: `"$pascalText`""
+Write-Verbose "LowerText: `"$lowerText`""
 
 [string]$kebabText = ''
 
