@@ -30,9 +30,9 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/SyncRepositories.ps1 `
-            -SourcePath `"${{ inputs.source-path }}`" `
-            -TargetPath `"${{ inputs.target-path }}`" `
-            -SettingsFilePath `"${{ inputs.settings-file-path }}`" `
+            -SourcePath '${{ inputs.source-path }}' `
+            -TargetPath '${{ inputs.target-path }}' `
+            -SettingsFilePath '${{ inputs.settings-file-path }}' `
             -Verbose `
             -ErrorAction Stop
 
