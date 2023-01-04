@@ -8,6 +8,10 @@ param (
 [string]$pascalText = $text.Trim()
 [string]$lowerText = $pascalText.ToLowerInvariant()
 
+Write-Verbose "Text: $text"
+Write-Verbose "PascalText: $pascalText"
+Write-Verbose "LowerText: $lowerText"
+
 [string]$kebabText = ''
 
 # 元の文字列と小文字にした文字列で比較を行い、異なる文字の場合は'-'をその文字の前に追加する。
