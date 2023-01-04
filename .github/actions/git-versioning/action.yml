@@ -1,4 +1,4 @@
-name: Git Versioning
+name: Git versioning
 description: バージョン情報を取得するGitHub Actionです。
 
 inputs:
@@ -7,11 +7,13 @@ inputs:
     required: false
     default: version.json
   hash:
-    description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなる。
-    required: true
+    description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
+    required: false
+    default: ${{ github.sha }}
   revision:
     description: リビジョン番号。
-    required: true
+    required: false
+    default: ${{ github.run_number }}
 
 outputs:
   version:
