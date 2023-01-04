@@ -49,7 +49,7 @@ if ($exclude -ne '')
 }
 
 [string[]]$output = Write-RepositoryNames -Repositories $repositories
-Write-Output $output
+Write-Verbose $output
 
 if ($Env:GITHUB_ACTIONS)
 {

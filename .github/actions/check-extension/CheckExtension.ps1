@@ -32,7 +32,7 @@ function Write-GitHubOutputExtension
 }
 
 $output = Write-GitHubOutputExtension
-Write-Output $output
+Write-Verbose $output
 
 if ($Env:GITHUB_ACTIONS)
 {

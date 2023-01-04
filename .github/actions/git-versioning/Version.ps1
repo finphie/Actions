@@ -95,7 +95,7 @@ Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
 [string[]]$output = Write-Version -Version $displayVersion -Release $release
-Write-Output $output
+Write-Verbose $output
 
 if ($Env:GITHUB_ACTIONS)
 {
