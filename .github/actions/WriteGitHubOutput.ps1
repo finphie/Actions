@@ -8,7 +8,22 @@
     )
 
     $outputList
-    [string[]]$output = ($outputList.GetEnumerator()) | ForEach-Object { "$($_.Key)=$($_.Value)" }
+    [string[]]$output = $outputList.GetEnumerator() | ForEach-Object {
+        $key = $_.Key
+        $value = $_.Value
+
+        if (!($value -is [Array]))
+        {
+            Write-Output "$key=$value"
+            return
+        }
+
+        Write-Output "$key<<EOF"
+        Write-Output $value
+        Write-Output 'EOF'
+    }
+
+    $output | ForEach-Object { Write-Verbose $_ }
 
     if ($Env:GITHUB_ACTIONS)
     {
