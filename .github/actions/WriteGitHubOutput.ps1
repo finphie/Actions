@@ -4,7 +4,7 @@
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [Hashtable]$outputList
+        [Collections.Specialized.OrderedDictionary]$outputList
     )
 
     $outputList
