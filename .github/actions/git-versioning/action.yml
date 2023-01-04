@@ -32,7 +32,7 @@ outputs:
     description: リビジョン番号
     value: ${{ steps.x.outputs.version-revision }}
   release:
-    description: 安定版リリースかどうか
+    description: 安定版リリースかどうか。
     value: ${{ steps.x.outputs.release }}
 
 runs:
