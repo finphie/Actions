@@ -41,8 +41,8 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/Version.ps1 `
-            -VersionFileName ${{ inputs.file-name }} `
-            -Hash ${{ inputs.hash }} `
-            -Revision ${{ inputs.revision }} `
+            -VersionFileName '${{ inputs.file-name }}' `
+            -Hash '${{ inputs.hash }}' `
+            -Revision '${{ inputs.revision }}' `
             -Verbose `
             -ErrorAction Stop
