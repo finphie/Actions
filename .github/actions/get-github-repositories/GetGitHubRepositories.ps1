@@ -16,7 +16,23 @@ param (
     [string]$exclude = ''
 )
 
-function Write-RepositoryNames
+function Get-GitHubOutput
+{
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string[]]$repositories
+    )
+
+    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+        'repositories' = $repositories
+    }
+
+    return $outputs
+}
+
+function Get-RepositoryNames
 {
     [CmdletBinding()]
     param (
@@ -29,6 +45,9 @@ function Write-RepositoryNames
     Write-Output $repositories
     Write-Output 'EOF'
 }
+
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
 
 [string[]]$repositories = gh repo list `
     --archived=$archived `
@@ -48,11 +67,5 @@ if ($exclude -ne '')
     $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 
-[string[]]$output = Write-RepositoryNames -Repositories $repositories
-Write-Verbose $output
-
-if ($Env:GITHUB_ACTIONS)
-{
-    Write-Verbose 'Set GITHUB_OUTPUT'
-    $output | Out-File $Env:GITHUB_OUTPUT -Append
-}
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Repositories $repositories
+Write-GitHubOutput -OutputList $outputs
