@@ -17,7 +17,7 @@ function Get-GitHubOutput
     [CmdletBinding()]
     param ()
 
-    $outputs = [Ordered]@{
+    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
         'dotnet' = $(Check-Extension -Extension 'sln')
         'powershell' = $(Check-Extension -Extension 'ps1')
         'python' = $(Check-Extension -Extension 'py')
