@@ -137,7 +137,7 @@ jobs:
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-path|string|false|github.workspace|リポジトリのパス。
+path|string|false|${{ github.workspace }}|リポジトリのパス。
 commit-message|string|**true**|-|コミットメッセージ。
 branch|string|false|create-pull-request|ブランチ名。
 labels|string[]|false|null|ラベルのリスト。
