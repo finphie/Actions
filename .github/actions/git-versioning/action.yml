@@ -11,25 +11,25 @@ inputs:
     required: false
     default: ${{ github.sha }}
   revision:
-    description: リビジョン番号。
+    description: リビジョン番号を表す数値。
     required: false
     default: ${{ github.run_number }}
 
 outputs:
   version:
-    description: バージョン
+    description: バージョンを表す文字列。
     value: ${{ steps.x.outputs.version }}
   version-major:
-    description: メジャー番号
+    description: メジャー番号を表す数値。
     value: ${{ steps.x.outputs.version-major }}
   version-minor:
-    description: マイナー番号
+    description: マイナー番号を表す数値。
     value: ${{ steps.x.outputs.version-minor }}
   version-build:
-    description: ビルド番号
+    description: ビルド番号を表す数値。
     value: ${{ steps.x.outputs.version-build }}
   version-revision:
-    description: リビジョン番号
+    description: リビジョン番号を表す数値。
     value: ${{ steps.x.outputs.version-revision }}
   release:
     description: 安定版リリースかどうか。

@@ -9,7 +9,7 @@ inputs:
     description: 同期先リポジトリのパス。
     required: true
   settings-file-path:
-    description: 設定ファイルのパス。
+    description: JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
     required: true
   commit-message:
     description: コミットメッセージ。
