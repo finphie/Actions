@@ -108,6 +108,39 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 プルリクエストを作成するGitHub Actionです。
 
+#### 同一リポジトリにプルリクエストを出す場合
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Create pull request
+        uses: finphie/Actions/.github/actions/create-pull-request@main
+        with: 
+          path: ${{ github.workspace }}
+          commit-message: Commit message
+          branch: create-pull-request
+          labels: null
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+#### 異なるリポジトリにプルリクエストを出す場合
+
 ```yaml
 on:
   workflow_dispatch:
@@ -121,6 +154,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          repository: finphie/dotfiles
+          token: ${{ secrets.PAT }}
 
       - name: Create pull request
         uses: finphie/Actions/.github/actions/create-pull-request@main
