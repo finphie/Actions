@@ -139,7 +139,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-#### 異なるリポジトリにプルリクエストを出す場合
+#### 他のリポジトリにプルリクエストを出す場合
 
 ```yaml
 on:
