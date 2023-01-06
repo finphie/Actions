@@ -1,0 +1,22 @@
+name: Copy GitHub labels
+description: GitHubラベルをソース元のリポジトリからコピーするGitHub Actionです。
+
+inputs:
+  repositories:
+    description: リポジトリのリスト。
+    required: true
+  source-repository:
+    description: ソース元のリポジトリ。
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Copy GitHub labels
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/CopyGitHubLabels.ps1 `
+            -Repositories '${{ inputs.repositories }}' `
+            -SourceRepository '${{ inputs.source-repository }}' `
+            -Verbose `
+            -ErrorAction Stop

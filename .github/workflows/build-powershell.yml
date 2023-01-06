@@ -1,0 +1,36 @@
+name: Build(PowerShell)
+
+on:
+  workflow_call:
+  pull_request:
+    paths:
+      - '**/*.ps1'
+      - '**/*.psd1'
+      - '**/*.psm1'
+      - .github/workflows/build-powershell.yml
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check
+        id: check
+        uses: finphie/Actions/.github/actions/check-extension@main
+
+      - name: Install PSScriptAnalyzer
+        if: steps.check.powershell == 'true'
+        shell: pwsh
+        run: Install-Module -Name PSScriptAnalyzer -Force
+
+      - name: Lint PowerShell
+        if: steps.check.powershell == 'true'
+        shell: pwsh
+        run: Invoke-ScriptAnalyzer . -EnableExit -Recurse
