@@ -12,8 +12,7 @@ on:
         type: string
         default: Release
 
-permissions:
-  contents: read
+permissions: {}
 
 env:
   DOTNET_NOLOGO: true

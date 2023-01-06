@@ -6,8 +6,7 @@ on:
     paths:
       - '**/*.yml'
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   main:
