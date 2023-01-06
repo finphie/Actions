@@ -49,7 +49,9 @@ Write-Verbose "Label: $labelList"
 git checkout -b $branchName
 git add .
 git commit -m $commitMessage
-git push --set-upstream origin $branchName
+git push origin $branchName
+
+Write-Verbose 'Create pull request'
 
 if ($labelList -eq '')
 {
