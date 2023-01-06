@@ -46,10 +46,16 @@ Write-Verbose "Commit message: $commitMessage"
 Write-Verbose "Branch: $branchName"
 Write-Verbose "Label: $labelList"
 
-[string]$labelArgument = $labelList -eq '' ? '' : "--label $labelList"
-
 git checkout -b $branchName
 git add .
 git commit -m $commitMessage
 git push --set-upstream origin $branchName
-gh pr create --fill $labelArgument
+
+if ($labelList -eq '')
+{
+    gh pr create --fill
+}
+else
+{
+    gh pr create --fill --label $labelList
+}
