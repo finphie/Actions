@@ -31,7 +31,7 @@ jobs:
           echo "${{ steps.versioning.outputs.release }}"
 
   test2:
-    name: Main
+    name: create-pull-request
     runs-on: ubuntu-latest
     permissions: {}
 
@@ -42,4 +42,5 @@ jobs:
       - uses: finphie/Actions/.github/actions/create-pull-request@20221230
         with:
           commit-message: Test
-        env: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
