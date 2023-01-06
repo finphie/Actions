@@ -39,6 +39,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - run: echo -n > empty.text
+
       - uses: finphie/Actions/.github/actions/create-pull-request@20221230
         with:
           commit-message: Test
