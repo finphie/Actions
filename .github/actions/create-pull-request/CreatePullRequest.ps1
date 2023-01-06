@@ -29,6 +29,7 @@ function Check-Diff
 # 差分なしの場合、以降の処理をスキップして正常終了する。
 if (!(Check-Diff))
 {
+    Write-Verbose 'Skip'
     exit
 }
 
