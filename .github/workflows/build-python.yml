@@ -1,0 +1,36 @@
+name: Build(Python)
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check
+        id: check
+        uses: finphie/Actions/.github/actions/check-extension@main
+
+      - name: Install flake8
+        if: steps.check.python == 'true'
+        run: pip install flake8
+
+      - name: Install Pyright
+        if: steps.check.python == 'true'
+        run: sudo npm install -g pyright
+
+      - name: Lint Python (flake8)
+        if: steps.check.python == 'true'
+        run: flake8
+
+      - name: Lint Python (pyright)
+        if: steps.check.python == 'true'
+        run: pyright

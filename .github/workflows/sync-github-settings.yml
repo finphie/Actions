@@ -6,22 +6,22 @@ on:
 permissions: {}
 
 jobs:
-  github-settings:
+  main:
     name: Main
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get repositories
-        id: get
-        shell: pwsh
-        env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
-        run: |
-          $repositories = gh repo list --source --no-archived --visibility=public --limit 1000 --json name --jq '.[].name'
-          $currentRepository = '${{ github.event.repository.name }}'
-          $repositories = ($repositories | Where-Object { $_ -ne $currentRepository }) -Join '%0A'
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-          Write-Output "::set-output name=repositories::$repositories"
+      - name: Get repositories
+        uses: ./.github/actions/get-github-repositories
+        id: get
+        with:
+          no-archived: true
+          source: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
       - name: Sync github settings
         uses: finphie/GitHubSettingsSync@v0.3.0
@@ -40,4 +40,4 @@ jobs:
           branch-protection-required-reviews-require-code-owner-review: true
           branch-protection-required-reviews-required-approving-review-count: 1
         env:
-          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_SETTINGS_PAT }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}

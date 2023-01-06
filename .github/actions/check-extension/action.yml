@@ -1,0 +1,44 @@
+name: Check extension
+description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+
+outputs:
+  dotnet:
+    description: .NETファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.dotnet }}
+  powershell:
+    description: PowerShellファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.powershell }}
+  python:
+    description: Pythonファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.python }}
+  html:
+    description: HTMLファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.html }}
+  javascript:
+    description: JavaScriptファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.javascript }}
+  typescript:
+    description: TypeScriptファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.typescript }}
+  json:
+    description: JSONファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.json }}
+  yaml:
+    description: YAMLファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.yaml }}
+  markdown:
+    description: Markdownファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.markdown }}
+  docker:
+    description: Dockerfileが含まれているかどうか。
+    value: ${{ steps.x.outputs.docker }}
+
+runs:
+  using: composite
+  steps:
+    - name: Check extension
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/CheckExtension.ps1 `
+            -Verbose `
+            -ErrorAction Stop
