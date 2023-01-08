@@ -27,6 +27,8 @@ function Test-Extension
         [string[]]$files = (Get-ChildItem "$(Join-Path $filePath '*').$extension" -File -Force -ErrorAction SilentlyContinue).FullName |
             Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
+        $files | ForEach-Object { Write-Verbose "File: $_" }
+
         if ($files.Count -ne 0)
         {
             return $true
