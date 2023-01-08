@@ -182,7 +182,7 @@ labels|string[]|false|null|ラベルのリスト。
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|secrets.GITHUB_TOKENまたは「public_repo」スコープを許可したGitHub Personal Access Token。（他のリポジトリにPRを出す場合はPAT必須）
+GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_repo」スコープを許可したGitHub Personal Access Token。（他のリポジトリにPRを出す場合はPAT必須）
 
 #### 出力
 
@@ -552,7 +552,8 @@ Dockerのビルドを実行する再利用可能なワークフローです。
 on:
   pull_request:
 
-permissions: {}
+permissions:
+  packages: write
 
 jobs:
   main:
@@ -575,7 +576,7 @@ version-major|int|**true**|-|メジャーバージョンを表す数値。
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|GITHUB_TOKEN
+GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 
 #### 環境変数
 
