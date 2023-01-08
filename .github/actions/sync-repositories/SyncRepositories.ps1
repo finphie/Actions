@@ -37,8 +37,6 @@ function Get-FilePath
     return (Split-Path -IsAbsolute $childPath) ? $childPath : (Join-Path $path $childPath)
 }
 
-
-
 function Get-CurrentGitHash
 {
     [CmdletBinding()]

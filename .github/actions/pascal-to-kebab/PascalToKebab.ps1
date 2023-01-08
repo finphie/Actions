@@ -5,6 +5,9 @@ param (
     [string]$text
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
+
 function PascalToKebab
 {
     [CmdletBinding()]
@@ -59,9 +62,6 @@ function Get-GitHubOutput
 
     return $outputs
 }
-
-[string]$rootPath = Split-Path $PSScriptRoot
-. $rootPath/WriteGitHubOutput.ps1
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
 Write-GitHubOutput -OutputList $outputs

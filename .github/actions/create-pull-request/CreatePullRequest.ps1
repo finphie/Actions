@@ -10,21 +10,8 @@ param (
     [string]$labels = ''
 )
 
-function Test-Diff
-{
-    git add -N .
-    git diff --name-only --exit-code
-
-    # 終了コードが2以上の場合は、何らかのエラー発生のはず。
-    if ($LastExitCode -gt 1)
-    {
-        Write-Error 'Error: git diff command'
-        return
-    }
-
-    # 終了コード0は差分なし、1は差分ありを表す。
-    return $LastExitCode -eq 1
-}
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/GitCommand.ps1
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
 if (!(Test-Diff))

@@ -11,6 +11,9 @@ param (
     [int]$revision = -1
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
+
 function Get-Version
 {
     [CmdletBinding()]
@@ -86,9 +89,6 @@ function Get-GitHubOutput
 
     return $outputs
 }
-
-[string]$rootPath = Split-Path $PSScriptRoot
-. $rootPath/WriteGitHubOutput.ps1
 
 # JSONファイルが存在しない場合、以降の処理をスキップして正常終了する。
 if (!(Test-Path $versionFileName -PathType Leaf))

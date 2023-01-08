@@ -16,6 +16,9 @@ param (
     [string]$exclude = ''
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
+
 function Get-GitHubOutput
 {
     [CmdletBinding()]
@@ -32,9 +35,6 @@ function Get-GitHubOutput
 
     return $outputs
 }
-
-[string]$rootPath = Split-Path $PSScriptRoot
-. $rootPath/WriteGitHubOutput.ps1
 
 [string[]]$repositories = gh repo list `
     --archived=$archived `
