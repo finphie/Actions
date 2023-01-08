@@ -26,4 +26,4 @@ jobs:
 
       - name: Lint PowerShell
         shell: pwsh
-        run: Invoke-ScriptAnalyzer . -EnableExit -Recurse
+        run: Invoke-ScriptAnalyzer -Path . -EnableExit -Recurse
