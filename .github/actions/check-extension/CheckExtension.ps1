@@ -1,7 +1,9 @@
 ﻿[CmdletBinding()]
 param (
     [ValidateNotNullOrEmpty()]
-    [string]$paths = '*,Source/*'
+    [string]$paths = '*,Source/*',
+
+    [switch]$recurse
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
@@ -21,18 +23,21 @@ function Test-Extension
         [string]$extension
     )
 
-    foreach ($filePath in $path)
+    foreach ($directoryPath in $path)
     {
+        [string]$filePath = "$(Join-Path $directoryPath '*').$extension"
+
         # Test-Pathは隠しファイルを取得できない。
-        [string[]]$files = (Get-ChildItem "$(Join-Path $filePath '*').$extension" -File -Force -ErrorAction SilentlyContinue).FullName |
+        [string[]]$files = (Get-ChildItem $filePath -File -Force -Recurse:$recurse -ErrorAction SilentlyContinue).FullName |
             Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
-        $files | ForEach-Object { Write-Verbose "File: $_" }
-
-        if ($files.Count -ne 0)
+        if ($files.Count -eq 0)
         {
-            return $true
+            continue
         }
+
+        $files | ForEach-Object { Write-Verbose "File: $_" }
+        return $true
     }
 
     return $false
