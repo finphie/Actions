@@ -13,6 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - run: ls
+
       - name: Check extension
         id: check-extension
         uses: finphie/Actions/.github/actions/check-extension@20221230
@@ -20,6 +22,8 @@ jobs:
           paths: |
             *
             Source/*
+
+      - run: ls
 
       - run: |
           echo '${{ steps.check-extension.outputs.dotnet }}'
