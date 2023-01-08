@@ -589,11 +589,19 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKEN
 
 ### sync-dotfiles.yml
 
+各リポジトリに[finphie/dotfiles](https://github.com/finphie/dotfiles)のファイルを同期するワークフローです。
+
 ### sync-github-settings.yml
+
+各リポジトリのGitHubの設定を行うワークフローです。[GitHubSettingsSync](https://github.com/finphie/GitHubSettingsSync)を使用します。
 
 ### sync-labels.yml
 
+各リポジトリのラベルを同期するワークフローです。
+
 ### sync-secrets.yml
+
+各リポジトリのシークレットを同期するワークフローです。
 
 ## 作者
 
