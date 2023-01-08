@@ -8,6 +8,7 @@ param (
 function PascalToKebab
 {
     [CmdletBinding()]
+    [OutputType([string])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -45,6 +46,7 @@ function PascalToKebab
 function Get-GitHubOutput
 {
     [CmdletBinding()]
+    [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]

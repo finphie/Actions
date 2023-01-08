@@ -20,6 +20,7 @@ param (
 function Get-FilePath
 {
     [CmdletBinding()]
+    [OutputType([string])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -36,6 +37,7 @@ function Get-FilePath
 function Get-GitEmptyHash
 {
     [CmdletBinding()]
+    [OutputType([string])]
     param ()
 
     [string]$hash = git hash-object -t tree /dev/null
@@ -45,6 +47,7 @@ function Get-GitEmptyHash
 function Get-CurrentGitHash
 {
     [CmdletBinding()]
+    [OutputType([string])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -68,6 +71,7 @@ function Get-CurrentGitHash
 function Get-HeadHash
 {
     [CmdletBinding()]
+    [OutputType([string])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -81,6 +85,7 @@ function Get-HeadHash
 function Get-Diff
 {
     [CmdletBinding()]
+    [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -104,9 +109,10 @@ function Get-Diff
     return $result
 }
 
-function Get-RepositoryFiles
+function Get-RepositoryFile
 {
     [CmdletBinding()]
+    [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -117,25 +123,32 @@ function Get-RepositoryFiles
     return $repositoryFiles
 }
 
-function Get-AddedFiles
+function Get-AddedFile
 {
+    # 誤検知している警告を無効にする。
+    # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+    [Diagnostics.CodeAnalysis.SuppressMessage('PSReviewUnusedParameter', 'targetPath', Justification = 'false positive')]
+    [CmdletBinding()]
+    [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
         [string]$sourcePath,
+
 
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
         [string]$targetPath
     )
 
-    [string[]]$repositoryFiles = Get-RepositoryFiles -Path $sourcePath
+    [string[]]$repositoryFiles = Get-RepositoryFile -Path $sourcePath
     return $repositoryFiles | ForEach-Object { ,@((Join-Path $sourcePath $_), (Join-Path $targetPath $_)) }
 }
 
-function Get-DeletedFiles
+function Get-DeletedFile
 {
     [CmdletBinding()]
+    [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -181,6 +194,7 @@ function Get-DeletedFiles
 function Copy-File
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
@@ -195,9 +209,10 @@ function Copy-File
     Copy-Item $sourceFilePath $targetFilePath -Force
 }
 
-function Delete-File
+function Remove-File
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
@@ -218,13 +233,13 @@ Write-Verbose "Settings File: $settingsFullFilePath"
 Write-Verbose "Hash: $hash"
 
 # ソース元リポジトリのファイルを、ターゲットリポジトリへコピーする。
-$AddedFiles = Get-AddedFiles -SourcePath $sourcePath -TargetPath $targetPath
+$AddedFiles = Get-AddedFile -SourcePath $sourcePath -TargetPath $targetPath
 $AddedFiles | ForEach-Object { Copy-File -SourceFilePath $_[0] -TargetFilePath $_[1] }
 
 # 前回同期時との差分から、ソース元リポジトリで削除されたファイルをターゲットリポジトリでも削除する。
 # また、同期対象外のファイルも削除する。
-[string[]]$deletedFiles = Get-DeletedFiles -SourcePath $sourcePath -TargetPath $targetPath -Hash $hash -IgnoreFiles $ignoreFiles
-$deletedFiles | ForEach-Object { Delete-File -FilePath $_ }
+[string[]]$deletedFiles = Get-DeletedFile -SourcePath $sourcePath -TargetPath $targetPath -Hash $hash -IgnoreFiles $ignoreFiles
+$deletedFiles | ForEach-Object { Remove-File -FilePath $_ }
 
 [string]$newHash = Get-HeadHash -Path $sourcePath
 [hashtable]$json = @{
