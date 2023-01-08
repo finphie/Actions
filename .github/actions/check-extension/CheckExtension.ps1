@@ -11,16 +11,16 @@ function Test-Extension
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]]$directoryPath,
+        [string[]]$path,
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$extension
     )
 
-    foreach ($path in $directoryPath)
+    foreach ($filePath in $path)
     {
-        if (Test-Path "$(Join-Path $path '*').$extension")
+        if (Test-Path "$(Join-Path $filePath '*').$extension")
         {
             return $true
         }
@@ -36,22 +36,22 @@ function Get-GitHubOutput
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]]$directoryPath
+        [string[]]$path
     )
 
     [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
-        'dotnet' = Test-Extension -DirectoryPath $directoryPath -Extension 'sln'
-        'powershell' = Test-Extension -DirectoryPath $directoryPath -Extension 'ps1'
-        'python' = Test-Extension -DirectoryPath $directoryPath -Extension 'py'
-        'html' = Test-Extension -DirectoryPath $directoryPath -Extension 'html'
-        'css' = Test-Extension -DirectoryPath $directoryPath -Extension 'css'
-        'javascript' = Test-Extension -DirectoryPath $directoryPath -Extension 'js'
-        'typescript' = Test-Extension -DirectoryPath $directoryPath -Extension 'ts'
-        'json' = Test-Extension -DirectoryPath $directoryPath -Extension 'json'
-        'yaml' = Test-Extension -DirectoryPath $directoryPath -Extension 'yml'
-        'markdown' = Test-Extension -DirectoryPath $directoryPath -Extension 'md'
+        'dotnet' = Test-Extension -Path $path -Extension 'sln'
+        'powershell' = Test-Extension -Path $path -Extension 'ps1'
+        'python' = Test-Extension -Path $path -Extension 'py'
+        'html' = Test-Extension -Path $path -Extension 'html'
+        'css' = Test-Extension -Path $path -Extension 'css'
+        'javascript' = Test-Extension -Path $path -Extension 'js'
+        'typescript' = Test-Extension -Path $path -Extension 'ts'
+        'json' = Test-Extension -Path $path -Extension 'json'
+        'yaml' = Test-Extension -Path $path -Extension 'yml'
+        'markdown' = Test-Extension -Path $path -Extension 'md'
         'docker' = Test-Path 'Dockerfile'
-        'nuget' = Test-Extension -DirectoryPath $directoryPath -Extension 'nupkg'
+        'nuget' = Test-Extension -Path $path -Extension 'nupkg'
     }
 
     return $outputs
@@ -61,6 +61,6 @@ function Get-GitHubOutput
 . $rootPath/WriteGitHubOutput.ps1
 
 [string[]]$pathList = $paths.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -DirectoryPath $pathList
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList
 
 Write-GitHubOutput -OutputList $outputs

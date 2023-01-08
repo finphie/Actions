@@ -3,7 +3,7 @@ description: リポジトリ内に特定拡張子のファイルが含まれて�
 
 inputs:
   paths:
-    description: 検索するディレクトリのリスト。
+    description: 検索するファイルパス（拡張子なし）のリスト。
     required: false
     default: |
       *
