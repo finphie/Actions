@@ -48,6 +48,7 @@ runs:
   using: composite
   steps:
     - name: Check extension
+      id: x
       shell: pwsh
       run: |
         ${{ github.action_path }}/CheckExtension.ps1 `

@@ -15,6 +15,7 @@ runs:
   using: composite
   steps:
     - name: Pascal to kebab
+      id: x
       shell: pwsh
       run: |
         ${{ github.action_path }}/PascalToKebab.ps1 `
