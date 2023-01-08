@@ -51,6 +51,7 @@ function Get-GitHubOutput
         'yaml' = Test-Extension -DirectoryPath $directoryPath -Extension 'yml'
         'markdown' = Test-Extension -DirectoryPath $directoryPath -Extension 'md'
         'docker' = Test-Path 'Dockerfile'
+        'nuget' = Test-Extension -DirectoryPath $directoryPath -Extension 'nupkg'
     }
 
     return $outputs
