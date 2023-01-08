@@ -37,3 +37,26 @@ jobs:
           echo '${{ steps.check-extension.outputs.markdown }}'
           echo '${{ steps.check-extension.outputs.docker }}'
           echo '${{ steps.check-extension.outputs.nuget }}'
+
+  main2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Git versioning
+        id: git-versioning
+        uses: finphie/Actions/.github/actions/git-versioning@20221230
+        with:
+          file-name: version.json
+          hash: ${{ github.sha }}
+          revision: ${{ github.run_number }}
+
+      - run: |
+          echo '${{ steps.git-versioning.outputs.version }}'
+          echo '${{ steps.git-versioning.outputs.version-major }}'
+          echo '${{ steps.git-versioning.outputs.version-minor }}'
+          echo '${{ steps.git-versioning.outputs.version-build }}'
+          echo '${{ steps.git-versioning.outputs.version-revision }}'
+          echo '${{ steps.git-versioning.outputs.release }}'

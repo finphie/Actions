@@ -48,7 +48,6 @@ runs:
   using: composite
   steps:
     - name: Check extension
-      working-directory: ${{ github.workspace }}
       shell: pwsh
       run: |
         ${{ github.action_path }}/CheckExtension.ps1 `
