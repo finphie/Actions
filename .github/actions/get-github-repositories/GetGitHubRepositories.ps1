@@ -19,6 +19,7 @@ param (
 function Get-GitHubOutput
 {
     [CmdletBinding()]
+    [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -30,20 +31,6 @@ function Get-GitHubOutput
     }
 
     return $outputs
-}
-
-function Get-RepositoryNames
-{
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string[]]$repositories
-    )
-
-    Write-Output 'repositories<<EOF'
-    Write-Output $repositories
-    Write-Output 'EOF'
 }
 
 [string]$rootPath = Split-Path $PSScriptRoot

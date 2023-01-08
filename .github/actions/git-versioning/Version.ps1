@@ -13,6 +13,8 @@ param (
 
 function Get-Version
 {
+    [CmdletBinding()]
+    [OutputType([Version])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -22,7 +24,7 @@ function Get-Version
     [Hashtable]$json = Get-Content $versionFileName | ConvertFrom-Json -AsHashtable
     [Version]$version = $json['version']
 
-    if ($version -eq $null)
+    if ($null -eq $version)
     {
         Write-Error 'Error: Invalid version'
         return
@@ -31,9 +33,10 @@ function Get-Version
     return $version
 }
 
-function Get-ChangedFiles
+function Get-ChangedFile
 {
     [CmdletBinding()]
+    [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
         [ValidatePattern('^[0-9a-fA-F]{40}$')]
@@ -55,6 +58,7 @@ function Get-ChangedFiles
 function Get-GitHubOutput
 {
     [CmdletBinding()]
+    [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
@@ -94,7 +98,7 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 }
 
 [Version]$version = Get-Version -VersionFileName $versionFileName
-[string[]]$changedFiles = Get-ChangedFiles -Hash $hash
+[string[]]$changedFiles = Get-ChangedFile -Hash $hash
 [bool]$release = $changedFiles -contains $versionFileName
 
 # JSONファイルが更新されている場合はa.b.c形式、それ以外はa.b.c.d形式のバージョンとする。

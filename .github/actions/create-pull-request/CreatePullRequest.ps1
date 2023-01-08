@@ -10,7 +10,7 @@ param (
     [string]$labels = ''
 )
 
-function Check-Diff
+function Test-Diff
 {
     git add -N .
     git diff --name-only --exit-code
@@ -27,7 +27,7 @@ function Check-Diff
 }
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
-if (!(Check-Diff))
+if (!(Test-Diff))
 {
     Write-Verbose 'Skip'
     exit

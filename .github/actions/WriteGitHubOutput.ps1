@@ -1,6 +1,7 @@
 ﻿function Write-GitHubOutput
 {
     [CmdletBinding()]
+    [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
