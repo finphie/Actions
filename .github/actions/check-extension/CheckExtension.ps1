@@ -24,7 +24,7 @@ function Test-Extension
     foreach ($filePath in $path)
     {
         # Test-Pathは隠しファイルを取得できない。
-        [string[]]$files = (Get-ChildItem "$(Join-Path $filePath '*').$extension" -File -Force).FullName |
+        [string[]]$files = (Get-ChildItem "$(Join-Path $filePath '*').$extension" -File -Force -ErrorAction SilentlyContinue).FullName |
             Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
         if ($files.Count -ne 0)
