@@ -6,8 +6,8 @@ inputs:
     description: 検索するファイルパス（拡張子なし）のリスト。
     required: false
     default: |
-      *
-      Source/*
+      ${{ github.workspace }}/*
+      ${{ github.workspace }}/Source/*
 
 outputs:
   dotnet:
