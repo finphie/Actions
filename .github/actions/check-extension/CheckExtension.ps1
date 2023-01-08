@@ -4,6 +4,9 @@ param (
     [string]$paths = '*,Source/*'
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/WriteGitHubOutput.ps1
+
 function Test-Extension
 {
     [CmdletBinding()]
@@ -20,7 +23,11 @@ function Test-Extension
 
     foreach ($filePath in $path)
     {
-        if (Test-Path "$(Join-Path $filePath '*').$extension" -PathType Leaf)
+        # Test-Pathは隠しファイルを取得できない。
+        [string[]]$files = (Get-ChildItem "$(Join-Path $filePath '*').$extension" -File -Force).FullName |
+            Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
+
+        if ($files.Count -ne 0)
         {
             return $true
         }
@@ -56,9 +63,6 @@ function Get-GitHubOutput
 
     return $outputs
 }
-
-[string]$rootPath = Split-Path $PSScriptRoot
-. $rootPath/WriteGitHubOutput.ps1
 
 [string[]]$pathList = $paths.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
 $pathList | ForEach-Object { Write-Verbose "Path: $_" }
