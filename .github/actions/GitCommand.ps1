@@ -62,6 +62,18 @@ function Get-RepositoryFile
     return $repositoryFiles
 }
 
+function Set-GitConfig
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    param ()
+
+    if ($PSCmdlet.ShouldProcess('git') -and $Env:GITHUB_ACTIONS -eq 'true')
+    {
+        git config --local user.name 'github-actions[bot]'
+        git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
+    }
+}
+
 function Test-Diff
 {
     git add -N .

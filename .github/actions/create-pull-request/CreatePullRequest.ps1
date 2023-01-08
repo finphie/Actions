@@ -20,11 +20,7 @@ if (!(Test-Diff))
     exit
 }
 
-if ($Env:GITHUB_ACTIONS)
-{
-    git config --local user.name 'github-actions[bot]'
-    git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
-}
+Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
 [string]$branchName = "$branch/$date"
