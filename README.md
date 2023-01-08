@@ -588,6 +588,10 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 
 ## ワークフロー
 
+### get-version.yml
+
+現在のバージョンを取得するワークフローです。
+
 ### sync-dotfiles.yml
 
 各リポジトリに[finphie/dotfiles](https://github.com/finphie/dotfiles)のファイルを同期するワークフローです。
