@@ -17,6 +17,9 @@ param (
     [string[]]$ignoreFiles = @()
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/GitCommand.ps1
+
 function Get-FilePath
 {
     [CmdletBinding()]
@@ -34,15 +37,7 @@ function Get-FilePath
     return (Split-Path -IsAbsolute $childPath) ? $childPath : (Join-Path $path $childPath)
 }
 
-function Get-GitEmptyHash
-{
-    [CmdletBinding()]
-    [OutputType([string])]
-    param ()
 
-    [string]$hash = git hash-object -t tree /dev/null
-    return $hash
-}
 
 function Get-CurrentGitHash
 {
@@ -66,61 +61,6 @@ function Get-CurrentGitHash
     }
 
     return Get-GitEmptyHash
-}
-
-function Get-HeadHash
-{
-    [CmdletBinding()]
-    [OutputType([string])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path
-    )
-
-    [string]$hash = git -C $path rev-parse HEAD
-    return $hash
-}
-
-function Get-Diff
-{
-    [CmdletBinding()]
-    [OutputType([string[]])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path,
-
-        [Parameter(Mandatory)]
-        [ValidatePattern('^[0-9a-fA-F]{40}$')]
-        [string]$hash
-    )
-
-    [string[]]$result = git -C $path diff $hash --name-status --exit-code
-
-    # 終了コード0は差分なし、1は差分ありを表す。
-    # 2以上の場合は、何らかのエラー発生のはず。
-    if ($LastExitCode -gt 1)
-    {
-        Write-Error 'Error: git diff command'
-        return
-    }
-
-    return $result
-}
-
-function Get-RepositoryFile
-{
-    [CmdletBinding()]
-    [OutputType([string[]])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path
-    )
-
-    [string[]]$repositoryFiles = git -C $path ls-files
-    return $repositoryFiles
 }
 
 function Get-AddedFile
