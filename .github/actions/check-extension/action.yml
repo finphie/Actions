@@ -8,6 +8,10 @@ inputs:
     default: |
       *
       Source/*
+  recurse:
+    description: 再帰検索するかどうか。
+    required: false
+    default: false
 
 outputs:
   dotnet:
