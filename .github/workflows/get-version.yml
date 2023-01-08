@@ -1,0 +1,21 @@
+name: Get version
+
+on:
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get version
+        id: check
+        uses: finphie/Actions/.github/actions/git-versioning@main
