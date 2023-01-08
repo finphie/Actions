@@ -29,6 +29,7 @@ jobs:
           paths: |
             *
             Source/*
+          recurse: false
 
       - run: |
           echo '${{ steps.check-extension.outputs.dotnet }}'
@@ -49,6 +50,7 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 paths|string[]|false|\*,Source/\*|検索するファイルパス（拡張子なし）のリスト。
+recurse|bool|false|false|再帰検索するかどうか。
 
 #### 環境変数
 
