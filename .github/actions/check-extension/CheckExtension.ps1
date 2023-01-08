@@ -61,6 +61,8 @@ function Get-GitHubOutput
 . $rootPath/WriteGitHubOutput.ps1
 
 [string[]]$pathList = $paths.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+$pathList | ForEach-Object { Write-Verbose "Path: $_" }
+
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList
 
 Write-GitHubOutput -OutputList $outputs
