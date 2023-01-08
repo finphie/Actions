@@ -1,6 +1,14 @@
 name: Check extension
 description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
 
+inputs:
+  paths:
+    description: 検索するディレクトリのリスト。
+    required: false
+    default: |
+      *
+      Source/*
+
 outputs:
   dotnet:
     description: .NETファイルが含まれているかどうか。
@@ -32,6 +40,9 @@ outputs:
   docker:
     description: Dockerfileが含まれているかどうか。
     value: ${{ steps.x.outputs.docker }}
+  nuget:
+    description: NuGetパッケージファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.nuget }}
 
 runs:
   using: composite
@@ -40,5 +51,6 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/CheckExtension.ps1 `
+            -Paths '${{ inputs.paths }}' `
             -Verbose `
             -ErrorAction Stop
