@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check extension
+        id: check-extension
+        uses: finphie/Actions/.github/actions/check-extension@20221230
+        with:
+          paths: |
+            *
+            Source/*
+
+      - run: |
+          echo '${{ steps.check-extension.outputs.dotnet }}'
+          echo '${{ steps.check-extension.outputs.powershell }}'
+          echo '${{ steps.check-extension.outputs.python }}'
+          echo '${{ steps.check-extension.outputs.html }}'
+          echo '${{ steps.check-extension.outputs.javascript }}'
+          echo '${{ steps.check-extension.outputs.typescript }}'
+          echo '${{ steps.check-extension.outputs.json }}'
+          echo '${{ steps.check-extension.outputs.yaml }}'
+          echo '${{ steps.check-extension.outputs.markdown }}'
+          echo '${{ steps.check-extension.outputs.docker }}'
+          echo '${{ steps.check-extension.outputs.nuget }}'
