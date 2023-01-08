@@ -557,7 +557,7 @@ permissions:
 
 jobs:
   main:
-    uses: finphie/Actions/.github/workflows/build-docker.yml@main
+    uses: finphie/Actions/.github/workflows/deploy-docker.yml@main
     with:
       version: '1.2.3'
       version-major: 1
