@@ -20,7 +20,7 @@ function Test-Extension
 
     foreach ($filePath in $path)
     {
-        if (Test-Path "$(Join-Path $filePath '*').$extension")
+        if (Test-Path "$(Join-Path $filePath '*').$extension" -PathType Leaf)
         {
             return $true
         }
