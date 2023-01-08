@@ -57,6 +57,8 @@ function Get-GitHubOutput
     return $outputs
 }
 
+Get-ChildItem
+
 [string]$rootPath = Split-Path $PSScriptRoot
 . $rootPath/WriteGitHubOutput.ps1
 
