@@ -25,6 +25,10 @@ jobs:
       - name: Check extension
         id: check-extension
         uses: finphie/Actions/.github/actions/check-extension@main
+        with:
+          paths: |
+            *
+            Source/*
 
       - run: |
           echo '${{ steps.check-extension.outputs.dotnet }}'
@@ -37,11 +41,14 @@ jobs:
           echo '${{ steps.check-extension.outputs.yaml }}'
           echo '${{ steps.check-extension.outputs.markdown }}'
           echo '${{ steps.check-extension.outputs.docker }}'
+          echo '${{ steps.check-extension.outputs.nuget }}'
 ```
 
 #### 引数
 
-なし
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+paths|string[]|false|\*,Source/\*|検索するファイルパス（拡張子なし）のリスト。
 
 #### 環境変数
 
@@ -61,6 +68,7 @@ json|bool|JSONファイルが含まれているかどうか。
 yaml|bool|YAMLファイルが含まれているかどうか。
 markdown|bool|Markdownファイルが含まれているかどうか。
 docker|bool|Dockerfileが含まれているかどうか。
+nuget|bool|NuGetパッケージファイルが含まれているかどうか。
 
 ### copy-github-labels
 
