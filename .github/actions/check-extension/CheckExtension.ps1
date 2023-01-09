@@ -7,6 +7,7 @@ param (
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/Utility.ps1
 . $rootPath/WriteGitHubOutput.ps1
 
 function Test-Extension
@@ -77,7 +78,7 @@ function Get-GitHubOutput
     return $outputs
 }
 
-[string[]]$pathList = $paths.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+[string[]]$pathList = Get-List -Value $paths
 $pathList | ForEach-Object { Write-Verbose "Path: $_" }
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList -Recurse $recurse

@@ -17,6 +17,7 @@ param (
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/Utility.ps1
 . $rootPath/WriteGitHubOutput.ps1
 
 function Get-GitHubOutput
@@ -50,7 +51,7 @@ function Get-GitHubOutput
 # 除外関連
 if ($exclude -ne '')
 {
-    [string[]]$excludeRepositories = $exclude.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+    [string[]]$excludeRepositories = Get-List -Value $exclude
     $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 

@@ -9,10 +9,13 @@ param (
     [string]$sourceRepository
 )
 
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/Utility.ps1
+
 Write-Verbose $sourceRepository
 gh label list --repo $sourceRepository
 
-[string[]]$repositoryList = $repositories.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+[string[]]$repositoryList = Get-List -Value $repositories
 
 Write-Verbose 'Clone labels'
 

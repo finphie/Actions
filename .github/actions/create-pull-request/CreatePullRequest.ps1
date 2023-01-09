@@ -12,6 +12,7 @@ param (
 
 [string]$rootPath = Split-Path $PSScriptRoot
 . $rootPath/GitCommand.ps1
+. $rootPath/Utility.ps1
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
 if (!(Test-Diff))
@@ -24,7 +25,7 @@ Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
 [string]$branchName = "$branch/$date"
-[string]$labelList = $labels.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries) -Join ','
+[string]$labelList = (Get-List -Value $labels) -Join ','
 
 Write-Verbose "Commit message: $commitMessage"
 Write-Verbose "Branch: $branchName"
