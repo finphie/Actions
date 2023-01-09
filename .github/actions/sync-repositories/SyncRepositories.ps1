@@ -19,23 +19,7 @@ param (
 
 [string]$rootPath = Split-Path $PSScriptRoot
 . $rootPath/GitCommand.ps1
-
-function Get-FilePath
-{
-    [CmdletBinding()]
-    [OutputType([string])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path,
-
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ }, ErrorMessage='"{0}" does not exist.')]
-        [string]$childPath
-    )
-
-    return (Split-Path -IsAbsolute $childPath) ? $childPath : (Join-Path $path $childPath)
-}
+. $rootPath/IO.ps1
 
 function Get-CurrentGitHash
 {
@@ -127,40 +111,6 @@ function Get-DeletedFile
     # 同期対象外のファイルを削除リストに追加する。
     # 相対パスの場合、ターゲットリポジトリのパスを基準とする。
     return $ignoreFiles | ForEach-Object { Get-FilePath -Path $targetPath -ChildPath $_ }
-}
-
-function Copy-File
-{
-    [CmdletBinding(SupportsShouldProcess)]
-    [OutputType([void])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
-        [string]$sourceFilePath,
-
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" does not exist.')]
-        [string]$targetFilePath
-    )
-
-    Write-Verbose "Copy file: `"$targetFilePath`""
-    Copy-Item $sourceFilePath $targetFilePath -Force
-}
-
-function Remove-File
-{
-    [CmdletBinding(SupportsShouldProcess)]
-    [OutputType([void])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
-        [string]$filePath
-    )
-
-    Write-Verbose "Delete file: `"$filePath`""
-
-    # 既に存在しないファイルはエラーを出さずに無視する。
-    Remove-Item $filePath -Verbose -ErrorAction SilentlyContinue
 }
 
 [string]$settingsFullFilePath = Get-FilePath -Path $targetPath -ChildPath $settingsFilePath
