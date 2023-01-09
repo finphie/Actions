@@ -20,7 +20,10 @@ function Test-Extension
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$extension
+        [string]$extension,
+
+        [Parameter(Mandatory)]
+        [bool]$recurse
     )
 
     foreach ($directoryPath in $path)
@@ -50,22 +53,25 @@ function Get-GitHubOutput
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string[]]$path
+        [string[]]$path,
+
+        [Parameter(Mandatory)]
+        [bool]$recurse
     )
 
     [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
-        'dotnet' = Test-Extension -Path $path -Extension 'sln'
-        'powershell' = Test-Extension -Path $path -Extension 'ps1'
-        'python' = Test-Extension -Path $path -Extension 'py'
-        'html' = Test-Extension -Path $path -Extension 'html'
-        'css' = Test-Extension -Path $path -Extension 'css'
-        'javascript' = Test-Extension -Path $path -Extension 'js'
-        'typescript' = Test-Extension -Path $path -Extension 'ts'
-        'json' = Test-Extension -Path $path -Extension 'json'
-        'yaml' = Test-Extension -Path $path -Extension 'yml'
-        'markdown' = Test-Extension -Path $path -Extension 'md'
+        'dotnet' = Test-Extension -Path $path -Extension 'sln' -Recurse $recurse
+        'powershell' = Test-Extension -Path $path -Extension 'ps1' -Recurse $recurse
+        'python' = Test-Extension -Path $path -Extension 'py' -Recurse $recurse
+        'html' = Test-Extension -Path $path -Extension 'html' -Recurse $recurse
+        'css' = Test-Extension -Path $path -Extension 'css' -Recurse $recurse
+        'javascript' = Test-Extension -Path $path -Extension 'js' -Recurse $recurse
+        'typescript' = Test-Extension -Path $path -Extension 'ts' -Recurse $recurse
+        'json' = Test-Extension -Path $path -Extension 'json' -Recurse $recurse
+        'yaml' = Test-Extension -Path $path -Extension 'yml' -Recurse $recurse
+        'markdown' = Test-Extension -Path $path -Extension 'md' -Recurse $recurse
         'docker' = Test-Path 'Dockerfile'
-        'nuget' = Test-Extension -Path $path -Extension 'nupkg'
+        'nuget' = Test-Extension -Path $path -Extension 'nupkg' -Recurse $recurse
     }
 
     return $outputs
@@ -74,6 +80,6 @@ function Get-GitHubOutput
 [string[]]$pathList = $paths.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
 $pathList | ForEach-Object { Write-Verbose "Path: $_" }
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs
