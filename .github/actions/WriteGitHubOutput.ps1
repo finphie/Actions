@@ -12,7 +12,7 @@
         $key = $_.Key
         $value = $_.Value
 
-        if (!($value -is [Array]))
+        if ($value -isnot [Array])
         {
             Write-Output "$key=$value"
             return
