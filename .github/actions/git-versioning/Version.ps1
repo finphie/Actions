@@ -12,6 +12,7 @@ param (
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/GitCommand.ps1
 . $rootPath/WriteGitHubOutput.ps1
 
 function Get-Version
@@ -34,28 +35,6 @@ function Get-Version
     }
 
     return $version
-}
-
-function Get-ChangedFile
-{
-    [CmdletBinding()]
-    [OutputType([string[]])]
-    param (
-        [Parameter(Mandatory)]
-        [ValidatePattern('^[0-9a-fA-F]{40}$')]
-        [string]$hash
-    )
-
-    [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash --exit-code
-
-    # 終了コードが2以上の場合は、何らかのエラー発生のはず。
-    if ($LastExitCode -gt 1)
-    {
-        Write-Error 'Error: git diff-tree command'
-        return
-    }
-
-    return $changedFiles
 }
 
 function Get-GitHubOutput

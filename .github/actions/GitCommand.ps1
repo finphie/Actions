@@ -1,4 +1,26 @@
-﻿function Get-Diff
+﻿function Get-ChangedFile
+{
+    [CmdletBinding()]
+    [OutputType([string[]])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidatePattern('^[0-9a-fA-F]{40}$')]
+        [string]$hash
+    )
+
+    [string[]]$changedFiles = git diff-tree --no-commit-id --name-only -r $hash --exit-code
+
+    # 終了コードが2以上の場合は、何らかのエラー発生のはず。
+    if ($LastExitCode -gt 1)
+    {
+        Write-Error 'Error: git diff-tree command'
+        return
+    }
+
+    return $changedFiles
+}
+
+function Get-Diff
 {
     [CmdletBinding()]
     [OutputType([string[]])]
