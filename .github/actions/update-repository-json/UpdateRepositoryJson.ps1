@@ -14,7 +14,6 @@ param (
 
 [Management.Automation.OrderedHashtable]$output = [Ordered]@{
     'Projects' = [Ordered]@{
-        'Library' = @()
         'Console' = @()
         'Windows' = @()
         'Android' = @()
