@@ -411,6 +411,54 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 なし
 
+### update-repository-json
+
+repository.jsonを更新するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update repository.json
+        uses: finphie/Actions/.github/actions/update-repository-json@main
+        with: 
+          solution-name: ${{ github.event.repository.name }}
+          projects: |
+            Project1,Windows
+            Project2,Console
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+solution-name|string|false|-|ソリューション名。
+projects|string|**true**|-|プロジェクト名,プラットフォーム名区切りのリスト。
+
+#### 環境変数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
+
+#### 出力
+
+なし
+
 ## 再利用可能なワークフロー
 
 ### build-dotnet.yml
