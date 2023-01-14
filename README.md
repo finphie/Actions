@@ -648,6 +648,42 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 
 なし
 
+### update-repository-json.yml
+
+repository.jsonを更新する再利用可能なワークフローです。
+
+```yaml
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/update-repository-json.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+#### 引数
+
+なし
+
+#### シークレット
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ## ワークフロー
 
 ### get-version.yml
