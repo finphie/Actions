@@ -3,16 +3,15 @@ name: Test
 on:
   pull_request:
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   main:
     runs-on: ubuntu-latest
 
     steps:
-      - working-directory: ${{ runner.temp }}
+      - name: Update PowerShell
+        working-directory: ${{ runner.temp }}
         run: |
           wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
           sudo dpkg -i packages-microsoft-prod.deb
@@ -28,5 +27,5 @@ jobs:
           projects: |
             Project1,Windows
             Project2,Console
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: cat repository.json
