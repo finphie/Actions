@@ -28,7 +28,7 @@ runs:
             -ErrorAction Stop
 
     - name: Create pull request
-      uses: finphie/Actions/.github/actions/create-pull-request@20221230
+      uses: finphie/Actions/.github/actions/create-pull-request@main
       with:
         commit-message: Update repository.json
         branch: repository-json
