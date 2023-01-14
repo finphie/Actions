@@ -3,7 +3,9 @@ name: Test
 on:
   pull_request:
 
-permissions: {}
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   main:
@@ -13,50 +15,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - run: ls
-
-      - name: Check extension
-        id: check-extension
-        uses: finphie/Actions/.github/actions/check-extension@20221230
+      - name: Update repository.json
+        uses: finphie/Actions/.github/actions/update-repository-json@20221230
         with:
-          paths: |
-            *
-            Source/*
-
-      - run: ls
-
-      - run: |
-          echo '${{ steps.check-extension.outputs.dotnet }}'
-          echo '${{ steps.check-extension.outputs.powershell }}'
-          echo '${{ steps.check-extension.outputs.python }}'
-          echo '${{ steps.check-extension.outputs.html }}'
-          echo '${{ steps.check-extension.outputs.javascript }}'
-          echo '${{ steps.check-extension.outputs.typescript }}'
-          echo '${{ steps.check-extension.outputs.json }}'
-          echo '${{ steps.check-extension.outputs.yaml }}'
-          echo '${{ steps.check-extension.outputs.markdown }}'
-          echo '${{ steps.check-extension.outputs.docker }}'
-          echo '${{ steps.check-extension.outputs.nuget }}'
-
-  main2:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Git versioning
-        id: git-versioning
-        uses: finphie/Actions/.github/actions/git-versioning@20221230
-        with:
-          file-name: version.json
-          hash: ${{ github.sha }}
-          revision: ${{ github.run_number }}
-
-      - run: |
-          echo '${{ steps.git-versioning.outputs.version }}'
-          echo '${{ steps.git-versioning.outputs.version-major }}'
-          echo '${{ steps.git-versioning.outputs.version-minor }}'
-          echo '${{ steps.git-versioning.outputs.version-build }}'
-          echo '${{ steps.git-versioning.outputs.version-revision }}'
-          echo '${{ steps.git-versioning.outputs.release }}'
+          solution-name: ${{ github.event.repository.name }}
+          projects: |
+            Project1,Windows
+            Project2,Console
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
