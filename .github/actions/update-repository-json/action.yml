@@ -23,7 +23,7 @@ runs:
       run: |
         ${{ github.action_path }}/UpdateRepositoryJson.ps1 `
             -SolutionName '${{ inputs.solution-name }}' `
-            -Lines '${{ inputs.lines }}' `
+            -Lines '${{ inputs.projects }}' `
             -Verbose `
             -ErrorAction Stop
 
