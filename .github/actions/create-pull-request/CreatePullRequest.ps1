@@ -38,5 +38,11 @@ git push origin $branchName
 
 Write-Verbose 'Create pull request'
 
-[string]$labelArgument = $labelList -eq '' ? '' : "--label $labelList"
-gh pr create --fill $labelArgument
+if ($labelList -eq '')
+{
+    gh pr create --fill
+}
+else
+{
+    gh pr create --fill --label $labelList
+}
