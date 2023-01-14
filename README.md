@@ -419,9 +419,7 @@ repository.jsonを更新するGitHub Actionです。
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   main:
@@ -438,8 +436,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Update repository.json
         uses: finphie/Actions/.github/actions/update-repository-json@main
@@ -448,8 +444,8 @@ jobs:
           projects: |
             Project1,Windows
             Project2,Console
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: cat repository.json
 ```
 
 #### 引数
@@ -461,9 +457,7 @@ projects|string|**true**|-|プロジェクト名,プラットフォーム名区�
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
+なし
 
 #### 出力
 
