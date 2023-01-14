@@ -14,9 +14,9 @@ runs:
   using: composite
   steps:
     - name: Remove repository.json
-        shell: pwsh
-        run: |
-          Remove-Item repository.json -ErrorAction SilentlyContinue
+      shell: pwsh
+      run: |
+        Remove-Item repository.json -ErrorAction SilentlyContinue
 
     - name: Update repository.json
       shell: pwsh
