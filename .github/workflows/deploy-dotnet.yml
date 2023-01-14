@@ -102,7 +102,7 @@ jobs:
         project: ${{ fromJson(needs.check.outputs.repository).projects.console }}
         architecture: ['x64', 'arm64']
 
-     steps:
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
