@@ -1,0 +1,245 @@
+name: Deploy(.NET)
+
+on:
+  workflow_call:
+    inputs:
+      dotnet-version:
+        required: false
+        type: string
+        default: '7.0'
+      configuration:
+        required: false
+        type: string
+        default: Release
+      version:
+        required: true
+        type: string
+      release:
+        required: true
+        type: boolean
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      AZURE_ARTIFACT_PAT:
+        required: true
+      NUGET_API_KEY:
+        required: true
+
+permissions: {}
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  OUTPUT_DIRECTORY: publish
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+
+    outputs:
+      repository: ${{ steps.get.outputs.repository }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get repository.json
+        id: get
+        shell: pwsh
+        run: |
+          $json = Get-Content repository.json | ConvertFrom-Json -AsHashtable
+          Write-Output "repository=$json"
+  pack:
+    name: Pack
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Pack
+        shell: pwsh
+        run: dotnet pack --configuration ${{ inputs.configuration }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
+
+      - name: Check extension
+        id: check-extension
+        uses: finphie/Actions/.github/actions/check-extension@main
+        with:
+          paths: ${{ env.OUTPUT_DIRECTORY }}
+
+      - name: Push(Azure Artifacts)
+        if: steps.check-extension.outputs.nuget == 'true'
+        run: |
+          dotnet nuget add source $SOURCE_URL --name "$SOURCE" --user "$GITHUB_ACTOR" --password "$TOKEN"
+          dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE"
+        env:
+          SOURCE: Azure Artifacts
+          SOURCE_URL: 'https://pkgs.dev.azure.com/finphie/Main/_packaging/DotNet/nuget/v3/index.json'
+          TOKEN: ${{ secrets.AZURE_ARTIFACT_PAT }}
+
+      - name: Push(NuGet)
+        if: steps.check-extension.outputs.nuget == 'true' && inputs.release == 'true'
+        run: dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE_URL"
+        env:
+          SOURCE_URL: 'https://api.nuget.org/v3/index.json'
+          TOKEN: ${{ secrets.NUGET_API_KEY }}
+
+  publish-console:
+    name: Publish(Console)
+    needs: check
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.check.outputs.repository).projects.console }}
+        architecture: ['x64', 'arm64']
+
+     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Publish
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+
+      - name: Push(GitHub Artifacts)
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project }}_${{ matrix.architecture }}
+          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          if-no-files-found: ignore
+
+  publish-windows:
+    name: Publish(Windows)
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.check.outputs.repository).projects.windows }}
+        architecture: ['x64', 'arm64']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Workload restore
+        run: dotnet workload restore
+
+      - name: Publish(GUI)
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+
+      - name: Push(GitHub Artifacts)
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project }}_${{ matrix.architecture }}
+          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          if-no-files-found: ignore
+
+  publish-android:
+    name: Publish(Android)
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.check.outputs.repository).projects.android }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Workload restore
+        run: dotnet workload restore
+
+      - name: Publish
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 -p:Version=${{ inputs.version }}
+
+      - name: Push(GitHub Artifacts)
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project }}
+          path: ${{ env.OUTPUT_DIRECTORY }}/*Signed.a*
+          if-no-files-found: ignore
+
+  publish-asp-net:
+    name: Publish(ASP.NET)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.check.outputs.repository).projects.asp-net }}
+        architecture: ['x64', 'arm64']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Publish
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+
+      - name: Push(GitHub Artifacts)
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project }}
+          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          if-no-files-found: ignore
+
+  publich-blazor-web-assembly:
+    name: Publish(Blazor WebAssembly)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.check.outputs.repository).projects.blazor-web-assembly }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.dotnet-version }}.x
+
+      - name: Workload restore
+        run: dotnet workload restore
+
+      - name: Publish
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} -p:Version=${{ inputs.version }}
+
+      - name: Push(GitHub Artifacts)
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.project }}
+          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          if-no-files-found: ignore
