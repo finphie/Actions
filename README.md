@@ -479,7 +479,7 @@ jobs:
   main:
     uses: finphie/Actions/workflows/build-dotnet.yml@main
     with:
-      dotnet-version: 7.0.x
+      dotnet-version: '7.0'
       configuration: Release
 ```
 
@@ -487,7 +487,7 @@ jobs:
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-dotnet-version|string|false|7.0.x|インストールする.NET SDKバージョン。
+dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
 configuration|string|false|Release|ビルド構成。
 
 #### 環境変数
