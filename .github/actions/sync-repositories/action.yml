@@ -1,0 +1,44 @@
+name: Sync repositories
+description: ソース元のリポジトリと同期するGitHub Actionです。
+
+inputs:
+  source-path:
+    description: ソース元リポジトリのパス。
+    required: true
+  target-path:
+    description: 同期先リポジトリのパス。
+    required: true
+  settings-file-path:
+    description: JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
+    required: true
+  commit-message:
+    description: コミットメッセージ。
+    required: true
+  branch:
+    description: ブランチ名。
+    required: false
+    default: sync-github-repositories
+  labels:
+    description: ラベルのリスト。
+    required: false
+    default: chore
+
+runs:
+  using: composite
+  steps:
+    - name: Sync repositories
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/SyncRepositories.ps1 `
+            -SourcePath '${{ inputs.source-path }}' `
+            -TargetPath '${{ inputs.target-path }}' `
+            -SettingsFilePath '${{ inputs.settings-file-path }}' `
+            -Verbose `
+            -ErrorAction Stop
+
+    - name: Create pull request
+      uses: finphie/Actions/.github/actions/create-pull-request@main
+      with:
+        commit-message: ${{ inputs.commit-message }}
+        branch: ${{ inputs.branch }}
+        labels: ${{ inputs.labels }}

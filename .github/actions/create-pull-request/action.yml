@@ -1,0 +1,33 @@
+name: Create pull request
+description: プルリクエストを作成するGitHub Actionです。
+
+inputs:
+  path:
+    description: リポジトリのパス。
+    required: false
+    default: ${{ github.workspace }}
+  commit-message:
+    description: コミットメッセージ。
+    required: true
+  branch:
+    description: ブランチ名。
+    required: false
+    default: create-pull-request
+  labels:
+    description: ラベルのリスト。
+    required: false
+    default: null
+
+runs:
+  using: composite
+  steps:
+    - name: Create pull request
+      shell: pwsh
+      working-directory: ${{ inputs.path }}
+      run: |
+        ${{ github.action_path }}/CreatePullRequest.ps1 `
+            -CommitMessage '${{ inputs.commit-message }}' `
+            -Branch '${{ inputs.branch }}' `
+            -Labels '${{ inputs.labels }}' `
+            -Verbose `
+            -ErrorAction Stop

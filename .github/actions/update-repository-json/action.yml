@@ -1,0 +1,28 @@
+name: Update repository.json
+description: repository.jsonを更新するGitHub Actionです。
+
+inputs:
+  solution-name:
+    description: ソリューション名。
+    required: false
+    default: ${{ github.event.repository.name }}
+  projects:
+    description: プロジェクト名,プラットフォーム名区切りのリスト。
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Remove repository.json
+      shell: pwsh
+      run: |
+        Remove-Item repository.json -ErrorAction SilentlyContinue
+
+    - name: Update repository.json
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/UpdateRepositoryJson.ps1 `
+            -SolutionName '${{ inputs.solution-name }}' `
+            -Lines '${{ inputs.projects }}' `
+            -Verbose `
+            -ErrorAction Stop

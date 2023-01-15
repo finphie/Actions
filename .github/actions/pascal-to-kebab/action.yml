@@ -1,0 +1,24 @@
+name: Pascal to kebab
+description: 指定されたテキストを、PascalCaseからkebab-caseに変換するGitHub Actionです。
+
+inputs:
+  text:
+    description: 変換対象の文字列。
+    required: true
+
+outputs:
+  text:
+    description: 変換後の文字列。
+    value: ${{ steps.x.outputs.output-string }}
+
+runs:
+  using: composite
+  steps:
+    - name: Pascal to kebab
+      id: x
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/PascalToKebab.ps1 `
+            -Text '${{ inputs.text }}' `
+            -Verbose `
+            -ErrorAction Stop

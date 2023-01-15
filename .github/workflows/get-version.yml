@@ -1,0 +1,48 @@
+name: Get version
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: バージョンを表す文字列。
+        value: ${{ jobs.main.outputs.version }}
+      version-major:
+        description: メジャー番号を表す数値。
+        value: ${{ jobs.main.outputs.version-major }}
+      release:
+        description: 安定版リリースかどうか。
+        value: ${{ jobs.main.outputs.release }}
+      dotnet:
+        description: .NETファイルが含まれているかどうか。
+        value: ${{ jobs.main.outputs.dotnet }}
+      docker:
+        description: Dockerfileが含まれているかどうか。
+        value: ${{ jobs.main.outputs.docker }}
+
+permissions: {}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+      version-major: ${{ steps.get-version.outputs.version-major }}
+      release: ${{ steps.get-version.outputs.release }}
+      dotnet: ${{ steps.check-extension.outputs.dotnet }}
+      docker: ${{ steps.check-extension.outputs.docker }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get version
+        id: get-version
+        uses: finphie/Actions/.github/actions/git-versioning@main
+
+      - name: Check extension
+        id: check-extension
+        uses: finphie/Actions/.github/actions/check-extension@main

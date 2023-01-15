@@ -1,42 +1,50 @@
-name: Git Versioning
+name: Git versioning
 description: バージョン情報を取得するGitHub Actionです。
 
 inputs:
   file-name:
-    description:
+    description: バージョンを設定しているJSONファイルの名前。
     required: false
     default: version.json
-  sha:
-    description:
-    required: true
+  hash:
+    description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
+    required: false
+    default: ${{ github.sha }}
   revision:
-    description:
-    required: true
+    description: リビジョン番号を表す数値。
+    required: false
+    default: ${{ github.run_number }}
 
 outputs:
   version:
-    description: バージョン
+    description: バージョンを表す文字列。
     value: ${{ steps.x.outputs.version }}
   version-major:
-    description: メジャー番号
+    description: メジャー番号を表す数値。
     value: ${{ steps.x.outputs.version-major }}
   version-minor:
-    description: マイナー番号
+    description: マイナー番号を表す数値。
     value: ${{ steps.x.outputs.version-minor }}
   version-build:
-    description: ビルド番号
+    description: ビルド番号を表す数値。
     value: ${{ steps.x.outputs.version-build }}
   version-revision:
-    description: リビジョン番号
+    description: リビジョン番号を表す数値。
     value: ${{ steps.x.outputs.version-revision }}
   release:
-    description: 安定版リリースかどうか
+    description: 安定版リリースかどうか。
     value: ${{ steps.x.outputs.release }}
 
 runs:
   using: composite
   steps:
-    - name: 'Get version'
+    - name: Get version
       id: x
       shell: pwsh
-      run: ${{ github.action_path }}/Source/Version.ps1 ${{ inputs.file-name }} ${{ inputs.sha }} ${{ inputs.revision }}
+      run: |
+        ${{ github.action_path }}/Version.ps1 `
+            -VersionFileName '${{ inputs.file-name }}' `
+            -Hash '${{ inputs.hash }}' `
+            -Revision ${{ inputs.revision }} `
+            -Verbose `
+            -ErrorAction Stop
