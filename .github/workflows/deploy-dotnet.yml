@@ -112,7 +112,7 @@ jobs:
           dotnet-version: ${{ inputs.dotnet-version }}.x
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
@@ -123,6 +123,7 @@ jobs:
 
   publish-windows:
     name: Publish(Windows)
+    needs: check
     runs-on: windows-latest
 
     strategy:
@@ -144,7 +145,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish(GUI)
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
@@ -155,6 +156,7 @@ jobs:
 
   publish-android:
     name: Publish(Android)
+    needs: check
     runs-on: windows-latest
 
     strategy:
@@ -175,7 +177,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
@@ -186,6 +188,7 @@ jobs:
 
   publish-asp-net:
     name: Publish(ASP.NET)
+    needs: check
     runs-on: ubuntu-latest
 
     strategy:
@@ -204,7 +207,7 @@ jobs:
           dotnet-version: ${{ inputs.dotnet-version }}.x
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
@@ -215,6 +218,7 @@ jobs:
 
   publich-blazor-web-assembly:
     name: Publish(Blazor WebAssembly)
+    needs: check
     runs-on: ubuntu-latest
 
     strategy:
@@ -235,7 +239,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ configuration }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
