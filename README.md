@@ -318,7 +318,7 @@ version-major|int|メジャー番号を表す数値。
 version-minor|int|マイナー番号を表す数値。
 version-build|int|ビルド番号を表す数値。
 version-revision|int|リビジョン番号を表す数値。
-release|string|安定版リリースかどうか
+release|bool|安定版リリースかどうか。
 
 ### pascal-to-kebab
 
@@ -648,6 +648,50 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 
 なし
 
+### get-version.yml
+
+現在のバージョンを取得する再利用可能なワークフローです。
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/get-version.yml@main
+
+  echo:
+    needs: main
+    run: |
+      echo '${{ needs.main.outputs.version }}'
+      echo '${{ needs.main.outputs.version-major }}'
+      echo '${{ needs.main.outputs.release }}'
+      echo '${{ needs.main.outputs.dotnet }}'
+      echo '${{ needs.main.outputs.docker }}'
+```
+
+#### 引数
+
+なし
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|型|説明
+-|-|-
+version|string|バージョンを表す文字列。
+version-major|int|メジャー番号を表す数値。
+release|bool|安定版リリースかどうか。
+dotnet|bool|.NETファイルが含まれているかどうか。
+docker|bool|Dockerfileが含まれているかどうか。
+
 ### update-repository-json.yml
 
 repository.jsonを更新する再利用可能なワークフローです。
@@ -685,10 +729,6 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 なし
 
 ## ワークフロー
-
-### get-version.yml
-
-現在のバージョンを取得するワークフローです。
 
 ### sync-dotfiles.yml
 
