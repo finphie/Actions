@@ -33,15 +33,15 @@ jobs:
         uses: finphie/Actions/.github/actions/check-extension@main
 
       - name: Setup .NET
-        if: steps.check.dotnet == 'true'
+        if: steps.check.outputs.dotnet == 'true'
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ inputs.dotnet-version }}
 
       - name: .NET Build
-        if: steps.check.dotnet == 'true'
+        if: steps.check.outputs.dotnet == 'true'
         run: dotnet build --configuration ${{ inputs.configuration }} -warnAsError
 
       - name: .NET Test
-        if: steps.check.dotnet == 'true'
+        if: steps.check.outputs.dotnet == 'true'
         run: dotnet test --configuration ${{ inputs.configuration }} --no-build
