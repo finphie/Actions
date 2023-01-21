@@ -1,5 +1,10 @@
 # Actions
 
+[![Sync(dotfiles)](https://github.com/finphie/Actions/actions/workflows/sync-dotfiles.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-dotfiles.yml)
+[![Sync(GitHub settings)](https://github.com/finphie/Actions/actions/workflows/sync-github-settings.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-github-settings.yml)
+[![Sync(labels)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml)
+[![Sync(secrets)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml)
+
 GitHub Actions関連ファイルの管理と、各種設定の同期を行っているリポジトリです。
 
 ## 複合アクション
