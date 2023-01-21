@@ -613,11 +613,13 @@ jobs:
 
 ### deploy-docker.yml
 
-Dockerのビルドを実行する再利用可能なワークフローです。
+Dockerのデプロイを実行する再利用可能なワークフローです。
 
 ```yaml
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
   packages: write
@@ -628,8 +630,6 @@ jobs:
     with:
       version: '1.2.3'
       version-major: 1
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 #### 引数
@@ -639,15 +639,58 @@ jobs:
 version|string|**true**|-|バージョンを表す文字列。
 version-major|int|**true**|-|メジャーバージョンを表す数値。
 
-#### シークレット
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
+### deploy-dotnet.yml
+
+.NETのデプロイを実行する再利用可能なワークフローです。
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
+    with:
+      dotnet-version: '7.0'
+      configuration: Release
+      version: '1.2.3'
+      release: true
+    secrets:
+      AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+```
+
+#### 引数
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
+dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
+configuration|string|false|Release|ビルド構成。
+version|string|**true**|-|バージョンを表す文字列。
+release|bool|**true**|-|安定版リリースかどうか。
 
 #### 環境変数
 
 なし
+
+#### シークレット
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+AZURE_ARTIFACT_PAT|string|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|string|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 
