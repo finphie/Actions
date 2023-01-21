@@ -18,8 +18,6 @@ on:
         required: true
         type: boolean
     secrets:
-      GITHUB_TOKEN:
-        required: true
       AZURE_ARTIFACT_PAT:
         required: true
       NUGET_API_KEY:
