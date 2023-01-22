@@ -5,7 +5,7 @@
 [![Sync(labels)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml)
 [![Sync(secrets)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml)
 
-GitHub Actions関連ファイルの管理と、各種設定の同期を行っているリポジトリです。
+GitHub Actions関連ファイルの管理と、各種設定の同期を行うリポジトリです。
 
 ## 複合アクション
 
