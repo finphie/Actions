@@ -48,7 +48,7 @@ jobs:
         shell: pwsh
         run: |
           $json = Get-Content repository.json | ConvertFrom-Json -AsHashtable
-          Write-Output "repository=$json"
+          "repository=$json" | Out-File $Env:GITHUB_OUTPUT -Append
   pack:
     name: Pack
     runs-on: windows-latest

@@ -15,7 +15,7 @@ function PascalToKebab
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        $text
+        [string]$text
     )
 
     [string]$pascalText = $text.Trim()
@@ -53,7 +53,7 @@ function Get-GitHubOutput
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        $text
+        [string]$text
     )
 
     [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{

@@ -5,7 +5,7 @@
 [![Sync(labels)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-labels.yml)
 [![Sync(secrets)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml/badge.svg)](https://github.com/finphie/Actions/actions/workflows/sync-secrets.yml)
 
-GitHub Actions関連ファイルの管理と、各種設定の同期を行っているリポジトリです。
+GitHub Actions関連ファイルの管理と、各種設定の同期を行うリポジトリです。
 
 ## 複合アクション
 
@@ -366,6 +366,47 @@ text|string|**true**|-|変換対象の文字列。
 -|-|-
 text|string|変換後の文字列。
 
+### run-msbuild-target
+
+MSBuildターゲットを実行するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run MSBuild target
+        id: run-msbuild-target
+        uses: finphie/Actions/.github/actions/run-msbuild-target@main
+        with: 
+          target: TargetName
+
+      - run: |
+          echo '${{ steps.run-msbuild-target.outputs.lines }}'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+target|string|**true**|-|MSBuildターゲット名。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|型|説明
+-|-|-
+lines|string[]|MSBuildターゲット実行時に出力された文字列。
+
 ### sync-repositories
 
 ソース元のリポジトリと同期するGitHub Actionです。
@@ -458,7 +499,7 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 solution-name|string|false|-|ソリューション名。
-projects|string|**true**|-|プロジェクト名,プラットフォーム名区切りのリスト。
+projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
 
 #### 環境変数
 

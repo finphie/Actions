@@ -7,7 +7,7 @@ inputs:
     required: false
     default: ${{ github.event.repository.name }}
   projects:
-    description: プロジェクト名,プラットフォーム名区切りのリスト。
+    description: 「プロジェクト名,プラットフォーム名」区切りのリスト。
     required: true
 
 runs:
