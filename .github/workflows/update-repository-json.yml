@@ -22,13 +22,9 @@ jobs:
 
       - name: Get ProjectIdentifier
         id: project-identifier
-        shell: pwsh
-        run: |
-          $lines = dotnet msbuild -nologo -target:GetProjectIdentifier
-
-          'lines<<EOF' | Out-File $Env:GITHUB_OUTPUT -Append
-          $lines | Out-File $Env:GITHUB_OUTPUT -Append
-          'EOF' | Out-File $Env:GITHUB_OUTPUT -Append
+        uses: finphie/Actions/.github/actions/run-msbuild-target@main
+        with:
+          target: GetProjectIdentifier
 
       # 実行にはPowerShell 7.3以上が必要。
       - name: Update PowerShell

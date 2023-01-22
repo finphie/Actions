@@ -366,6 +366,47 @@ text|string|**true**|-|変換対象の文字列。
 -|-|-
 text|string|変換後の文字列。
 
+### run-msbuild-target
+
+MSBuildターゲットを実行するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run MSBuild target
+        id: run-msbuild-target
+        uses: finphie/Actions/.github/actions/run-msbuild-target@main
+        with: 
+          target: TargetName
+
+      - run: |
+          echo '${{ steps.run-msbuild-target.outputs.lines }}'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+target|string|**true**|-|MSBuildターゲット名。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|型|説明
+-|-|-
+lines|string[]|MSBuildターゲット実行時に出力された文字列。
+
 ### sync-repositories
 
 ソース元のリポジトリと同期するGitHub Actionです。
