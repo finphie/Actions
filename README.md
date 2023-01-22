@@ -458,7 +458,7 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 solution-name|string|false|-|ソリューション名。
-projects|string|**true**|-|プロジェクト名,プラットフォーム名区切りのリスト。
+projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
 
 #### 環境変数
 
