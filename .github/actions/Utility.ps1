@@ -5,8 +5,17 @@
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$value
+        [string]$value,
+
+        [switch]$withoutConnma
     )
 
-    return $value.Split([char[]]@(',', ' ', "`n", "`r"), [StringSplitOptions]::RemoveEmptyEntries)
+    [char[]]$separator = @(' ', "`n", "`r")
+
+    if (!$withoutConnma)
+    {
+        $separator += ','
+    }
+
+    return $value.Split($separator, [StringSplitOptions]::RemoveEmptyEntries)
 }
