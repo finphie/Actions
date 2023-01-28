@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [ValidateNotNullOrEmpty()]
     [string]$paths = '*,Source/*',

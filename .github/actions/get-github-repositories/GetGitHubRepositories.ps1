@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [switch]$archived,
     [switch]$fork,

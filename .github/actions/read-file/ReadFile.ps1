@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]

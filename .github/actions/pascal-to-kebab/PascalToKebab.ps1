@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
