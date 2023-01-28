@@ -15,17 +15,23 @@
         return
     }
 
-    if ($branchName -ne '')
-    {
-        Write-Verbose "Branch: $branchName"
-        git checkout -b $branchName
-    }
-
     Write-Verbose "Commit message: $commitMessage"
 
+    if ($branchName -eq '')
+    {
+        git add .
+        git commit -m $commitMessage
+        git push
+
+        return
+    }
+
+    Write-Verbose "Branch: $branchName"
+
+    git checkout -b $branchName
     git add .
     git commit -m $commitMessage
-    git push
+    git push origin $branchName
 }
 
 function Get-ChangedFile
