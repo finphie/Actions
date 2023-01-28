@@ -127,6 +127,7 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 ```yaml
 on:
+  push:
   workflow_dispatch:
 
 permissions:
@@ -139,6 +140,13 @@ jobs:
 
     steps:
       - name: Checkout repository
+        if: github.ref_name == 'main'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Checkout repository
+        if: github.ref_name != 'main'
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
