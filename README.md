@@ -267,6 +267,47 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 -|-|-
 repositories|string[]|「オーナー名/リポジトリ名」のリスト。
 
+### git-push
+
+Git pushを実行するGitHub Actionです。
+
+```yaml
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Git push
+        uses: finphie/Actions/.github/actions/git-push@main
+        with: 
+          commit-message: Commit message
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+commit-message|string|**true**|-|コミットメッセージ。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ### git-versioning
 
 バージョン情報を取得するGitHub Actionです。
