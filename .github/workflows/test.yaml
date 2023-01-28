@@ -18,7 +18,7 @@ jobs:
       - run: touch a.txt
 
       - name: Create pull request
-        uses: finphie/Actions/.github/actions/create-pull-request@main
+        uses: finphie/Actions/.github/actions/create-pull-request@202301282235
         with:
           path: ${{ github.workspace }}
           commit-message: Commit message
