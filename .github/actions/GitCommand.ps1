@@ -1,4 +1,34 @@
-﻿function Get-ChangedFile
+﻿function Invoke-GitCommitAndPush
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$commitMessage,
+
+        [string]$branchName = ''
+    )
+
+    if (!$PSCmdlet.ShouldProcess('git'))
+    {
+        return
+    }
+
+    if ($branchName -ne '')
+    {
+        Write-Verbose "Branch: $branchName"
+        git checkout -b $branchName
+    }
+
+    Write-Verbose "Commit message: $commitMessage"
+
+    git add .
+    git commit -m $commitMessage
+    git push
+}
+
+function Get-ChangedFile
 {
     [CmdletBinding()]
     [OutputType([string[]])]
