@@ -27,9 +27,9 @@ function Test-Extension
         [bool]$recurse
     )
 
-    foreach ($directoryPath in $path)
+    foreach ($pathWithoutExtension in $path)
     {
-        [string]$filePath = "$(Join-Path $directoryPath '*').$extension"
+        [string]$filePath = "$pathWithoutExtension.$extension"
 
         # Test-Pathは隠しファイルを取得できない。
         [string[]]$files = (Get-ChildItem $filePath -File -Force -Recurse:$recurse -ErrorAction SilentlyContinue).FullName |
