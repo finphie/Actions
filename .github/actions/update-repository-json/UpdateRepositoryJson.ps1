@@ -9,8 +9,13 @@ param (
 
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
-    [string[]]$lines
+    [string]$projects
 )
+
+[string]$rootPath = Split-Path $PSScriptRoot
+. $rootPath/Utility.ps1
+
+[string[]]$projectList = Get-List -Value $projects -WithoutConnma
 
 [Management.Automation.OrderedHashtable]$output = [Ordered]@{
     'Projects' = [Ordered]@{
@@ -27,16 +32,16 @@ if (Test-Path $outputFileName -PathType Leaf)
     $output = Get-Content $outputFileName | ConvertFrom-Json -AsHashtable
 }
 
-foreach ($line in $lines)
+foreach ($project in $projectList)
 {
-    [string]$value = $line.Trim()
+    #[string]$value = $line.Trim()
 
-    if (!$value.StartsWith($solutionName))
+    if (!$project.StartsWith($solutionName))
     {
         continue
     }
 
-    $projectName, $platform = $value -Split ','
+    $projectName, $platform = $project -Split ','
 
     # 不明なプラットフォームの場合
     if ($platform -eq '')
