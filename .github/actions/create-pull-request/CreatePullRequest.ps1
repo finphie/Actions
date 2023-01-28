@@ -29,7 +29,7 @@ Invoke-GitCommitAndPush -CommitMessage $commitMessage -BranchName $branchName
 
 Write-Verbose 'Create pull request'
 
-[string]$labelList = (Get-List -Value $labels) -Join ','
+[string]$labelList = $labels -eq '' ? '' : ((Get-List -Value $labels) -Join ',')
 Write-Verbose "Label: $labelList"
 
 if ($labelList -eq '')
