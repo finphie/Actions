@@ -366,6 +366,50 @@ text|string|**true**|-|変換対象の文字列。
 -|-|-
 text|string|変換後の文字列。
 
+### read-file
+
+テキストファイルを読み込むGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read file
+        id: read-file
+        uses: finphie/Actions/.github/actions/read-file@main
+        with: 
+          file-path: text.txt
+
+      - run: |
+          echo '${{ steps.read-file.outputs.text }}'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+file-path|string|**true**|-|テキストファイルのパス。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|型|説明
+-|-|-
+text|string|ファイル内容。
+
 ### run-msbuild-target
 
 MSBuildターゲットを実行するGitHub Actionです。
