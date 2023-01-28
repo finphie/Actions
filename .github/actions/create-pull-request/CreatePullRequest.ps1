@@ -25,18 +25,12 @@ Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
 [string]$branchName = "$branch/$date"
-[string]$labelList = (Get-List -Value $labels) -Join ','
-
-Write-Verbose "Commit message: $commitMessage"
-Write-Verbose "Branch: $branchName"
-Write-Verbose "Label: $labelList"
-
-git checkout -b $branchName
-git add .
-git commit -m $commitMessage
-git push origin $branchName
+Invoke-GitCommitAndPush -CommitMessage $commitMessage -BranchName $branchName
 
 Write-Verbose 'Create pull request'
+
+[string]$labelList = (Get-List -Value $labels) -Join ','
+Write-Verbose "Label: $labelList"
 
 if ($labelList -eq '')
 {
