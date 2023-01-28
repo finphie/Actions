@@ -37,18 +37,18 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repository: ${{ steps.get.outputs.repository }}
+      repository: ${{ steps.read.outputs.text }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get repository.json
-        id: get
-        shell: pwsh
-        run: |
-          $json = Get-Content repository.json | ConvertFrom-Json -AsHashtable
-          "repository=$json" | Out-File $Env:GITHUB_OUTPUT -Append
+      - name: Read repository.json
+        id: read
+        uses: finphie/Actions/.github/actions/read-file@main
+        with:
+          file-path: repository.json
+
   pack:
     name: Pack
     runs-on: windows-latest

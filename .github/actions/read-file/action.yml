@@ -1,0 +1,24 @@
+name: Read file
+description: テキストファイルを読み込むGitHub Actionです。
+
+inputs:
+  file-path:
+    description: テキストファイルのパス。
+    required: true
+
+outputs:
+  text:
+    description: ファイル内容。
+    value: ${{ steps.x.outputs.text }}
+
+runs:
+  using: composite
+  steps:
+    - name: Read file
+      id: x
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/ReadFile.ps1 `
+            -Text '${{ inputs.text }}' `
+            -Verbose `
+            -ErrorAction Stop
