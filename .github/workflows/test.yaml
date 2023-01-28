@@ -1,4 +1,5 @@
 on:
+  push:
   pull_request:
 
 permissions:
@@ -11,9 +12,16 @@ jobs:
 
     steps:
       - name: Checkout repository
+        if: github.ref_name == 'main'
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.ref }}
+
+      - name: Checkout repository
+        if: github.ref_name != 'main'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - run: touch a.txt
 
