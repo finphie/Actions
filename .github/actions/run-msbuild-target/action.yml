@@ -6,10 +6,16 @@ inputs:
     description: MSBuildターゲット名。
     required: true
 
+outputs:
+  lines:
+    description: MSBuildターゲット実行時に出力された文字列。
+    value: ${{ steps.x.outputs.lines }}
+
 runs:
   using: composite
   steps:
     - name: Run MSBuild target
+      id: x
       shell: pwsh
       run: |
         ${{ github.action_path }}/RunMSBuildTarget.ps1 `
