@@ -9,7 +9,7 @@ inputs:
 outputs:
   text:
     description: 変換後の文字列。
-    value: ${{ steps.x.outputs.output-string }}
+    value: ${{ steps.x.outputs.text }}
 
 runs:
   using: composite
