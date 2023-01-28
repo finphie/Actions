@@ -42,18 +42,7 @@ jobs:
           solution-name: ${{ github.event.repository.name }}
           projects: ${{ steps.project-identifier.outputs.lines }}
 
-      - name: Git diff
-        id: diff
-        continue-on-error: true
-        run: |
-          git add -N .
-          git diff --name-only --exit-code
-
       - name: Git push
-        if: steps.diff.outcome == 'failure'
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add .
-          git commit -m 'Update repository.json'
-          git push
+        uses: finphie/Actions/.github/actions/git-push@main
+        with:
+          commit-message: Update repository.json
