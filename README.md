@@ -516,6 +516,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       # 実行にはPowerShell 7.3以上が必要。
       - name: Update PowerShell
         working-directory: ${{ runner.temp }}
@@ -523,9 +526,6 @@ jobs:
           wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
           sudo dpkg -i packages-microsoft-prod.deb
           sudo apt-get install -y powershell
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
       - name: Update repository.json
         uses: finphie/Actions/.github/actions/update-repository-json@main
