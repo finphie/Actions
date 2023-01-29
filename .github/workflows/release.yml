@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Release Drafter
+        uses: toolmantim/release-drafter@v5
+        with:
+          publish: true
+          prerelease: false
+          name: Version ${{ inputs.version }}
+          tag: v${{ inputs.version }}
+          version: ${{ inputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
