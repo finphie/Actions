@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      version: ${{ steps.get-version.outputs.version }}
+      version: '${{ steps.get-version.outputs.version }}'
       version-major: ${{ steps.get-version.outputs.version-major }}
       release: ${{ steps.get-version.outputs.release }}
       dotnet: ${{ steps.check-extension.outputs.dotnet }}
