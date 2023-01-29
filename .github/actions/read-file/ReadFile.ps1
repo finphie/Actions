@@ -30,3 +30,5 @@ $text = Get-Content $filePath
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
 Write-GitHubOutput -OutputList $outputs
+
+exit

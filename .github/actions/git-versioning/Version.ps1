@@ -73,26 +73,17 @@ if (!(Test-Path $versionFileName -PathType Leaf))
     exit
 }
 
-Write-Verbose "1: $LastExitCode"
-
 [Version]$version = Get-Version -VersionFileName $versionFileName
-Write-Verbose "2: $LastExitCode"
-
 [string[]]$changedFiles = Get-ChangedFile -Hash $hash
-Write-Verbose "3: $LastExitCode"
-
 [bool]$release = $changedFiles -contains $versionFileName
-Write-Verbose "4: $LastExitCode"
 
 # JSONファイルが更新されている場合はa.b.c形式、それ以外はa.b.c.d形式のバージョンとする。
 [Version]$displayVersion = $release ? $version : "$version.$revision"
-Write-Verbose "5: $LastExitCode"
 
 Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
-Write-Verbose "6: $LastExitCode"
-
 Write-GitHubOutput -OutputList $outputs
-Write-Verbose "7: $LastExitCode"
+
+exit

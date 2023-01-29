@@ -84,3 +84,5 @@ $pathList | ForEach-Object { Write-Verbose "Path: $_" }
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs
+
+exit
