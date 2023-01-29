@@ -30,6 +30,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   OUTPUT_DIRECTORY: publish
+  RETENTION_DAYS: 1
 
 jobs:
   check:
@@ -122,7 +123,7 @@ jobs:
         with:
           name: ${{ matrix.project }}_${{ matrix.architecture }}
           path: ${{ env.OUTPUT_DIRECTORY }}
-          if-no-files-found: ignore
+          retention-days: ${{ env.RETENTION_DAYS }}
 
   publish-windows:
     name: Publish(Windows)
@@ -156,7 +157,7 @@ jobs:
         with:
           name: ${{ matrix.project }}_${{ matrix.architecture }}
           path: ${{ env.OUTPUT_DIRECTORY }}
-          if-no-files-found: ignore
+          retention-days: ${{ env.RETENTION_DAYS }}
 
   publish-android:
     name: Publish(Android)
@@ -189,7 +190,7 @@ jobs:
         with:
           name: ${{ matrix.project }}
           path: ${{ env.OUTPUT_DIRECTORY }}/*Signed.a*
-          if-no-files-found: ignore
+          retention-days: ${{ env.RETENTION_DAYS }}
 
   publish-asp-net:
     name: Publish(ASP.NET)
@@ -220,7 +221,7 @@ jobs:
         with:
           name: ${{ matrix.project }}
           path: ${{ env.OUTPUT_DIRECTORY }}
-          if-no-files-found: ignore
+          retention-days: ${{ env.RETENTION_DAYS }}
 
   publich-blazor-web-assembly:
     name: Publish(Blazor WebAssembly)
@@ -253,4 +254,4 @@ jobs:
         with:
           name: ${{ matrix.project }}
           path: ${{ env.OUTPUT_DIRECTORY }}
-          if-no-files-found: ignore
+          retention-days: ${{ env.RETENTION_DAYS }}
