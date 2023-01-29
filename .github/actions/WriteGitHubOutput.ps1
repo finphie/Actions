@@ -29,7 +29,5 @@
     {
         Write-Verbose 'Set GITHUB_OUTPUT'
         $output | Out-File $Env:GITHUB_OUTPUT -Append
-
-        Write-Verbose 'done'
     }
 }
