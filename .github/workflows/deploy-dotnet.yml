@@ -37,11 +37,11 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      console: ${{ toJson(fromJson(steps.read.outputs.text).projects.console) }}
-      windows: ${{ toJson(fromJson(steps.read.outputs.text).projects.windows) }}
-      android: ${{ toJson(fromJson(steps.read.outputs.text).projects.android) }}
-      asp-net: ${{ toJson(fromJson(steps.read.outputs.text).projects.asp-net) }}
-      blazor-web-assembly: ${{ toJson(fromJson(steps.read.outputs.text).projects.blazor-web-assembly) }}
+      console: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Console) }}
+      windows: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Windows) }}
+      android: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Android) }}
+      asp-net: ${{ toJson(fromJson(steps.read.outputs.text).Projects.AspNet) }}
+      blazor-web-assembly: ${{ toJson(fromJson(steps.read.outputs.text).Projects.BlazorWebAssembly) }}
 
     steps:
       - name: Checkout repository
