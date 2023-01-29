@@ -9,7 +9,7 @@
     )
 
     [string[]]$output = $outputList.GetEnumerator() | ForEach-Object {
-        $key = $_.Key
+        [string]$key = $_.Key
         $value = $_.Value
 
         if ($value -isnot [Array])
