@@ -55,13 +55,10 @@ function Get-GitHubOutput
         'version-major' = $version.Major
         'version-minor' = $version.Minor
         'version-build' = $version.Build
+        'release' = $release
     }
 
-    if ($release)
-    {
-        $outputs['release'] = $true
-    }
-    else
+    if (!$release)
     {
         $outputs['version-revision'] = $version.Revision
     }
