@@ -19,6 +19,6 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/ReadFile.ps1 `
-            -Text '${{ inputs.text }}' `
+            -FilePath '${{ inputs.file-path }}' `
             -Verbose `
             -ErrorAction Stop
