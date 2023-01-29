@@ -40,3 +40,5 @@ else
 {
     gh pr create --fill --label $labelList
 }
+
+exit

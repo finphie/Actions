@@ -65,3 +65,5 @@ function Get-GitHubOutput
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
 Write-GitHubOutput -OutputList $outputs
+
+exit

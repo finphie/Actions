@@ -85,3 +85,5 @@ Write-Verbose "Release: $release"
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
 Write-GitHubOutput -OutputList $outputs
+
+exit
