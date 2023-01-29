@@ -115,13 +115,13 @@ jobs:
           dotnet-version: ${{ inputs.dotnet-version }}.x
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.project }}_${{ matrix.architecture }}
-          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          path: ${{ env.OUTPUT_DIRECTORY }}
           if-no-files-found: ignore
 
   publish-windows:
@@ -149,13 +149,13 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish(GUI)
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.project }}_${{ matrix.architecture }}
-          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          path: ${{ env.OUTPUT_DIRECTORY }}
           if-no-files-found: ignore
 
   publish-android:
@@ -182,7 +182,7 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
@@ -213,13 +213,13 @@ jobs:
           dotnet-version: ${{ inputs.dotnet-version }}.x
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.project }}
-          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          path: ${{ env.OUTPUT_DIRECTORY }}
           if-no-files-found: ignore
 
   publich-blazor-web-assembly:
@@ -246,11 +246,11 @@ jobs:
         run: dotnet workload restore
 
       - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} -p:Version=${{ inputs.version }}
+        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
 
       - name: Push(GitHub Artifacts)
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.project }}
-          path: ${{ env.OUTPUT_DIRECTORY }}/*
+          path: ${{ env.OUTPUT_DIRECTORY }}
           if-no-files-found: ignore
