@@ -37,7 +37,11 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repository: ${{ steps.read.outputs.text }}
+      console: ${{ toJson(fromJson(steps.read.outputs.text).projects.console) }}
+      windows: ${{ toJson(fromJson(steps.read.outputs.text).projects.windows) }}
+      android: ${{ toJson(fromJson(steps.read.outputs.text).projects.android) }}
+      asp-net: ${{ toJson(fromJson(steps.read.outputs.text).projects.asp-net) }}
+      blazor-web-assembly: ${{ toJson(fromJson(steps.read.outputs.text).projects.blazor-web-assembly) }}
 
     steps:
       - name: Checkout repository
@@ -92,12 +96,13 @@ jobs:
   publish-console:
     name: Publish(Console)
     needs: check
+    if: needs.check.outputs.console != '[]'
     runs-on: windows-latest
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.repository).projects.console }}
+        project: ${{ fromJson(needs.check.outputs.console) }}
         architecture: ['x64', 'arm64']
 
     steps:
@@ -122,12 +127,13 @@ jobs:
   publish-windows:
     name: Publish(Windows)
     needs: check
+    if: needs.check.outputs.windows != '[]'
     runs-on: windows-latest
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.repository).projects.windows }}
+        project: ${{ fromJson(needs.check.outputs.windows) }}
         architecture: ['x64', 'arm64']
 
     steps:
@@ -155,12 +161,13 @@ jobs:
   publish-android:
     name: Publish(Android)
     needs: check
+    if: needs.check.outputs.android != '[]'
     runs-on: windows-latest
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.repository).projects.android }}
+        project: ${{ fromJson(needs.check.outputs.android) }}
 
     steps:
       - name: Checkout repository
@@ -187,12 +194,13 @@ jobs:
   publish-asp-net:
     name: Publish(ASP.NET)
     needs: check
+    if: needs.check.outputs.asp-net != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.repository).projects.asp-net }}
+        project: ${{ fromJson(needs.check.outputs.asp-net) }}
         architecture: ['x64', 'arm64']
 
     steps:
@@ -217,12 +225,13 @@ jobs:
   publich-blazor-web-assembly:
     name: Publish(Blazor WebAssembly)
     needs: check
+    if: needs.check.outputs.blazor-web-assembly != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.repository).projects.blazor-web-assembly }}
+        project: ${{ fromJson(needs.check.outputs.blazor-web-assembly) }}
 
     steps:
       - name: Checkout repository
