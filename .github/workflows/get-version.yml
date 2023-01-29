@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      version: '${{ steps.get-version.outputs.version }}'
-      version-major: ${{ steps.get-version.outputs.version-major }}
-      release: ${{ steps.get-version.outputs.release }}
+      version: ${{ steps.git-versioning.outputs.version }}
+      version-major: ${{ steps.git-versioning.outputs.version-major }}
+      release: ${{ steps.git-versioning.outputs.release }}
       dotnet: ${{ steps.check-extension.outputs.dotnet }}
       docker: ${{ steps.check-extension.outputs.docker }}
 
@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 2
 
       - name: Get version
-        id: get-version
+        id: git-versioning
         uses: finphie/Actions/.github/actions/git-versioning@main
 
       - name: Check extension
