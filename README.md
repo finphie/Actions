@@ -874,6 +874,40 @@ release|bool|安定版リリースかどうか。
 dotnet|bool|.NETファイルが含まれているかどうか。
 docker|bool|Dockerfileが含まれているかどうか。
 
+### release.yml
+
+GitHubリリースを作成する再利用可能なワークフローです。
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/release.yml@main
+    with:
+      version: '1.0.0'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+version|string|**true**|-|バージョンを表す文字列。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ### update-repository-json.yml
 
 repository.jsonを更新する再利用可能なワークフローです。
