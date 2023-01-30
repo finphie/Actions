@@ -77,6 +77,43 @@ markdown|bool|Markdownファイルが含まれているかどうか。
 docker|bool|Dockerfileが含まれているかどうか。
 nuget|bool|NuGetパッケージファイルが含まれているかどうか。
 
+### compress-archive
+
+zipファイルを作成するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Compress archive
+        uses: finphie/Actions/.github/actions/compress-archive@main
+        with: 
+          path: target-path
+          destination-file-path: a.zip
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+path|string|**true**|-|圧縮対象のファイルが存在するディレクトリ。
+destination-file-path|string|false|-|出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ### copy-github-labels
 
 GitHubラベルをソース元のリポジトリからコピーするGitHub Actionです。

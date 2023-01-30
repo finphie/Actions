@@ -1,0 +1,23 @@
+name: Compress archive
+description: zipファイルを作成するGitHub Actionです。
+
+inputs:
+  path:
+    description: 圧縮対象のファイルが存在するディレクトリ。
+    required: true
+  destination-file-path:
+    description: 出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
+    required: false
+    default: null
+
+runs:
+  using: composite
+  steps:
+    - name: Compress archive
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/CompressArchive.ps1 `
+            -Path '${{ inputs.path }}' `
+            '${{ inputs.destination-file-path == '' && '' || join('-DestinationFilePath', inputs.destination-file-path, ' ') }}' `
+            -Verbose `
+            -ErrorAction Stop
