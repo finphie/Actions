@@ -1,0 +1,22 @@
+name: Upload release assets
+description: リリースにファイルをアップロードするGitHub Actionです。
+
+inputs:
+  tag:
+    description: 対象のgitタグ。
+    required: true
+  files:
+    description: アップロード対象のファイルリスト。
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Upload release assets
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/UploadReleaseAssets.ps1 `
+            -Tag '${{ inputs.tag }}' `
+            -Files '${{ inputs.files }}' `
+            -Verbose `
+            -ErrorAction Stop
