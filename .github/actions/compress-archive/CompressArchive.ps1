@@ -7,7 +7,9 @@ param (
     [string]$path,
 
     [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
-    [string]$destinationFilePath
+    [string]$destinationFilePath,
+
+    [string]$suffix = ''
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
@@ -23,7 +25,7 @@ if ($destinationFilePath -ne '')
 
 foreach ($directory in $directories)
 {
-    New-Archive -Path $directory.FullName -DestinationFilePath "$($directory.Name).zip"
+    New-Archive -Path $directory.FullName -DestinationFilePath "$($directory.Name)$suffix.zip"
 }
 
 exit
