@@ -7,6 +7,41 @@
 
 GitHub Actions関連ファイルの管理と、各種設定の同期を行うリポジトリです。
 
+## 目次
+
+- [複合アクション](#複合アクション)
+  - [check-extension](#check-extension)
+  - [compress-archive](#compress-archive)
+  - [copy-github-labels](#copy-github-labels)
+  - [create-pull-request](#create-pull-request)
+  - [get-github-repositories](#get-github-repositories)
+  - [git-push](#git-push)
+  - [git-versioning](#git-versioning)
+  - [pascal-to-kebab](#pascal-to-kebab)
+  - [read-file](#read-file)
+  - [run-msbuild-target](#run-msbuild-target)
+  - [sync-repositories](#sync-repositories)
+  - [update-repository-json](#update-repository-json)
+  - [upload-release-assets](#upload-release-assets)
+- [再利用可能なワークフロー](#再利用可能なワークフロー)
+  - [build-dotnet.yml](#build-dotnetyml)
+  - [build-markdown.yml](#build-markdownyml)
+  - [build-powershell.yml](#build-powershellyml)
+  - [build-python.yml](#build-pythonyml)
+  - [build-yaml.yml](#build-yamlyml)
+  - [deploy-docker.yml](#deploy-dockeryml)
+  - [deploy-dotnet.yml](#deploy-dotnetyml)
+  - [get-version.yml](#get-versionyml)
+  - [release.yml](#releaseyml)
+  - [update-repository-json.yml](#update-repository-jsonyml)
+- [ワークフロー](#ワークフロー)
+  - [sync-dotfiles.yml](#sync-dotfilesyml)
+  - [sync-github-settings.yml](#sync-github-settingsyml)
+  - [sync-labels.yml](#sync-labelsyml)
+  - [sync-secrets.yml](#sync-secretsyml)
+- [作者](#作者)
+- [ライセンス](#ライセンス)
+
 ## 複合アクション
 
 ### check-extension
