@@ -640,6 +640,46 @@ projects|string|**true**|-|「プロジェクト名,プラットフォーム名�
 
 なし
 
+### upload-release-assets
+
+リリースにファイルをアップロードするGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Upload release assets
+        uses: finphie/Actions/.github/actions/upload-release-assets@main
+        with: 
+          tag: v1.0.0
+          files: |
+            *.zip
+            *.exe
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+tag|string|**true**|-|対象のgitタグ。
+files|string|**true**|-|アップロード対象のファイルリスト。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ## 再利用可能なワークフロー
 
 ### build-dotnet.yml

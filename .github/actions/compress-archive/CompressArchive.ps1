@@ -1,4 +1,4 @@
-using namespace System.IO
+﻿using namespace System.IO
 
 [CmdletBinding(SupportsShouldProcess)]
 param (
