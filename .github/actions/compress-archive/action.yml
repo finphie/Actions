@@ -9,6 +9,10 @@ inputs:
     description: 出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
     required: false
     default: null
+  suffix:
+    description: zipファイル名の末尾に追加する文字列。destination-file-pathを指定しない場合のみ有効。
+    required: false
+    default: null
 
 runs:
   using: composite
@@ -19,5 +23,6 @@ runs:
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
             '${{ inputs.destination-file-path == '' && '' || join('-DestinationFilePath', inputs.destination-file-path, ' ') }}' `
+            -Suffix '${{ inputs.suffix }}' `
             -Verbose `
             -ErrorAction Stop

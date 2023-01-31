@@ -104,7 +104,8 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 path|string|**true**|-|圧縮対象のファイルが存在するディレクトリ。
-destination-file-path|string|false|-|出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
+destination-file-path|string|false|null|出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
+suffix|string|false|null|zipファイル名の末尾に追加する文字列。destination-file-pathを指定しない場合のみ有効。
 
 #### 環境変数
 
