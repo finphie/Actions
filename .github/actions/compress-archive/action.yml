@@ -25,11 +25,11 @@ runs:
       env:
         DESTINATION_FILE_PARAMETER: ${{ format('-DestinationFilePath "{0}"', inputs.destination-path) }}
         DESTINATION_DIRECTORY_PARAMETER: ${{ format('-DestinationDirectoryPath "{0}"', inputs.destination-path) }}
+        SUFFIX_PARAMETER: ${{ format('-Suffix "{0}"', inputs.suffix) }}
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
-            ${{ inputs.root == 'true' && '' || env.DESTINATION_FILE_PARAMETER }} `
-            ${{ inputs.root != 'true' && '' || env.DESTINATION_DIRECTORY_PARAMETER }} `
-            -Suffix '${{ inputs.suffix }}' `
+            ${{ inputs.root == 'true' && env.DESTINATION_DIRECTORY_PARAMETER || env.DESTINATION_FILE_PARAMETER }} `
+            ${{ inputs.root != 'true' && env.SUFFIX_PARAMETER || '' `
             -Verbose `
             -ErrorAction Stop
