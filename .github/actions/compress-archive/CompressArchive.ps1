@@ -6,9 +6,15 @@ param (
     [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
     [string]$path,
 
+    [Parameter(ParameterSetName='DestinationFile')]
     [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$destinationFilePath,
 
+    [Parameter(ParameterSetName='DestinationDirectory')]
+    [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
+    [string]$destinationDirectoryPath,
+
+    [Parameter(ParameterSetName='DestinationDirectory')]
     [string]$suffix = ''
 )
 
@@ -25,7 +31,8 @@ if ($destinationFilePath -ne '')
 
 foreach ($directory in $directories)
 {
-    New-Archive -Path $directory.FullName -DestinationFilePath "$($directory.Name)$suffix.zip"
+    [string]$filePath = Join-Path $destinationDirectoryPath "$($directory.Name)$suffix.zip"
+    New-Archive -Path $directory.FullName -DestinationFilePath $filePath
 }
 
 exit
