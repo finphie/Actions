@@ -16,6 +16,10 @@ inputs:
     description: zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
     required: false
     default: null
+  exclude:
+    description: ディレクトリ内のファイルが1個の場合、圧縮対象としない拡張子のリスト。rootがfalseの場合のみ有効。
+    required: false
+    default: null
 
 runs:
   using: composite
@@ -26,10 +30,12 @@ runs:
         DESTINATION_FILE_PARAMETER: ${{ format('-DestinationFilePath "{0}"', inputs.destination-path) }}
         DESTINATION_DIRECTORY_PARAMETER: ${{ format('-DestinationDirectoryPath "{0}"', inputs.destination-path) }}
         SUFFIX_PARAMETER: ${{ format('-Suffix "{0}"', inputs.suffix) }}
+        EXCLUDE_PARAMETER: ${{ format('-Exclude "{0}"', inputs.exclude) }}
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
             ${{ inputs.root == 'true' && env.DESTINATION_FILE_PARAMETER || env.DESTINATION_DIRECTORY_PARAMETER }} `
             ${{ inputs.root != 'true' && env.SUFFIX_PARAMETER || '' }} `
+            ${{ inputs.root != 'true' && env.EXCLUDE_PARAMETER || '' }} `
             -Verbose `
             -ErrorAction Stop
