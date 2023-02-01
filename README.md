@@ -701,6 +701,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Upload release assets
         uses: finphie/Actions/.github/actions/upload-release-assets@main
         with: 
@@ -708,6 +711,8 @@ jobs:
           files: |
             *.zip
             *.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 #### 引数
@@ -719,7 +724,9 @@ files|string|**true**|-|アップロード対象のファイルリスト。
 
 #### 環境変数
 
-なし
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
 
 #### 出力
 
