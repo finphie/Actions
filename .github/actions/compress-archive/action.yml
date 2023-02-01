@@ -29,7 +29,7 @@ runs:
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
-            ${{ inputs.root == 'true' && 'env.DESTINATION_DIRECTORY_PARAMETER' || 'env.DESTINATION_FILE_PARAMETER' }} `
-            ${{ inputs.root != 'true' && 'env.SUFFIX_PARAMETER' || '' }} `
+            ${{ inputs.root == 'true' && env.DESTINATION_DIRECTORY_PARAMETER || env.DESTINATION_FILE_PARAMETER }} `
+            ${{ inputs.root != 'true' && env.SUFFIX_PARAMETER || '' }} `
             -Verbose `
             -ErrorAction Stop
