@@ -11,6 +11,10 @@ on:
 
 permissions: {}
 
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   main:
     name: Main
@@ -21,9 +25,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install PSScriptAnalyzer
-        shell: pwsh
         run: Install-Module -Name PSScriptAnalyzer -Force
 
       - name: Lint PowerShell
-        shell: pwsh
         run: Invoke-ScriptAnalyzer -Path . -EnableExit -Recurse
