@@ -25,8 +25,8 @@ runs:
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
-            ${{ inputs.root == 'true' && '' || format("-DestinationFilePath '{0}'", inputs.destination-path) }} `
-            ${{ inputs.root != 'true' && '' || format("-DestinationDirectoryPath '{0}'", inputs.destination-path) }} `
+            ${{ inputs.root == 'true' && '' || 'format("-DestinationFilePath '{0}'", inputs.destination-path)' }} `
+            ${{ inputs.root != 'true' && '' || 'format("-DestinationDirectoryPath '{0}'", inputs.destination-path)' }} `
             -Suffix '${{ inputs.suffix }}' `
             -Verbose `
             -ErrorAction Stop
