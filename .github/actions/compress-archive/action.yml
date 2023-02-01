@@ -5,12 +5,15 @@ inputs:
   path:
     description: 圧縮対象のファイルが存在するディレクトリ。
     required: true
-  destination-file-path:
-    description: 出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
+  destination-path:
+    description: rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
+    required: true
+  root:
+    description: path内のディレクトリ毎にzipファイルを作成するかどうか。
     required: false
-    default: null
+    default: true
   suffix:
-    description: zipファイル名の末尾に追加する文字列。destination-file-pathを指定しない場合のみ有効。
+    description: zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
     required: false
     default: null
 
@@ -22,7 +25,8 @@ runs:
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
-            '${{ inputs.destination-file-path == '' && '' || join('-DestinationFilePath', inputs.destination-file-path, ' ') }}' `
+            '${{ inputs.root == 'true' && '' || join('-DestinationFilePath', inputs.destination-path, ' ') }}' `
+            '${{ inputs.root != 'true' && '' || join('-DestinationDirectoryPath', inputs.destination-path, ' ') }}' `
             -Suffix '${{ inputs.suffix }}' `
             -Verbose `
             -ErrorAction Stop

@@ -131,7 +131,16 @@ jobs:
         uses: finphie/Actions/.github/actions/compress-archive@main
         with: 
           path: target-path
-          destination-file-path: a.zip
+          destination-path: a.zip
+          root: true
+
+      - name: Compress archive
+        uses: finphie/Actions/.github/actions/compress-archive@main
+        with: 
+          path: target-path
+          destination-path: destination-directory
+          root: false
+          suffix: _suffix
 ```
 
 #### 引数
@@ -139,8 +148,9 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 path|string|**true**|-|圧縮対象のファイルが存在するディレクトリ。
-destination-file-path|string|false|null|出力先ファイルパス。省略した場合は、path内のディレクトリ毎にzipファイルを作成する。
-suffix|string|false|null|zipファイル名の末尾に追加する文字列。destination-file-pathを指定しない場合のみ有効。
+destination-path|string|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
+root|bool|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
+suffix|string|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
 
 #### 環境変数
 
