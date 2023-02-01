@@ -23,8 +23,8 @@ runs:
     - name: Compress archive
       shell: pwsh
       env:
-        DESTINATION_FILE_PARAMETER: ${{ format("-DestinationFilePath '{0}'", inputs.destination-path) }}
-        DESTINATION_DIRECTORY_PARAMETER: ${{ format("-DestinationDirectoryPath '{0}'", inputs.destination-path) }}
+        DESTINATION_FILE_PARAMETER: ${{ format('-DestinationFilePath "{0}"', inputs.destination-path) }}
+        DESTINATION_DIRECTORY_PARAMETER: ${{ format('-DestinationDirectoryPath "{0}"', inputs.destination-path) }}
       run: |
         ${{ github.action_path }}/CompressArchive.ps1 `
             -Path '${{ inputs.path }}' `
