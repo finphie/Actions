@@ -1013,7 +1013,7 @@ docker|bool|Dockerfileが含まれているかどうか。
 
 ### release.yml
 
-GitHubリリースを作成する再利用可能なワークフローです。
+GitHubリリースを作成する再利用可能なワークフローです。GitHub Artifactsにファイルが存在する場合、そのファイルをアップロードします。
 
 ```yaml
 on:

@@ -10,19 +10,56 @@ on:
 permissions:
   contents: write
 
+env:
+  TAG: v${{ inputs.version }}
+
 jobs:
   main:
     name: Main
     runs-on: ubuntu-latest
 
     steps:
-      - name: Release Drafter
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create release notes
         uses: toolmantim/release-drafter@v5
         with:
           publish: true
           prerelease: false
           name: Version ${{ inputs.version }}
-          tag: v${{ inputs.version }}
+          tag: ${{ env.TAG }}
           version: ${{ inputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download artifacts
+        id: download-artifact
+        uses: actions/download-artifact@v3
+
+      - name: Check extension
+        id: check-extension
+        uses: finphie/Actions/.github/actions/check-extension@main
+        with:
+          paths: '*'
+
+      - name: Compress archive
+        if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
+        uses: finphie/Actions/.github/actions/compress-archive@main
+        with:
+          path: ${{ steps.download-artifact.outputs.download-path }}
+          destination-path: ${{ runner.temp }}
+          root: false
+          suffix: _${{ env.TAG }}
+          exclude: '*Setup_${{ env.TAG }}.exe'
+
+      - name: Upload release assets
+        if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
+        uses: finphie/Actions/.github/actions/upload-release-assets@main
+        with:
+          tag: ${{ env.TAG }}
+          files: |
+            ${{ runner.temp }}/*.zip
+            ${{ runner.temp }}/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
