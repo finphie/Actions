@@ -142,7 +142,7 @@ jobs:
           root: false
           suffix: _suffix
           exclude: |
-            exe
+            *.exe
 ```
 
 #### 引数
@@ -153,7 +153,7 @@ path|string|**true**|-|圧縮対象のファイルが存在するディレクト
 destination-path|string|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
 root|bool|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
 suffix|string|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
-exclude|string|false|null|ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行う拡張子のリスト。rootがfalseの場合のみ有効。
+exclude|string|false|null|ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
 
 #### 環境変数
 
