@@ -17,7 +17,7 @@ inputs:
     required: false
     default: null
   exclude:
-    description: ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行う拡張子のリスト。rootがfalseの場合のみ有効。
+    description: ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
     required: false
     default: null
 
