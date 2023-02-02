@@ -73,6 +73,8 @@ function Get-GitHubOutput
         'markdown' = Test-Extension -Path $path -Extension 'md' -Recurse $recurse
         'docker' = Test-Path 'Dockerfile'
         'nuget' = Test-Extension -Path $path -Extension 'nupkg' -Recurse $recurse
+        'zip' = Test-Extension -Path $path -Extension 'zip' -Recurse $recurse
+        'exe' = Test-Extension -Path $path -Extension 'exe' -Recurse $recurse
     }
 
     return $outputs

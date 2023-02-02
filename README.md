@@ -83,6 +83,8 @@ jobs:
           echo '${{ steps.check-extension.outputs.markdown }}'
           echo '${{ steps.check-extension.outputs.docker }}'
           echo '${{ steps.check-extension.outputs.nuget }}'
+          echo '${{ steps.check-extension.outputs.zip }}'
+          echo '${{ steps.check-extension.outputs.exe }}'
 ```
 
 #### 引数
@@ -111,6 +113,8 @@ yaml|bool|YAMLファイルが含まれているかどうか。
 markdown|bool|Markdownファイルが含まれているかどうか。
 docker|bool|Dockerfileが含まれているかどうか。
 nuget|bool|NuGetパッケージファイルが含まれているかどうか。
+zip|bool|zipファイルが含まれているかどうか。
+exe|bool|exeファイルが含まれているかどうか。
 
 ### compress-archive
 

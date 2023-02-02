@@ -47,6 +47,12 @@ outputs:
   nuget:
     description: NuGetパッケージファイルが含まれているかどうか。
     value: ${{ steps.x.outputs.nuget }}
+  zip:
+    description: zipファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.zip }}
+  exe:
+    description: exeファイルが含まれているかどうか。
+    value: ${{ steps.x.outputs.exe }}
 
 runs:
   using: composite
