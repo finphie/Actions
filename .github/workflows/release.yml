@@ -36,7 +36,8 @@ jobs:
       - name: Download artifacts
         id: download-artifact
         uses: actions/download-artifact@v3
-        path: ${{ runner.temp }}/download
+        with:
+          path: ${{ runner.temp }}/download
 
       - name: Check extension
         id: check-extension
