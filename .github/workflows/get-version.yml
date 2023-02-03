@@ -12,6 +12,9 @@ on:
       release:
         description: 安定版リリースかどうか。
         value: ${{ jobs.main.outputs.release }}
+      tag:
+        description: gitタグ名。
+        value: v${{ jobs.main.outputs.version }}
       dotnet:
         description: .NETファイルが含まれているかどうか。
         value: ${{ jobs.main.outputs.dotnet }}

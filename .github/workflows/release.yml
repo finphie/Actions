@@ -6,12 +6,12 @@ on:
       version:
         required: true
         type: string
+      tag:
+        required: true
+        type: string
 
 permissions:
   contents: write
-
-env:
-  TAG: v${{ inputs.version }}
 
 jobs:
   main:
@@ -28,7 +28,7 @@ jobs:
           publish: true
           prerelease: false
           name: Version ${{ inputs.version }}
-          tag: ${{ env.TAG }}
+          tag: ${{ inputs.tag }}
           version: ${{ inputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,14 +50,13 @@ jobs:
           path: ${{ steps.download-artifact.outputs.download-path }}
           destination-path: ${{ runner.temp }}
           root: false
-          suffix: _${{ env.TAG }}
-          exclude: '*Setup_${{ env.TAG }}.exe'
+          exclude: '*Setup_${{ inputs.tag }}_*.exe'
 
       - name: Upload release assets
         if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
         uses: finphie/Actions/.github/actions/upload-release-assets@main
         with:
-          tag: ${{ env.TAG }}
+          tag: ${{ inputs.tag }}
           files: |
             ${{ runner.temp }}/*.zip
             ${{ runner.temp }}/*.exe
