@@ -36,12 +36,13 @@ jobs:
       - name: Download artifacts
         id: download-artifact
         uses: actions/download-artifact@v3
+        path: ${{ runner.temp }}/download
 
       - name: Check extension
         id: check-extension
         uses: finphie/Actions/.github/actions/check-extension@main
         with:
-          paths: '*'
+          paths: '${{ steps.download-artifact.outputs.download-path }}/*'
           recurse: true
 
       - name: Compress archive
@@ -49,7 +50,7 @@ jobs:
         uses: finphie/Actions/.github/actions/compress-archive@main
         with:
           path: ${{ steps.download-artifact.outputs.download-path }}
-          destination-path: ${{ runner.temp }}
+          destination-path: ${{ runner.temp }}/release
           root: false
           exclude: '*Setup_${{ inputs.tag }}_*.exe'
 
@@ -59,7 +60,7 @@ jobs:
         with:
           tag: ${{ inputs.tag }}
           files: |
-            ${{ runner.temp }}/*.zip
-            ${{ runner.temp }}/*.exe
+            ${{ runner.temp }}/release/*.zip
+            ${{ runner.temp }}/release/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
