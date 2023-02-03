@@ -936,8 +936,9 @@ jobs:
     with:
       dotnet-version: '7.0'
       configuration: Release
-      version: '1.2.3'
+      version: '1.0.0'
       release: true
+      suffix: v1.0.0
     secrets:
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
@@ -951,6 +952,7 @@ dotnet-version|string|false|7.0|インストールする.NET SDKバージョン�
 configuration|string|false|Release|ビルド構成。
 version|string|**true**|-|バージョンを表す文字列。
 release|bool|**true**|-|安定版リリースかどうか。
+suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
 #### 環境変数
 
@@ -989,6 +991,7 @@ jobs:
       echo '${{ needs.main.outputs.version }}'
       echo '${{ needs.main.outputs.version-major }}'
       echo '${{ needs.main.outputs.release }}'
+      echo '${{ needs.main.outputs.tag }}'
       echo '${{ needs.main.outputs.dotnet }}'
       echo '${{ needs.main.outputs.docker }}'
 ```
@@ -1008,6 +1011,7 @@ jobs:
 version|string|バージョンを表す文字列。
 version-major|int|メジャー番号を表す数値。
 release|bool|安定版リリースかどうか。
+tag|string|gitタグ名。
 dotnet|bool|.NETファイルが含まれているかどうか。
 docker|bool|Dockerfileが含まれているかどうか。
 
@@ -1029,6 +1033,7 @@ jobs:
     uses: finphie/Actions/.github/workflows/release.yml@main
     with:
       version: '1.0.0'
+      tag: v1.0.0
 ```
 
 #### 引数
@@ -1036,6 +1041,7 @@ jobs:
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 version|string|**true**|-|バージョンを表す文字列。
+tag|string|**true**|-|gitタグ名。
 
 #### 環境変数
 
