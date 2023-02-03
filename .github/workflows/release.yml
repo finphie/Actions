@@ -42,6 +42,7 @@ jobs:
         uses: finphie/Actions/.github/actions/check-extension@main
         with:
           paths: '*'
+          recurse: true
 
       - name: Compress archive
         if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
