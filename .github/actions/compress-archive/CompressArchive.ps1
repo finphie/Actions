@@ -61,5 +61,3 @@ foreach ($directory in $directories)
 
     New-Archive -Path $directory.FullName -DestinationFilePath "$filePath.zip"
 }
-
-exit

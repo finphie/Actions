@@ -53,6 +53,7 @@ function Get-ChangedFile
         return
     }
 
+    $global:LastExitCode = $null
     return $changedFiles
 }
 
@@ -80,6 +81,7 @@ function Get-Diff
         return
     }
 
+    $global:LastExitCode = $null
     return $result
 }
 
@@ -143,6 +145,8 @@ function Test-Diff
         Write-Error 'Error: git diff command'
         return
     }
+
+    $global:LastExitCode = $null
 
     # 終了コード0は差分なし、1は差分ありを表す。
     return $LastExitCode -eq 1

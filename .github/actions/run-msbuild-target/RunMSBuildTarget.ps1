@@ -29,5 +29,3 @@ function Get-GitHubOutput
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -LineList $lines
 Write-GitHubOutput -OutputList $outputs
-
-exit
