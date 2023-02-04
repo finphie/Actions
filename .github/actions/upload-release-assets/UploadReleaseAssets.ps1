@@ -15,5 +15,3 @@ param (
 [string[]]$fileList = Get-List -Value $files | ForEach-Object { Get-Item $_ }
 
 gh release upload $tag $fileList
-
-exit

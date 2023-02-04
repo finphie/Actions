@@ -17,5 +17,3 @@ if (!(Test-Diff))
 
 Set-GitConfig
 Invoke-GitCommitAndPush -CommitMessage $commitMessage
-
-exit

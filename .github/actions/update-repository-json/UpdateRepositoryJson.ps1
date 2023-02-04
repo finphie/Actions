@@ -69,5 +69,3 @@ foreach ($project in $projectList)
 }
 
 $output | ConvertTo-Json | Out-File $outputFileName
-
-exit

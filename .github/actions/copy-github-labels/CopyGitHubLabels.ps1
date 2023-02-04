@@ -24,5 +24,3 @@ foreach ($repository in $repositoryList)
     Write-Verbose $repository
     gh label clone $sourceRepository --force --repo $repository
 }
-
-exit

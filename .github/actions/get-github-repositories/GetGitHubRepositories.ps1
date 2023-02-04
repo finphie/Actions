@@ -57,5 +57,3 @@ if ($exclude -ne '')
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Repositories $repositories
 Write-GitHubOutput -OutputList $outputs
-
-exit

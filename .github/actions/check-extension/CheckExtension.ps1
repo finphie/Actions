@@ -82,5 +82,3 @@ Write-Verbose "Path: $path"
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs
-
-exit
