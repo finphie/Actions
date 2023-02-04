@@ -54,22 +54,38 @@ function New-Archive
     }
 
     [string]$rootPath = Get-Location
-    [string]$fullPath = Get-FilePath -Path $rootPath -ChildPath $path
+    [string]$fullFilePath = Get-FilePath -Path $rootPath -ChildPath $path
     [string]$destinationFullFilePath =  Get-FilePath -Path $rootPath -ChildPath $destinationFilePath
+    [string]$destinationParentPath = Split-Path $destinationFullFilePath
 
-    Write-Verbose "path: $fullPath"
+    Write-Verbose $destinationParentPath
+    Write-Verbose "path: $fullFilePath"
     Write-Verbose "destinationFilePath: $destinationFullFilePath"
+
+    New-Directory $destinationParentPath
 
     try
     {
         # Compress-Archiveコマンドレットは、SmallestSizeに対応していない。
-        [ZipFile]::CreateFromDirectory($fullPath, $destinationFullFilePath, [CompressionLevel]::SmallestSize, $false)
+        [ZipFile]::CreateFromDirectory($fullFilePath, $destinationFullFilePath, [CompressionLevel]::SmallestSize, $false)
     }
     catch
     {
         Write-Error "Error: $directory"
         Write-Error $_.Exception
     }
+}
+
+function New-Directory
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
+        [string]$path
+    )
+
+    New-Item $path -ItemType Directory -Force | Out-Null
 }
 
 function Remove-File
