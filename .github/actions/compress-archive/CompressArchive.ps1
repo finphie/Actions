@@ -11,7 +11,7 @@ param (
     [string]$destinationFilePath,
 
     [Parameter(ParameterSetName='DestinationDirectory')]
-    [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
+    [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$destinationDirectoryPath,
 
     [Parameter(ParameterSetName='DestinationDirectory')]
