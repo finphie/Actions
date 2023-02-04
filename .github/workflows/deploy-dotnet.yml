@@ -77,7 +77,7 @@ jobs:
         id: check-extension
         uses: finphie/Actions/.github/actions/check-extension@main
         with:
-          paths: ${{ env.OUTPUT_DIRECTORY }}
+          path: ${{ env.OUTPUT_DIRECTORY }}
 
       - name: Push(Azure Artifacts)
         if: steps.check-extension.outputs.nuget == 'true'

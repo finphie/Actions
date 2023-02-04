@@ -2,12 +2,10 @@ name: Check extension
 description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
 
 inputs:
-  paths:
-    description: 検索するファイルパス（拡張子なし）のリスト。
+  path:
+    description: 検索対象のディレクトリ。
     required: false
-    default: |
-      *
-      Source/*
+    default: ${{ github.workspace }}
   recurse:
     description: 再帰検索するかどうか。
     required: false
@@ -62,6 +60,6 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/CheckExtension.ps1 `
-            -Paths '${{ inputs.paths }}' `
+            -Path '${{ inputs.path }}' `
             -Verbose `
             -ErrorAction Stop
