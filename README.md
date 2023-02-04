@@ -66,9 +66,7 @@ jobs:
         id: check-extension
         uses: finphie/Actions/.github/actions/check-extension@main
         with:
-          paths: |
-            *
-            Source/*
+          path: ${{ github.workspace }}
           recurse: false
 
       - run: |
@@ -91,7 +89,7 @@ jobs:
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-paths|string[]|false|\*,Source/\*|検索するファイルパス（拡張子なし）のリスト。
+path|string|false|${{ github.workspace }}|検索対象のディレクトリ。
 recurse|bool|false|false|再帰検索するかどうか。
 
 #### 環境変数

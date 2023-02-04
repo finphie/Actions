@@ -1,7 +1,8 @@
 ﻿[CmdletBinding(SupportsShouldProcess)]
 param (
-    [ValidateNotNullOrEmpty()]
-    [string]$paths = '*,Source/*',
+    [Parameter(Mandatory)]
+    [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
+    [string]$path,
 
     [switch]$recurse
 )
@@ -16,35 +17,32 @@ function Test-Extension
     [OutputType([bool])]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string[]]$path,
+        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
+        [string]$path,
 
-        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
+        [string]$fileName = '*',
+
         [string]$extension,
 
         [Parameter(Mandatory)]
         [bool]$recurse
     )
 
-    foreach ($pathWithoutExtension in $path)
+    [string]$fullFileName = $extension -eq '' ? $fileName : "$fileName.$extension"
+    [string]$filePath = Join-Path $path $fullFileName
+
+    # Test-Pathは隠しファイルを取得できない。
+    [string[]]$files = (Get-ChildItem $filePath -File -Force -Recurse:$recurse -ErrorAction SilentlyContinue).FullName |
+        Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
+
+    if ($files.Count -eq 0)
     {
-        [string]$filePath = "$pathWithoutExtension.$extension"
-
-        # Test-Pathは隠しファイルを取得できない。
-        [string[]]$files = (Get-ChildItem $filePath -File -Force -Recurse:$recurse -ErrorAction SilentlyContinue).FullName |
-            Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
-
-        if ($files.Count -eq 0)
-        {
-            continue
-        }
-
-        $files | ForEach-Object { Write-Verbose "File: $_" }
-        return $true
+        return $false
     }
 
-    return $false
+    $files | ForEach-Object { Write-Verbose "File: $_" }
+    return $true
 }
 
 function Get-GitHubOutput
@@ -53,8 +51,8 @@ function Get-GitHubOutput
     [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [string[]]$path,
+        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
+        [string]$path,
 
         [Parameter(Mandatory)]
         [bool]$recurse
@@ -71,7 +69,7 @@ function Get-GitHubOutput
         'json' = Test-Extension -Path $path -Extension 'json' -Recurse $recurse
         'yaml' = Test-Extension -Path $path -Extension 'yml' -Recurse $recurse
         'markdown' = Test-Extension -Path $path -Extension 'md' -Recurse $recurse
-        'docker' = Test-Path 'Dockerfile'
+        'docker' = Test-Extension -Path $path -FileName 'Dockerfile' -Recurse $recurse
         'nuget' = Test-Extension -Path $path -Extension 'nupkg' -Recurse $recurse
         'zip' = Test-Extension -Path $path -Extension 'zip' -Recurse $recurse
         'exe' = Test-Extension -Path $path -Extension 'exe' -Recurse $recurse
@@ -80,10 +78,8 @@ function Get-GitHubOutput
     return $outputs
 }
 
-[string[]]$pathList = Get-List -Value $paths
-$pathList | ForEach-Object { Write-Verbose "Path: $_" }
-
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $pathList -Recurse $recurse
+Write-Verbose "Path: $path"
+[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs
 
