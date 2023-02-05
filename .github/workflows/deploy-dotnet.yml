@@ -37,25 +37,7 @@ env:
 
 jobs:
   check:
-    name: Check
-    runs-on: ubuntu-latest
-
-    outputs:
-      console: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Console) }}
-      windows: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Windows) }}
-      android: ${{ toJson(fromJson(steps.read.outputs.text).Projects.Android) }}
-      asp-net: ${{ toJson(fromJson(steps.read.outputs.text).Projects.AspNet) }}
-      blazor-web-assembly: ${{ toJson(fromJson(steps.read.outputs.text).Projects.BlazorWebAssembly) }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Read repository.json
-        id: read
-        uses: finphie/Actions/.github/actions/read-file@main
-        with:
-          file-path: repository.json
+    uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
 
   pack:
     name: Pack
@@ -99,8 +81,7 @@ jobs:
   publish-console:
     name: Publish(Console)
     needs: check
-    if: needs.check.outputs.console != '[]'
-    runs-on: windows-latest
+    if: needs.check.outputs.console != ''
 
     strategy:
       fail-fast: false
@@ -108,30 +89,18 @@ jobs:
         project: ${{ fromJson(needs.check.outputs.console) }}
         architecture: ['x64', 'arm64']
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Push(GitHub Artifacts)
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.project }}_${{ inputs.suffix }}_${{ matrix.architecture }}
-          path: ${{ env.OUTPUT_DIRECTORY }}
-          retention-days: ${{ env.RETENTION_DAYS }}
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ${{ matrix.project }}
+      platform: windows
+      architecture: ${{ matrix.architecture }}
+      version: ${{ inputs.version }}
+      suffix: ${{ inputs.suffix }}
 
   publish-windows:
     name: Publish(Windows)
     needs: check
-    if: needs.check.outputs.windows != '[]'
-    runs-on: windows-latest
+    if: needs.check.outputs.windows != ''
 
     strategy:
       fail-fast: false
@@ -139,121 +108,65 @@ jobs:
         project: ${{ fromJson(needs.check.outputs.windows) }}
         architecture: ['x64', 'arm64']
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Workload restore
-        run: dotnet workload restore
-
-      - name: Publish(GUI)
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-windows10.0.19041.0 --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Push(GitHub Artifacts)
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.project }}_${{ inputs.suffix }}_${{ matrix.architecture }}
-          path: ${{ env.OUTPUT_DIRECTORY }}
-          retention-days: ${{ env.RETENTION_DAYS }}
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ${{ matrix.project }}
+      platform: windows
+      architecture: ${{ matrix.architecture }}
+      version: ${{ inputs.version }}
+      suffix: ${{ inputs.suffix }}
 
   publish-android:
     name: Publish(Android)
     needs: check
-    if: needs.check.outputs.android != '[]'
-    runs-on: windows-latest
+    if: needs.check.outputs.android != ''
 
     strategy:
       fail-fast: false
       matrix:
         project: ${{ fromJson(needs.check.outputs.android) }}
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ${{ matrix.project }}
+      platform: android
+      architecture: arm64
+      version: ${{ inputs.version }}
+      suffix: ${{ inputs.suffix }}
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Workload restore
-        run: dotnet workload restore
-
-      - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --framework net${{ inputs.dotnet-version }}-android32.0 --runtime android-arm64 --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Push(GitHub Artifacts)
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.project }}_${{ inputs.suffix }}
-          path: ${{ env.OUTPUT_DIRECTORY }}/*Signed.a*
-          retention-days: ${{ env.RETENTION_DAYS }}
-
-  publish-asp-net:
-    name: Publish(ASP.NET)
+  publish-server:
+    name: Publish(Server)
     needs: check
-    if: needs.check.outputs.asp-net != '[]'
-    runs-on: ubuntu-latest
+    if: needs.check.outputs.server != ''
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.asp-net) }}
+        project: ${{ fromJson(needs.check.outputs.server) }}
         architecture: ['x64', 'arm64']
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ${{ matrix.project }}
+      platform: server
+      architecture: ${{ matrix.architecture }}
+      version: ${{ inputs.version }}
+      suffix: ${{ inputs.suffix }}
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --runtime win10-${{ matrix.architecture }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Push(GitHub Artifacts)
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.project }}_${{ inputs.suffix }}
-          path: ${{ env.OUTPUT_DIRECTORY }}
-          retention-days: ${{ env.RETENTION_DAYS }}
-
-  publich-blazor-web-assembly:
-    name: Publish(Blazor WebAssembly)
+  publish-browser:
+    name: Publish(Browser)
     needs: check
-    if: needs.check.outputs.blazor-web-assembly != '[]'
-    runs-on: ubuntu-latest
+    if: needs.check.outputs.browser != ''
 
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJson(needs.check.outputs.blazor-web-assembly) }}
+        project: ${{ fromJson(needs.check.outputs.browser) }}
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Workload restore
-        run: dotnet workload restore
-
-      - name: Publish
-        run: dotnet publish Source/${{ matrix.project }}/${{ matrix.project }}.csproj --configuration ${{ inputs.configuration }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Push(GitHub Artifacts)
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ matrix.project }}_${{ inputs.suffix }}
-          path: ${{ env.OUTPUT_DIRECTORY }}
-          retention-days: ${{ env.RETENTION_DAYS }}
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ${{ matrix.project }}
+      platform: browser
+      architecture: wasm
+      version: ${{ inputs.version }}
+      suffix: ${{ inputs.suffix }}
