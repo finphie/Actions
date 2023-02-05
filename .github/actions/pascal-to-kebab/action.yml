@@ -5,6 +5,7 @@ inputs:
   text:
     description: 変換対象の文字列。
     required: true
+    type: string
 
 outputs:
   text:

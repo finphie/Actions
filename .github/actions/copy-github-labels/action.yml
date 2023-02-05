@@ -5,9 +5,11 @@ inputs:
   repositories:
     description: リポジトリのリスト。
     required: true
+    type: string
   source-repository:
     description: ソース元のリポジトリ。
     required: true
+    type: string
 
 runs:
   using: composite

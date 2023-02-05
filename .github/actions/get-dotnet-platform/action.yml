@@ -5,10 +5,12 @@ inputs:
   solution-name:
     description: ソリューション名。
     required: false
+    type: string
     default: ${{ github.event.repository.name }}
   projects:
     description: 「プロジェクト名,プラットフォーム名」区切りのリスト。
     required: true
+    type: string
 
 outputs:
   console:

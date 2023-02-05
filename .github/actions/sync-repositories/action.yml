@@ -5,22 +5,28 @@ inputs:
   source-path:
     description: ソース元リポジトリのパス。
     required: true
+    type: string
   target-path:
     description: 同期先リポジトリのパス。
     required: true
+    type: string
   settings-file-path:
     description: JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
     required: true
+    type: string
   commit-message:
     description: コミットメッセージ。
     required: true
+    type: string
   branch:
     description: ブランチ名。
     required: false
+    type: string
     default: sync-github-repositories
   labels:
     description: ラベルのリスト。
     required: false
+    type: string
     default: chore
 
 runs:

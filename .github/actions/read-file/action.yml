@@ -5,6 +5,7 @@ inputs:
   file-path:
     description: テキストファイルのパス。
     required: true
+    type: string
 
 outputs:
   text:

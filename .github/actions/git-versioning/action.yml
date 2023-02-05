@@ -5,14 +5,17 @@ inputs:
   file-name:
     description: バージョンを設定しているJSONファイルの名前。
     required: false
+    type: string
     default: version.json
   hash:
     description: 基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
     required: false
+    type: string
     default: ${{ github.sha }}
   revision:
     description: リビジョン番号を表す数値。
     required: false
+    type: number
     default: ${{ github.run_number }}
 
 outputs:

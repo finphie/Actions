@@ -5,6 +5,7 @@ inputs:
   target:
     description: MSBuildターゲット名。
     required: true
+    type: string
 
 outputs:
   lines:
