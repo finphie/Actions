@@ -2,6 +2,22 @@ name: Check .NET platform
 
 on:
   workflow_call:
+    outputs:
+      console:
+        description: コンソールプロジェクトのリスト。JSON文字列を出力する。
+        value: ${{ jobs.main.outputs.console }}
+      windows:
+        description: Windows関連プロジェクトのリスト。JSON文字列を出力する。
+        value: ${{ jobs.main.outputs.windows }}
+      android:
+        description: Android関連プロジェクトのリスト。JSON文字列を出力する。
+        value: ${{ jobs.main.outputs.android }}
+      server:
+        description: サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+        value: ${{ jobs.main.outputs.server }}
+      browser:
+        description: ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+        value: ${{ jobs.main.outputs.browser }}
 
 permissions: {}
 
