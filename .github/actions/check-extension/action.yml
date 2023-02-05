@@ -1,5 +1,5 @@
 name: Check extension
-description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+description: リポジトリ内に特定拡張子のファイルが含まれているか確認するアクションです。
 
 inputs:
   path:

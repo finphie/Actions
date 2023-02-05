@@ -1,5 +1,5 @@
 name: Get GitHub repositories
-description: GitHubリポジトリ名を取得するGitHub Actionです。
+description: GitHubリポジトリ名を取得するアクションです。
 
 inputs:
   archived:

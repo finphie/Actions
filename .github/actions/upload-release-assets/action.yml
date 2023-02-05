@@ -1,5 +1,5 @@
 name: Upload release assets
-description: リリースにファイルをアップロードするGitHub Actionです。
+description: リリースにファイルをアップロードするアクションです。
 
 inputs:
   tag:

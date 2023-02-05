@@ -1,5 +1,5 @@
 name: Read file
-description: テキストファイルを読み込むGitHub Actionです。
+description: テキストファイルを読み込むアクションです。
 
 inputs:
   file-path:

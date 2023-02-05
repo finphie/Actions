@@ -1,5 +1,5 @@
 name: Sync repositories
-description: ソース元のリポジトリと同期するGitHub Actionです。
+description: ソース元のリポジトリと同期するアクションです。
 
 inputs:
   source-path:

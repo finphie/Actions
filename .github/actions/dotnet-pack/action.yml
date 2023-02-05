@@ -1,5 +1,5 @@
 name: .NET Pack
-description: dotnet packコマンドを実行するGitHub Actionです。
+description: dotnet packコマンドを実行するアクションです。
 
 inputs:
   dotnet-version:

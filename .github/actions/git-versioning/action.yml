@@ -1,5 +1,5 @@
 name: Git versioning
-description: バージョン情報を取得するGitHub Actionです。
+description: バージョン情報を取得するアクションです。
 
 inputs:
   file-name:

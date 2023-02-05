@@ -50,7 +50,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
 
 ### check-extension
 
-リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+リポジトリ内に特定拡張子のファイルが含まれているか確認するアクションです。
 
 ```yaml
 on:
@@ -120,7 +120,7 @@ exe|bool|exeファイルが含まれているかどうか。
 
 ### compress-archive
 
-zipファイルを作成するGitHub Actionです。
+zipファイルを作成するアクションです。
 
 ```yaml
 on:
@@ -171,7 +171,7 @@ exclude|string|false|null|ディレクトリ内のファイルが1個の場合�
 
 ### copy-github-labels
 
-GitHubラベルをソース元のリポジトリからコピーするGitHub Actionです。
+GitHubラベルをソース元のリポジトリからコピーするアクションです。
 
 ```yaml
 on:
@@ -213,7 +213,7 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 ### create-pull-request
 
-プルリクエストを作成するGitHub Actionです。
+プルリクエストを作成するアクションです。
 
 #### 同一リポジトリにプルリクエストを出す場合
 
@@ -305,7 +305,7 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_
 
 ### dotnet-pack
 
-dotnet packコマンドを実行するGitHub Actionです。
+dotnet packコマンドを実行するアクションです。
 
 ```yaml
 on:
@@ -351,7 +351,7 @@ success|nupkgファイルの生成に成功したかどうか。
 
 ### dotnet-publish
 
-dotnet publishコマンドを実行するGitHub Actionです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
+dotnet publishコマンドを実行するアクションです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
 
 ```yaml
 on:
@@ -405,7 +405,7 @@ output-directory|string|false|publish|出力先ディレクトリ。
 
 ### get-dotnet-platform
 
-.NETプロジェクトのターゲットプラットフォーム名を取得するGitHub Actionです。
+.NETプロジェクトのターゲットプラットフォーム名を取得するアクションです。
 
 ```yaml
 on:
@@ -464,7 +464,7 @@ browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出�
 
 ### get-github-repositories
 
-GitHubリポジトリ名を取得するGitHub Actionです。
+GitHubリポジトリ名を取得するアクションです。
 
 ```yaml
 on:
@@ -527,7 +527,7 @@ repositories|string[]|「オーナー名/リポジトリ名」のリスト。
 
 ### git-push
 
-Git pushを実行するGitHub Actionです。
+Git pushを実行するアクションです。
 
 ```yaml
 on:
@@ -568,7 +568,7 @@ commit-message|string|**true**|-|コミットメッセージ。
 
 ### git-versioning
 
-バージョン情報を取得するGitHub Actionです。
+バージョン情報を取得するアクションです。
 
 ```yaml
 on:
@@ -626,7 +626,7 @@ release|bool|安定版リリースかどうか。
 
 ### pascal-to-kebab
 
-指定されたテキストを、PascalCaseからkebab-caseに変換するGitHub Actionです。
+指定されたテキストを、PascalCaseからkebab-caseに変換するアクションです。
 
 ```yaml
 on:
@@ -667,7 +667,7 @@ text|string|変換後の文字列。
 
 ### read-file
 
-テキストファイルを読み込むGitHub Actionです。
+テキストファイルを読み込むアクションです。
 
 ```yaml
 on:
@@ -711,7 +711,7 @@ text|string|ファイル内容。
 
 ### run-msbuild-target
 
-MSBuildターゲットを実行するGitHub Actionです。
+MSBuildターゲットを実行するアクションです。
 
 ```yaml
 on:
@@ -752,7 +752,7 @@ lines|string[]|MSBuildターゲット実行時に出力された文字列。
 
 ### sync-repositories
 
-ソース元のリポジトリと同期するGitHub Actionです。
+ソース元のリポジトリと同期するアクションです。
 
 ```yaml
 on:
@@ -801,7 +801,7 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 ### upload-release-assets
 
-リリースにファイルをアップロードするGitHub Actionです。
+リリースにファイルをアップロードするアクションです。
 
 ```yaml
 on:

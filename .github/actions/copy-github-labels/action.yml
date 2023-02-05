@@ -1,5 +1,5 @@
 name: Copy GitHub labels
-description: GitHubラベルをソース元のリポジトリからコピーするGitHub Actionです。
+description: GitHubラベルをソース元のリポジトリからコピーするアクションです。
 
 inputs:
   repositories:

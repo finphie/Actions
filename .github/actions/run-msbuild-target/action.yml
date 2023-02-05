@@ -1,5 +1,5 @@
 name: Run MSBuild target
-description: MSBuildターゲットを実行するGitHub Actionです。
+description: MSBuildターゲットを実行するアクションです。
 
 inputs:
   target:

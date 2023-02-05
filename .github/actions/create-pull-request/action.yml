@@ -1,5 +1,5 @@
 name: Create pull request
-description: プルリクエストを作成するGitHub Actionです。
+description: プルリクエストを作成するアクションです。
 
 inputs:
   path:

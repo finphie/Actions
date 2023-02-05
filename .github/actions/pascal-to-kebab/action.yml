@@ -1,5 +1,5 @@
 name: Pascal to kebab
-description: 指定されたテキストを、PascalCaseからkebab-caseに変換するGitHub Actionです。
+description: 指定されたテキストを、PascalCaseからkebab-caseに変換するアクションです。
 
 inputs:
   text:

@@ -1,5 +1,5 @@
 name: Git push
-description: Git pushを実行するGitHub Actionです。
+description: Git pushを実行するアクションです。
 
 inputs:
   commit-message:

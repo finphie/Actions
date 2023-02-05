@@ -1,5 +1,5 @@
 name: Compress archive
-description: zipファイルを作成するGitHub Actionです。
+description: zipファイルを作成するアクションです。
 
 inputs:
   path:
