@@ -41,7 +41,7 @@ jobs:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
   publish-console:
-    name: Publish(Console)
+    name: Publish(console)
     needs: check
     if: needs.check.outputs.console != ''
 
@@ -60,7 +60,7 @@ jobs:
       suffix: ${{ inputs.suffix }}
 
   publish-windows:
-    name: Publish(Windows)
+    name: Publish(windows)
     needs: check
     if: needs.check.outputs.windows != ''
 
@@ -79,7 +79,7 @@ jobs:
       suffix: ${{ inputs.suffix }}
 
   publish-android:
-    name: Publish(Android)
+    name: Publish(android)
     needs: check
     if: needs.check.outputs.android != ''
 
@@ -97,7 +97,7 @@ jobs:
       suffix: ${{ inputs.suffix }}
 
   publish-server:
-    name: Publish(Server)
+    name: Publish(server)
     needs: check
     if: needs.check.outputs.server != ''
 
@@ -116,7 +116,7 @@ jobs:
       suffix: ${{ inputs.suffix }}
 
   publish-browser:
-    name: Publish(Browser)
+    name: Publish(browser)
     needs: check
     if: needs.check.outputs.browser != ''
 
