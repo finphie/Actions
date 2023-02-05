@@ -1,7 +1,7 @@
 ﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
-    [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+    [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$path,
 
     [switch]$recurse
@@ -17,7 +17,7 @@ function Test-Extension
     [OutputType([bool])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$path,
 
         [ValidateNotNullOrEmpty()]
@@ -30,10 +30,9 @@ function Test-Extension
     )
 
     [string]$fullFileName = $extension -eq '' ? $fileName : "$fileName.$extension"
-    [string]$filePath = Join-Path $path $fullFileName
 
     # Test-Pathは隠しファイルを取得できない。
-    [string[]]$files = (Get-ChildItem $filePath -File -Force -Recurse:$recurse -ErrorAction SilentlyContinue).FullName |
+    [string[]]$files = (Get-ChildItem $path -File -Force -Recurse:$recurse -Include $fullFileName -ErrorAction SilentlyContinue).FullName |
         Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
     if ($files.Count -eq 0)
@@ -51,7 +50,7 @@ function Get-GitHubOutput
     [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$path,
 
         [Parameter(Mandatory)]

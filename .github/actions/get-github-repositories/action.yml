@@ -29,6 +29,7 @@ inputs:
   visibility:
     description: 指定された可視性（public/private/internal）のリポジトリを取得する。
     required: false
+    type: choice
     options:
       - public
       - private
