@@ -1,7 +1,7 @@
 ﻿[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
-    [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+    [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$path,
 
     [switch]$recurse
@@ -17,7 +17,7 @@ function Test-Extension
     [OutputType([bool])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$path,
 
         [ValidateNotNullOrEmpty()]
@@ -50,7 +50,7 @@ function Get-GitHubOutput
     [OutputType([Collections.Specialized.OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$path,
 
         [Parameter(Mandatory)]
