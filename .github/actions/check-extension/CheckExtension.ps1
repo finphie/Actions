@@ -81,7 +81,8 @@ Write-Verbose "Path: $path"
 Write-Verbose $path.Length
 Get-ChildItem $path
 
-Get-ChildItem $path -File -Force -Recurse:$recurse
+Write-Verbose "a"
+Get-ChildItem $path -File -Force -Recurse:$recurse -Include "*"
 
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
 
