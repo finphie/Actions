@@ -35,9 +35,9 @@ function Write-GitHubOutput
 
         if ($json)
         {
-            [string]$values = ($value | ForEach-Object { "`"$_`"" }) -join ','
+            [string]$values = $value | ConvertTo-Json -AsArray -Compress
 
-            Write-Output "$key=[$values]"
+            Write-Output "$key=$values"
             return
         }
 
