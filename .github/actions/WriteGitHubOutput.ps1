@@ -1,11 +1,16 @@
-﻿function Write-GitHubOutput
+﻿using namespace System.Diagnostics.CodeAnalysis
+
+function Write-GitHubOutput
 {
+    [SuppressMessage('PSReviewUnusedParameter', 'json', Justification = '誤検知')]
     [CmdletBinding()]
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [Collections.Specialized.OrderedDictionary]$outputList
+        [Collections.Specialized.OrderedDictionary]$outputList,
+
+        [switch]$json
     )
 
     [string[]]$output = $outputList.GetEnumerator() | ForEach-Object {
@@ -14,7 +19,25 @@
 
         if ($value -isnot [Array])
         {
+            if ($value -eq '')
+            {
+                return
+            }
+
             Write-Output "$key=$value"
+            return
+        }
+
+        if ($value.Count -eq 0)
+        {
+            return
+        }
+
+        if ($json)
+        {
+            [string]$values = $value | ConvertTo-Json -AsArray -Compress
+
+            Write-Output "$key=$values"
             return
         }
 

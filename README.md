@@ -14,6 +14,9 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [compress-archive](#compress-archive)
   - [copy-github-labels](#copy-github-labels)
   - [create-pull-request](#create-pull-request)
+  - [dotnet-pack](#dotnet-pack)
+  - [dotnet-publish](#dotnet-publish)
+  - [get-dotnet-platform](#get-dotnet-platform)
   - [get-github-repositories](#get-github-repositories)
   - [git-push](#git-push)
   - [git-versioning](#git-versioning)
@@ -21,7 +24,6 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [read-file](#read-file)
   - [run-msbuild-target](#run-msbuild-target)
   - [sync-repositories](#sync-repositories)
-  - [update-repository-json](#update-repository-json)
   - [upload-release-assets](#upload-release-assets)
 - [再利用可能なワークフロー](#再利用可能なワークフロー)
   - [build-dotnet.yml](#build-dotnetyml)
@@ -29,11 +31,13 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [build-powershell.yml](#build-powershellyml)
   - [build-python.yml](#build-pythonyml)
   - [build-yaml.yml](#build-yamlyml)
+  - [check-dotnet-platform.yml](#check-dotnet-platformyml)
   - [deploy-docker.yml](#deploy-dockeryml)
   - [deploy-dotnet.yml](#deploy-dotnetyml)
   - [get-version.yml](#get-versionyml)
   - [release.yml](#releaseyml)
-  - [update-repository-json.yml](#update-repository-jsonyml)
+  - [upload-artifacts-dotnet.yml](#upload-artifacts-dotnetyml)
+  - [upload-nuget-library.yml](#upload-nuget-libraryyml)
 - [ワークフロー](#ワークフロー)
   - [sync-dotfiles.yml](#sync-dotfilesyml)
   - [sync-github-settings.yml](#sync-github-settingsyml)
@@ -299,6 +303,165 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_
 
 なし
 
+### dotnet-pack
+
+dotnet packコマンドを実行するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: .NET Pack
+        uses: finphie/Actions/.github/actions/dotnet-pack@main
+        with: 
+          dotnet-version: '7.0'
+          configuration: Release
+          version: '1.0.0'
+          output-directory: publish
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+configuration|false|Release|ReleaseまたはDebug。
+version|**true**|-|バージョンを表す文字列。
+output-directory|false|publish|出力先ディレクトリ。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+success|nupkgファイルの生成に成功したかどうか。
+
+### dotnet-publish
+
+dotnet publishコマンドを実行するGitHub Actionです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: .NET Publish
+        uses: finphie/Actions/.github/actions/dotnet-publish@main
+        with: 
+          dotnet-version: '7.0'
+          project: ProjectName
+          configuration: Release
+          version: '1.0.0'
+          target-platform-identifier: none
+          target-platform-version: null
+          runtime: win10-x64
+          workload-restore: false
+          output-directory: publish
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
+project|string|**true**|-|プロジェクト名。
+configuration|enum|false|Release|ReleaseまたはDebug。
+version|string|**true**|-|バージョンを表す文字列。
+target-platform-identifier|enum|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
+target-platform-version|string|false|null|プラットフォームバージョンを表す文字列。
+runtime|string|**true**|-|ランタイム名。
+workload-restore|boolean|false|false|dotnet workload restoreを実行するかどうか。
+output-directory|string|false|publish|出力先ディレクトリ。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
+### get-dotnet-platform
+
+.NETプロジェクトのターゲットプラットフォーム名を取得するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get .NET platform
+        id: get-dotnet-platform
+        uses: finphie/Actions/.github/actions/get-dotnet-platform@main
+        with: 
+          solution-name: ${{ github.event.repository.name }}
+          projects: |
+            Project1,Console
+            Project2,Windows
+            Project3,Android
+            Project4,AspNet
+            Project5,BlazorWebAssembly
+
+      - run: |
+          echo '${{ steps.get-dotnet-platform.outputs.console }}'
+          echo '${{ steps.get-dotnet-platform.outputs.windows }}'
+          echo '${{ steps.get-dotnet-platform.outputs.android }}'
+          echo '${{ steps.get-dotnet-platform.outputs.server }}'
+          echo '${{ steps.get-dotnet-platform.outputs.browser }}'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+solution-name|string|false|-|ソリューション名。
+projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+console|コンソールプロジェクトのリスト。JSON文字列を出力する。
+windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
+android|Android関連プロジェクトのリスト。JSON文字列を出力する。
+server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+
 ### get-github-repositories
 
 GitHubリポジトリ名を取得するGitHub Actionです。
@@ -331,7 +494,6 @@ jobs:
 
       - run: |
           echo '${{ steps.get-github-repositories.outputs.repositories }}'
-
 ```
 
 #### 引数
@@ -614,7 +776,6 @@ jobs:
           labels: null
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
- 
 ```
 
 #### 引数
@@ -633,58 +794,6 @@ labels|string[]|false|chore|ラベルのリスト。
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
-
-#### 出力
-
-なし
-
-### update-repository-json
-
-repository.jsonを更新するGitHub Actionです。
-
-```yaml
-on:
-  workflow_dispatch:
-
-permissions: {}
-
-jobs:
-  main:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # 実行にはPowerShell 7.3以上が必要。
-      - name: Update PowerShell
-        working-directory: ${{ runner.temp }}
-        run: |
-          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get install -y powershell
-
-      - name: Update repository.json
-        uses: finphie/Actions/.github/actions/update-repository-json@main
-        with: 
-          solution-name: ${{ github.event.repository.name }}
-          projects: |
-            Project1,Windows
-            Project2,Console
-
-      - run: cat repository.json
-```
-
-#### 引数
-
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-solution-name|string|false|-|ソリューション名。
-projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
-
-#### 環境変数
-
-なし
 
 #### 出力
 
@@ -880,6 +989,48 @@ jobs:
 
 なし
 
+### check-dotnet-platform.yml
+
+.NETプロジェクトのターゲットプラットフォーム名を取得する再利用可能なワークフローです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
+
+  echo:
+    needs: main
+    run: |
+      echo '${{ needs.main.outputs.console }}'
+      echo '${{ needs.main.outputs.windows }}'
+      echo '${{ needs.main.outputs.android }}'
+      echo '${{ needs.main.outputs.server }}'
+      echo '${{ needs.main.outputs.browser }}'
+```
+
+#### 引数
+
+なし
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+console|コンソールプロジェクトのリスト。JSON文字列を出力する。
+windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
+android|Android関連プロジェクトのリスト。JSON文字列を出力する。
+server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+
 ### deploy-docker.yml
 
 Dockerのデプロイを実行する再利用可能なワークフローです。
@@ -932,8 +1083,6 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
     with:
-      dotnet-version: '7.0'
-      configuration: Release
       version: '1.0.0'
       release: true
       suffix: v1.0.0
@@ -946,8 +1095,6 @@ jobs:
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
-configuration|string|false|Release|ビルド構成。
 version|string|**true**|-|バージョンを表す文字列。
 release|bool|**true**|-|安定版リリースかどうか。
 suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
@@ -1015,7 +1162,7 @@ docker|bool|Dockerfileが含まれているかどうか。
 
 ### release.yml
 
-GitHubリリースを作成する再利用可能なワークフローです。GitHub Artifactsにファイルが存在する場合、そのファイルをアップロードします。
+GitHubリリースを作成する再利用可能なワークフローです。GitHub Actions Artifactsにファイルが存在する場合、そのファイルをアップロードします。
 
 ```yaml
 on:
@@ -1049,31 +1196,85 @@ tag|string|**true**|-|gitタグ名。
 
 なし
 
-### update-repository-json.yml
+### upload-artifacts-dotnet.yml
 
-repository.jsonを更新する再利用可能なワークフローです。
+.NETの発行により出力されたファイルを、GitHub Actions Artifactsにアップロードする再利用可能なワークフローです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
 
 ```yaml
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   main:
-    uses: finphie/Actions/.github/workflows/update-repository-json.yml@main
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ProjectName
+      platform: console
+      architecture: x64
+      version: '1.0.0'
+      suffix: v1.0.0
 ```
 
 #### 引数
 
-なし
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+project|string|**true**|-|プロジェクト名。
+platform|string|**true**|-|プラットフォーム名。console/windows/android/server/browserのいずれか。
+architecture|string|**true**|-|アーキテクチャ名。x64/arm64/wasmのいずれか。
+version|string|**true**|-|バージョンを表す文字列。
+suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
 #### 環境変数
 
 なし
+
+#### 出力
+
+なし
+
+### upload-nuget-library.yml
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
+    with:
+      version: '1.0.0'
+      release: true
+    secrets:
+      AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+version|**true**|-|バージョンを表す文字列。
+release|**true**|-|安定版リリースかどうか。
+
+#### 環境変数
+
+なし
+
+#### シークレット
+
+名前|必須|デフォルト|説明
+-|-|-|-
+AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 
