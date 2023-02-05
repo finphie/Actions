@@ -1067,7 +1067,7 @@ docker|bool|Dockerfileが含まれているかどうか。
 
 ### release.yml
 
-GitHubリリースを作成する再利用可能なワークフローです。GitHub Artifactsにファイルが存在する場合、そのファイルをアップロードします。
+GitHubリリースを作成する再利用可能なワークフローです。GitHub Actions Artifactsにファイルが存在する場合、そのファイルをアップロードします。
 
 ```yaml
 on:
@@ -1122,6 +1122,47 @@ jobs:
 #### 引数
 
 なし
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
+### upload-artifacts-dotnet.yml
+
+.NETの発行により出力されたファイルを、GitHub Actions Artifactsにアップロードする再利用可能なワークフローです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+    with:
+      project: ProjectName
+      platform: console
+      architecture: x64
+      version: '1.0.0'
+      suffix: v1.0.0
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+project|string|**true**|-|プロジェクト名。
+platform|string|**true**|-|プラットフォーム名。console/windows/android/server/browserのいずれか。
+architecture|string|**true**|-|アーキテクチャ名。x64/arm64/wasmのいずれか。
+version|string|**true**|-|バージョンを表す文字列。
+suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
 #### 環境変数
 
