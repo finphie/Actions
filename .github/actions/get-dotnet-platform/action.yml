@@ -1,0 +1,40 @@
+name: Get .NET platform
+description: .NETプロジェクトのターゲットプラットフォーム名を取得するGitHub Actionです。
+
+inputs:
+  solution-name:
+    description: ソリューション名。
+    required: false
+    default: ${{ github.event.repository.name }}
+  projects:
+    description: 「プロジェクト名,プラットフォーム名」区切りのリスト。
+    required: true
+
+outputs:
+  console:
+    description: コンソールプロジェクトのリスト。JSON文字列を出力する。
+    value: ${{ steps.x.outputs.console }}
+  windows:
+    description: Windows関連プロジェクトのリスト。JSON文字列を出力する。
+    value: ${{ steps.x.outputs.windows }}
+  android:
+    description: Android関連プロジェクトのリスト。JSON文字列を出力する。
+    value: ${{ steps.x.outputs.android }}
+  server:
+    description: サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+    value: ${{ steps.x.outputs.server }}
+  browser:
+    description: ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+    value: ${{ steps.x.outputs.browser }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get .NET platform
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/GetDotNetPlatform.ps1 `
+            -SolutionName '${{ inputs.solution-name }}' `
+            -Projects '${{ inputs.projects }}' `
+            -Verbose `
+            -ErrorAction Stop

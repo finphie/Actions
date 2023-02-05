@@ -353,6 +353,65 @@ output-directory|string|false|publish|出力先ディレクトリ。
 
 なし
 
+### get-dotnet-platform
+
+.NETプロジェクトのターゲットプラットフォーム名を取得するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get .NET platform
+        id: get-dotnet-platform
+        uses: finphie/Actions/.github/actions/get-dotnet-platform@main
+        with: 
+          solution-name: ${{ github.event.repository.name }}
+          projects: |
+            Project1,Console
+            Project2,Windows
+            Project3,Android
+            Project4,AspNet
+            Project5,BlazorWebAssembly
+
+      - run: |
+          echo '${{ steps.get-dotnet-platform.outputs.console }}'
+          echo '${{ steps.get-dotnet-platform.outputs.windows }}'
+          echo '${{ steps.get-dotnet-platform.outputs.android }}'
+          echo '${{ steps.get-dotnet-platform.outputs.server }}'
+          echo '${{ steps.get-dotnet-platform.outputs.browser }}'
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+solution-name|string|false|-|ソリューション名。
+projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+console|コンソールプロジェクトのリスト。JSON文字列を出力する。
+windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
+android|Android関連プロジェクトのリスト。JSON文字列を出力する。
+server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+
 ### get-github-repositories
 
 GitHubリポジトリ名を取得するGitHub Actionです。
@@ -685,58 +744,6 @@ labels|string[]|false|chore|ラベルのリスト。
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
 GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
-
-#### 出力
-
-なし
-
-### update-repository-json
-
-repository.jsonを更新するGitHub Actionです。
-
-```yaml
-on:
-  workflow_dispatch:
-
-permissions: {}
-
-jobs:
-  main:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # 実行にはPowerShell 7.3以上が必要。
-      - name: Update PowerShell
-        working-directory: ${{ runner.temp }}
-        run: |
-          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-          sudo dpkg -i packages-microsoft-prod.deb
-          sudo apt-get install -y powershell
-
-      - name: Update repository.json
-        uses: finphie/Actions/.github/actions/update-repository-json@main
-        with: 
-          solution-name: ${{ github.event.repository.name }}
-          projects: |
-            Project1,Windows
-            Project2,Console
-
-      - run: cat repository.json
-```
-
-#### 引数
-
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-solution-name|string|false|-|ソリューション名。
-projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
-
-#### 環境変数
-
-なし
 
 #### 出力
 
