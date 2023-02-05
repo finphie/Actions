@@ -52,7 +52,7 @@ function Get-GitHubOutput
         }
         else
         {
-            $outputs[$platform] += $projectName
+            $outputs[$platform.ToLowerInvariant()] += $projectName
         }
     }
 

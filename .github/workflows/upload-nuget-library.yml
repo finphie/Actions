@@ -23,7 +23,7 @@ permissions: {}
 
 jobs:
   main:
-    name: Main
+    name: Push(NuGet)
     runs-on: windows-latest
 
     steps:

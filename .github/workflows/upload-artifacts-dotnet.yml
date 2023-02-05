@@ -35,7 +35,7 @@ env:
 
 jobs:
   main:
-    name: Upload artifacts
+    name: Publish(${{ inputs.platform }})
     runs-on: ${{ inputs.platform != 'browser' && 'windows-latest' || 'ubuntu-latest' }}
 
     steps:
