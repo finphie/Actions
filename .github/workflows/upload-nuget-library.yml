@@ -4,15 +4,19 @@ on:
   workflow_call:
     inputs:
       version:
+        description: バージョンを表す文字列。
         required: true
         type: string
       release:
+        description: 安定版リリースかどうか。
         required: true
         type: boolean
     secrets:
       AZURE_ARTIFACT_PAT:
+        description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
         required: true
       NUGET_API_KEY:
+        description: 「Push」スコープを許可したNuGet APIキー。
         required: true
 
 permissions: {}

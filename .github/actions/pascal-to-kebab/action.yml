@@ -1,10 +1,11 @@
 name: Pascal to kebab
-description: 指定されたテキストを、PascalCaseからkebab-caseに変換するGitHub Actionです。
+description: 指定されたテキストを、PascalCaseからkebab-caseに変換するアクションです。
 
 inputs:
   text:
     description: 変換対象の文字列。
     required: true
+    type: string
 
 outputs:
   text:

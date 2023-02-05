@@ -50,7 +50,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
 
 ### check-extension
 
-リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+リポジトリ内に特定拡張子のファイルが含まれているか確認するアクションです。
 
 ```yaml
 on:
@@ -91,10 +91,10 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-path|string|false|${{ github.workspace }}|検索対象のディレクトリ。
-recurse|bool|false|false|再帰検索するかどうか。
+名前|必須|デフォルト|説明
+-|-|-|-
+path|false|${{ github.workspace }}|検索対象のディレクトリ。
+recurse|false|false|再帰検索するかどうか。
 
 #### 環境変数
 
@@ -102,25 +102,25 @@ recurse|bool|false|false|再帰検索するかどうか。
 
 #### 出力
 
-名前|型|説明
--|-|-
-dotnet|bool|.NETファイルが含まれているかどうか。
-powershell|bool|PowerShellファイルが含まれているかどうか。
-python|bool|Pythonファイルが含まれているかどうか。
-html|bool|HTMLファイルが含まれているかどうか。
-javascript|bool|JavaScriptファイルが含まれているかどうか。
-typescript|bool|TypeScriptファイルが含まれているかどうか。
-json|bool|JSONファイルが含まれているかどうか。
-yaml|bool|YAMLファイルが含まれているかどうか。
-markdown|bool|Markdownファイルが含まれているかどうか。
-docker|bool|Dockerfileが含まれているかどうか。
-nuget|bool|NuGetパッケージファイルが含まれているかどうか。
-zip|bool|zipファイルが含まれているかどうか。
-exe|bool|exeファイルが含まれているかどうか。
+名前|説明
+-|-
+dotnet|.NETファイルが含まれているかどうか。
+powershell|PowerShellファイルが含まれているかどうか。
+python|Pythonファイルが含まれているかどうか。
+html|HTMLファイルが含まれているかどうか。
+javascript|JavaScriptファイルが含まれているかどうか。
+typescript|TypeScriptファイルが含まれているかどうか。
+json|JSONファイルが含まれているかどうか。
+yaml|YAMLファイルが含まれているかどうか。
+markdown|Markdownファイルが含まれているかどうか。
+docker|Dockerfileが含まれているかどうか。
+nuget|NuGetパッケージファイルが含まれているかどうか。
+zip|zipファイルが含まれているかどうか。
+exe|exeファイルが含まれているかどうか。
 
 ### compress-archive
 
-zipファイルを作成するGitHub Actionです。
+zipファイルを作成するアクションです。
 
 ```yaml
 on:
@@ -153,13 +153,13 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-path|string|**true**|-|圧縮対象のファイルが存在するディレクトリ。
-destination-path|string|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
-root|bool|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
-suffix|string|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
-exclude|string|false|null|ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
+名前|必須|デフォルト|説明
+-|-|-|-
+path|**true**|-|圧縮対象のファイルが存在するディレクトリ。
+destination-path|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
+root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
+suffix|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
+exclude|false|null|ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
 
 #### 環境変数
 
@@ -171,7 +171,7 @@ exclude|string|false|null|ディレクトリ内のファイルが1個の場合�
 
 ### copy-github-labels
 
-GitHubラベルをソース元のリポジトリからコピーするGitHub Actionです。
+GitHubラベルをソース元のリポジトリからコピーするアクションです。
 
 ```yaml
 on:
@@ -196,16 +196,16 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-repositories|string[]|**true**|-|リポジトリのリスト。
-source-repository|string|**true**|-|ソース元のリポジトリ。
+名前|必須|デフォルト|説明
+-|-|-|-
+repositories|**true**|-|リポジトリのリスト。
+source-repository|**true**|-|ソース元のリポジトリ。
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
 
 #### 出力
 
@@ -213,7 +213,7 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 ### create-pull-request
 
-プルリクエストを作成するGitHub Actionです。
+プルリクエストを作成するアクションです。
 
 #### 同一リポジトリにプルリクエストを出す場合
 
@@ -286,18 +286,18 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-path|string|false|${{ github.workspace }}|リポジトリのパス。
-commit-message|string|**true**|-|コミットメッセージ。
-branch|string|false|create-pull-request|ブランチ名。
-labels|string[]|false|null|ラベルのリスト。
+名前|必須|デフォルト|説明
+-|-|-|-
+path|false|${{ github.workspace }}|リポジトリのパス。
+commit-message|**true**|-|コミットメッセージ。
+branch|false|create-pull-request|ブランチ名。
+labels|false|null|ラベルのリスト。
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_repo」スコープを許可したGitHub Personal Access Token。（他のリポジトリにPRを出す場合はPAT必須）
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレットまたは「public_repo」スコープを許可したGitHub Personal Access Token。（他のリポジトリにPRを出す場合はPAT必須）
 
 #### 出力
 
@@ -305,7 +305,7 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_
 
 ### dotnet-pack
 
-dotnet packコマンドを実行するGitHub Actionです。
+dotnet packコマンドを実行するアクションです。
 
 ```yaml
 on:
@@ -335,7 +335,7 @@ jobs:
 名前|必須|デフォルト|説明
 -|-|-|-
 dotnet-version|false|7.0|インストールする.NET SDKバージョン。
-configuration|false|Release|ReleaseまたはDebug。
+configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 output-directory|false|publish|出力先ディレクトリ。
 
@@ -351,7 +351,7 @@ success|nupkgファイルの生成に成功したかどうか。
 
 ### dotnet-publish
 
-dotnet publishコマンドを実行するGitHub Actionです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
+dotnet publishコマンドを実行するアクションです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
 
 ```yaml
 on:
@@ -383,17 +383,17 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
-project|string|**true**|-|プロジェクト名。
-configuration|enum|false|Release|ReleaseまたはDebug。
-version|string|**true**|-|バージョンを表す文字列。
-target-platform-identifier|enum|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
-target-platform-version|string|false|null|プラットフォームバージョンを表す文字列。
-runtime|string|**true**|-|ランタイム名。
-workload-restore|boolean|false|false|dotnet workload restoreを実行するかどうか。
-output-directory|string|false|publish|出力先ディレクトリ。
+名前|必須|デフォルト|説明
+-|-|-|-
+dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+project|**true**|-|プロジェクト名。
+configuration|false|Release|ビルド構成。
+version|**true**|-|バージョンを表す文字列。
+target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
+target-platform-version|false|null|プラットフォームバージョンを表す文字列。
+runtime|**true**|-|ランタイム名。
+workload-restore|false|false|dotnet workload restoreを実行するかどうか。
+output-directory|false|publish|出力先ディレクトリ。
 
 #### 環境変数
 
@@ -405,7 +405,7 @@ output-directory|string|false|publish|出力先ディレクトリ。
 
 ### get-dotnet-platform
 
-.NETプロジェクトのターゲットプラットフォーム名を取得するGitHub Actionです。
+.NETプロジェクトのターゲットプラットフォーム名を取得するアクションです。
 
 ```yaml
 on:
@@ -443,10 +443,10 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-solution-name|string|false|-|ソリューション名。
-projects|string|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
+名前|必須|デフォルト|説明
+-|-|-|-
+solution-name|false|-|ソリューション名。
+projects|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
 
 #### 環境変数
 
@@ -464,7 +464,7 @@ browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出�
 
 ### get-github-repositories
 
-GitHubリポジトリ名を取得するGitHub Actionです。
+GitHubリポジトリ名を取得するアクションです。
 
 ```yaml
 on:
@@ -498,36 +498,36 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-path|string|false|${{ github.workspace }}|リポジトリのパス。
-commit-message|string|**true**|-|コミットメッセージ。
-branch|string|false|create-pull-request|ブランチ名。
-labels|string[]|false|null|ラベルのリスト。
-archived|bool|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
-fork|bool|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
-language|string|false|null|指定された言語が主要なリポジトリを取得する。
-limit|int|false|1000|取得するリポジトリの最大数。
-no-archived|bool|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
-source|bool|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
-visibility|enum|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
-exclude|string[]|false|null|除外する「オーナー名/リポジトリ名」形式のリスト。
+名前|必須|デフォルト|説明
+-|-|-|-
+path|false|${{ github.workspace }}|リポジトリのパス。
+commit-message|**true**|-|コミットメッセージ。
+branch|false|create-pull-request|ブランチ名。
+labels|false|null|ラベルのリスト。
+archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
+fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
+language|false|null|指定された言語が主要なリポジトリを取得する。
+limit|false|1000|取得するリポジトリの最大数。
+no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
+source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
+visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
+exclude|false|null|除外する「オーナー名/リポジトリ名」形式のリスト。
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
 
 #### 出力
 
-名前|型|説明
--|-|-
-repositories|string[]|「オーナー名/リポジトリ名」のリスト。
+名前|説明
+-|-
+repositories|「オーナー名/リポジトリ名」のリスト。
 
 ### git-push
 
-Git pushを実行するGitHub Actionです。
+Git pushを実行するアクションです。
 
 ```yaml
 on:
@@ -554,9 +554,9 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-commit-message|string|**true**|-|コミットメッセージ。
+名前|必須|デフォルト|説明
+-|-|-|-
+commit-message|**true**|-|コミットメッセージ。
 
 #### 環境変数
 
@@ -568,7 +568,7 @@ commit-message|string|**true**|-|コミットメッセージ。
 
 ### git-versioning
 
-バージョン情報を取得するGitHub Actionです。
+バージョン情報を取得するアクションです。
 
 ```yaml
 on:
@@ -603,11 +603,11 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-file-name|string|false|version.json|バージョンを設定しているJSONファイルの名前。
-hash|string|false|${{ github.sha }}|基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
-revision|int|false|${{ github.run_number }}|リビジョン番号を表す数値。
+名前|必須|デフォルト|説明
+-|-|-|-
+file-name|false|version.json|バージョンを設定しているJSONファイルの名前。
+hash|false|${{ github.sha }}|基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
+revision|false|${{ github.run_number }}|リビジョン番号を表す数値。
 
 #### 環境変数
 
@@ -615,18 +615,18 @@ revision|int|false|${{ github.run_number }}|リビジョン番号を表す数値
 
 #### 出力
 
-名前|型|説明
--|-|-
-version|string|バージョンを表す文字列。
-version-major|int|メジャー番号を表す数値。
-version-minor|int|マイナー番号を表す数値。
-version-build|int|ビルド番号を表す数値。
-version-revision|int|リビジョン番号を表す数値。
-release|bool|安定版リリースかどうか。
+名前|説明
+-|-
+version|バージョンを表す文字列。
+version-major|メジャー番号を表す数値。
+version-minor|マイナー番号を表す数値。
+version-build|ビルド番号を表す数値。
+version-revision|リビジョン番号を表す数値。
+release|安定版リリースかどうか。
 
 ### pascal-to-kebab
 
-指定されたテキストを、PascalCaseからkebab-caseに変換するGitHub Actionです。
+指定されたテキストを、PascalCaseからkebab-caseに変換するアクションです。
 
 ```yaml
 on:
@@ -651,9 +651,9 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
+名前|必須|デフォルト|説明
 -|-|-|-|-
-text|string|**true**|-|変換対象の文字列。
+text|**true**|-|変換対象の文字列。
 
 #### 環境変数
 
@@ -661,13 +661,13 @@ text|string|**true**|-|変換対象の文字列。
 
 #### 出力
 
-名前|型|説明
--|-|-
-text|string|変換後の文字列。
+名前|説明
+-|-
+text|変換後の文字列。
 
 ### read-file
 
-テキストファイルを読み込むGitHub Actionです。
+テキストファイルを読み込むアクションです。
 
 ```yaml
 on:
@@ -695,9 +695,9 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-file-path|string|**true**|-|テキストファイルのパス。
+名前|必須|デフォルト|説明
+-|-|-|-
+file-path|**true**|-|テキストファイルのパス。
 
 #### 環境変数
 
@@ -705,13 +705,13 @@ file-path|string|**true**|-|テキストファイルのパス。
 
 #### 出力
 
-名前|型|説明
--|-|-
-text|string|ファイル内容。
+名前|説明
+-|-
+text|ファイル内容。
 
 ### run-msbuild-target
 
-MSBuildターゲットを実行するGitHub Actionです。
+MSBuildターゲットを実行するアクションです。
 
 ```yaml
 on:
@@ -736,9 +736,9 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-target|string|**true**|-|MSBuildターゲット名。
+名前|必須|デフォルト|説明
+-|-|-|-
+target|**true**|-|MSBuildターゲット名。
 
 #### 環境変数
 
@@ -746,13 +746,13 @@ target|string|**true**|-|MSBuildターゲット名。
 
 #### 出力
 
-名前|型|説明
--|-|-
-lines|string[]|MSBuildターゲット実行時に出力された文字列。
+名前|説明
+-|-
+lines|MSBuildターゲット実行時に出力された文字列。
 
 ### sync-repositories
 
-ソース元のリポジトリと同期するGitHub Actionです。
+ソース元のリポジトリと同期するアクションです。
 
 ```yaml
 on:
@@ -780,20 +780,20 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-source-path|string|**true**|-|ソース元リポジトリのパス。
-target-path|string|**true**|-|同期先リポジトリのパス。
-settings-file-path|string|**true**|-|JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
-commit-message|string|**true**|-|コミットメッセージ。
-branch|string|false|sync-github-repositories|ブランチ名。
-labels|string[]|false|chore|ラベルのリスト。
+名前|必須|デフォルト|説明
+-|-|-|-
+source-path|**true**|-|ソース元リポジトリのパス。
+target-path|**true**|-|同期先リポジトリのパス。
+settings-file-path|**true**|-|JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
+commit-message|**true**|-|コミットメッセージ。
+branch|false|sync-github-repositories|ブランチ名。
+labels|false|chore|ラベルのリスト。
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
 
 #### 出力
 
@@ -801,7 +801,7 @@ GITHUB_TOKEN|string|**true**|-|「public_repo」スコープを許可したGitHu
 
 ### upload-release-assets
 
-リリースにファイルをアップロードするGitHub Actionです。
+リリースにファイルをアップロードするアクションです。
 
 ```yaml
 on:
@@ -831,16 +831,16 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-tag|string|**true**|-|対象のgitタグ。
-files|string|**true**|-|アップロード対象のファイルリスト。
+名前|必須|デフォルト|説明
+-|-|-|-
+tag|**true**|-|対象のgitタグ。
+files|**true**|-|アップロード対象のファイルリスト。
 
 #### 環境変数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレット。
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレット。
 
 #### 出力
 
@@ -868,10 +868,10 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
-configuration|string|false|Release|ビルド構成。
+名前|必須|デフォルト|説明
+-|-|-|-
+dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+configuration|false|Release|ビルド構成。
 
 #### 環境変数
 
@@ -1054,10 +1054,10 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-version|string|**true**|-|バージョンを表す文字列。
-version-major|int|**true**|-|メジャーバージョンを表す数値。
+名前|必須|デフォルト|説明
+-|-|-|-
+version|**true**|-|バージョンを表す文字列。
+version-major|**true**|-|メジャーバージョンを表す数値。
 
 #### 環境変数
 
@@ -1093,11 +1093,11 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-version|string|**true**|-|バージョンを表す文字列。
-release|bool|**true**|-|安定版リリースかどうか。
-suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
+名前|必須|デフォルト|説明
+-|-|-|-
+version|**true**|-|バージョンを表す文字列。
+release|**true**|-|安定版リリースかどうか。
+suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
 #### 環境変数
 
@@ -1105,10 +1105,10 @@ suffix|string|**true**|-|アップロードする成果物名の末尾に追加�
 
 #### シークレット
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-AZURE_ARTIFACT_PAT|string|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
-NUGET_API_KEY|string|**true**|-|「Push」スコープを許可したNuGet APIキー。
+名前|必須|デフォルト|説明
+-|-|-|-
+AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 
@@ -1151,14 +1151,14 @@ jobs:
 
 #### 出力
 
-名前|型|説明
--|-|-
-version|string|バージョンを表す文字列。
-version-major|int|メジャー番号を表す数値。
-release|bool|安定版リリースかどうか。
-tag|string|gitタグ名。
-dotnet|bool|.NETファイルが含まれているかどうか。
-docker|bool|Dockerfileが含まれているかどうか。
+名前|説明
+-|-
+version|バージョンを表す文字列。
+version-major|メジャー番号を表す数値。
+release|安定版リリースかどうか。
+tag|gitタグ名。
+dotnet|.NETファイルが含まれているかどうか。
+docker|Dockerfileが含まれているかどうか。
 
 ### release.yml
 
@@ -1183,10 +1183,10 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-version|string|**true**|-|バージョンを表す文字列。
-tag|string|**true**|-|gitタグ名。
+名前|必須|デフォルト|説明
+-|-|-|-
+version|**true**|-|バージョンを表す文字列。
+tag|**true**|-|gitタグ名。
 
 #### 環境変数
 
@@ -1221,13 +1221,13 @@ jobs:
 
 #### 引数
 
-名前|型|必須|デフォルト|説明
--|-|-|-|-
-project|string|**true**|-|プロジェクト名。
-platform|string|**true**|-|プラットフォーム名。console/windows/android/server/browserのいずれか。
-architecture|string|**true**|-|アーキテクチャ名。x64/arm64/wasmのいずれか。
-version|string|**true**|-|バージョンを表す文字列。
-suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
+名前|必須|デフォルト|説明
+-|-|-|-
+project|**true**|-|プロジェクト名。
+platform|**true**|-|プラットフォーム名。console/windows/android/server/browserのいずれか。
+architecture|**true**|-|アーキテクチャ名。x64/arm64/wasmのいずれか。
+version|**true**|-|バージョンを表す文字列。
+suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
 #### 環境変数
 

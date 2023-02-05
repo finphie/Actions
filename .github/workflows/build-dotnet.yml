@@ -4,10 +4,12 @@ on:
   workflow_call:
     inputs:
       dotnet-version:
+        description: インストールする.NET SDKバージョン。
         required: false
         type: string
         default: '7.0'
       configuration:
+        description: ビルド構成。
         required: false
         type: string
         default: Release

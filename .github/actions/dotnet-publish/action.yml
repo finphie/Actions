@@ -1,5 +1,5 @@
 name: .NET Publish
-description: dotnet publishコマンドを実行するGitHub Actionです。
+description: dotnet publishコマンドを実行するアクションです。
 
 inputs:
   dotnet-version:
@@ -12,7 +12,7 @@ inputs:
     required: true
     type: string
   configuration:
-    description: ReleaseまたはDebug。
+    description: ビルド構成。
     required: false
     type: choice
     options:

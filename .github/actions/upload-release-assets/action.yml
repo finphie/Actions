@@ -1,13 +1,15 @@
 name: Upload release assets
-description: リリースにファイルをアップロードするGitHub Actionです。
+description: リリースにファイルをアップロードするアクションです。
 
 inputs:
   tag:
     description: 対象のgitタグ。
     required: true
+    type: string
   files:
     description: アップロード対象のファイルリスト。
     required: true
+    type: string
 
 runs:
   using: composite

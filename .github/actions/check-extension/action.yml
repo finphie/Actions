@@ -1,14 +1,16 @@
 name: Check extension
-description: リポジトリ内に特定拡張子のファイルが含まれているか確認するGitHub Actionです。
+description: リポジトリ内に特定拡張子のファイルが含まれているか確認するアクションです。
 
 inputs:
   path:
     description: 検索対象のディレクトリ。
     required: false
+    type: string
     default: ${{ github.workspace }}
   recurse:
     description: 再帰検索するかどうか。
     required: false
+    type: boolean
     default: false
 
 outputs:

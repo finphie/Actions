@@ -4,9 +4,11 @@ on:
   workflow_call:
     inputs:
       version:
+        description: バージョンを表す文字列。
         required: true
         type: string
       version-major:
+        description: メジャーバージョンを表す数値。
         required: true
         type: string
 

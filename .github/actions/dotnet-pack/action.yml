@@ -1,5 +1,5 @@
 name: .NET Pack
-description: dotnet packコマンドを実行するGitHub Actionです。
+description: dotnet packコマンドを実行するアクションです。
 
 inputs:
   dotnet-version:
@@ -8,7 +8,7 @@ inputs:
     type: string
     default: '7.0'
   configuration:
-    description: ReleaseまたはDebug。
+    description: ビルド構成。
     required: false
     type: choice
     options:
