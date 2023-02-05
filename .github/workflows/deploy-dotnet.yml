@@ -54,7 +54,7 @@ jobs:
     uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
       project: ${{ matrix.project }}
-      platform: windows
+      platform: console
       architecture: ${{ matrix.architecture }}
       version: ${{ inputs.version }}
       suffix: ${{ inputs.suffix }}
