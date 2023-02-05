@@ -4,9 +4,11 @@ on:
   workflow_call:
     inputs:
       version:
+        description: バージョンを表す文字列。
         required: true
         type: string
       tag:
+        description: gitタグ名。
         required: true
         type: string
 
