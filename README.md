@@ -1079,8 +1079,6 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
     with:
-      dotnet-version: '7.0'
-      configuration: Release
       version: '1.0.0'
       release: true
       suffix: v1.0.0
@@ -1093,8 +1091,6 @@ jobs:
 
 名前|型|必須|デフォルト|説明
 -|-|-|-|-
-dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
-configuration|string|false|Release|ビルド構成。
 version|string|**true**|-|バージョンを表す文字列。
 release|bool|**true**|-|安定版リリースかどうか。
 suffix|string|**true**|-|アップロードする成果物名の末尾に追加する文字列。
@@ -1232,6 +1228,49 @@ suffix|string|**true**|-|アップロードする成果物名の末尾に追加�
 #### 環境変数
 
 なし
+
+#### 出力
+
+なし
+
+### upload-nuget-library.yml
+
+```yaml
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
+    with:
+      version: '1.0.0'
+      release: true
+    secrets:
+      AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+version|**true**|-|バージョンを表す文字列。
+release|**true**|-|安定版リリースかどうか。
+
+#### 環境変数
+
+なし
+
+#### シークレット
+
+名前|必須|デフォルト|説明
+-|-|-|-
+AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 

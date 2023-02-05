@@ -3,14 +3,6 @@ name: Deploy(.NET)
 on:
   workflow_call:
     inputs:
-      dotnet-version:
-        required: false
-        type: string
-        default: '7.0'
-      configuration:
-        required: false
-        type: string
-        default: Release
       version:
         required: true
         type: string
@@ -28,55 +20,20 @@ on:
 
 permissions: {}
 
-env:
-  DOTNET_NOLOGO: true
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
-  OUTPUT_DIRECTORY: publish
-  RETENTION_DAYS: 1
-
 jobs:
   check:
+    name: Check
     uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
 
   pack:
-    name: Pack
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ inputs.dotnet-version }}.x
-
-      - name: Pack
-        run: dotnet pack --configuration ${{ inputs.configuration }} --output ${{ env.OUTPUT_DIRECTORY }} -p:Version=${{ inputs.version }}
-
-      - name: Check extension
-        id: check-extension
-        uses: finphie/Actions/.github/actions/check-extension@main
-        with:
-          path: ${{ env.OUTPUT_DIRECTORY }}
-
-      - name: Push(Azure Artifacts)
-        if: steps.check-extension.outputs.nuget == 'true'
-        run: |
-          dotnet nuget add source $SOURCE_URL --name "$SOURCE" --user "$GITHUB_ACTOR" --password "$TOKEN"
-          dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE"
-        env:
-          SOURCE: Azure Artifacts
-          SOURCE_URL: 'https://pkgs.dev.azure.com/finphie/Main/_packaging/DotNet/nuget/v3/index.json'
-          TOKEN: ${{ secrets.AZURE_ARTIFACT_PAT }}
-
-      - name: Push(NuGet)
-        if: steps.check-extension.outputs.nuget == 'true' && inputs.release == 'true'
-        run: dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE_URL"
-        env:
-          SOURCE_URL: 'https://api.nuget.org/v3/index.json'
-          TOKEN: ${{ secrets.NUGET_API_KEY }}
+    name: Push(NuGet)
+    uses: finphie/Actions/.github/workflows/upload-nuget-library@main
+    with:
+      version: ${{ inputs.version }}
+      release: ${{ inputs.release }}
+    secrets:
+      AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
   publish-console:
     name: Publish(Console)
