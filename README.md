@@ -335,7 +335,7 @@ jobs:
 名前|必須|デフォルト|説明
 -|-|-|-
 dotnet-version|false|7.0|インストールする.NET SDKバージョン。
-configuration|false|Release|ReleaseまたはDebug。
+configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 output-directory|false|publish|出力先ディレクトリ。
 
@@ -387,7 +387,7 @@ jobs:
 -|-|-|-
 dotnet-version|false|7.0|インストールする.NET SDKバージョン。
 project|**true**|-|プロジェクト名。
-configuration|false|Release|ReleaseまたはDebug。
+configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
 target-platform-version|false|null|プラットフォームバージョンを表す文字列。
