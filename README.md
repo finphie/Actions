@@ -299,6 +299,52 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_
 
 なし
 
+### dotnet-pack
+
+dotnet packコマンドを実行するGitHub Actionです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: .NET Pack
+        uses: finphie/Actions/.github/actions/dotnet-pack@main
+        with: 
+          dotnet-version: '7.0'
+          configuration: Release
+          version: '1.0.0'
+          output-directory: publish
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+configuration|false|Release|ReleaseまたはDebug。
+version|**true**|-|バージョンを表す文字列。
+output-directory|false|publish|出力先ディレクトリ。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+success|nupkgファイルの生成に成功したかどうか。
+
 ### dotnet-publish
 
 dotnet publishコマンドを実行するGitHub Actionです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
