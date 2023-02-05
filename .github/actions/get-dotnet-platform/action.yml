@@ -33,6 +33,7 @@ runs:
   using: composite
   steps:
     - name: Get .NET platform
+      id: x
       shell: pwsh
       run: |
         ${{ github.action_path }}/GetDotNetPlatform.ps1 `
