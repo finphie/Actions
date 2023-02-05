@@ -32,7 +32,7 @@ jobs:
 
   pack:
     name: Push(NuGet)
-    uses: finphie/Actions/.github/workflows/upload-nuget-library@main
+    uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
     with:
       version: ${{ inputs.version }}
       release: ${{ inputs.release }}
