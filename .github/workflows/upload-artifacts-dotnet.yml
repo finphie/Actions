@@ -27,7 +27,6 @@ on:
 permissions: {}
 
 env:
-  DOTNET_VERSION: '7.0'
   WINDOWS_TARGET_PLATFORM_VERSION: '10.0.19041.0'
   ANDROID_TARGET_SDK_VERSION: '32.0'
   OUTPUT_DIRECTORY: publish
@@ -46,7 +45,6 @@ jobs:
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
           project: ${{ inputs.project }}
           version: ${{ inputs.version }}
           target-platform-identifier: ${{ (inputs.platform == 'windows' || inputs.platform == 'android') && inputs.platform || 'none' }}
