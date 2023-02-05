@@ -299,6 +299,60 @@ GITHUB_TOKEN|string|**true**|-|GITHUB_TOKENシークレットまたは「public_
 
 なし
 
+### dotnet-publish
+
+dotnet publishコマンドを実行するGitHub Actionです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: .NET Publish
+        uses: finphie/Actions/.github/actions/dotnet-publish@main
+        with: 
+          dotnet-version: '7.0'
+          project: ProjectName
+          configuration: Release
+          version: '1.0.0'
+          target-platform-identifier: none
+          target-platform-version: null
+          runtime: win10-x64
+          workload-restore: false
+          output-directory: publish
+```
+
+#### 引数
+
+名前|型|必須|デフォルト|説明
+-|-|-|-|-
+dotnet-version|string|false|7.0|インストールする.NET SDKバージョン。
+project|string|**true**|-|プロジェクト名。
+configuration|enum|false|Release|ReleaseまたはDebug。
+version|string|**true**|-|バージョンを表す文字列。
+target-platform-identifier|enum|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
+target-platform-version|string|false|null|プラットフォームバージョンを表す文字列。
+runtime|string|**true**|-|ランタイム名。
+workload-restore|boolean|false|false|dotnet workload restoreを実行するかどうか。
+output-directory|string|false|publish|出力先ディレクトリ。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
+
 ### get-github-repositories
 
 GitHubリポジトリ名を取得するGitHub Actionです。
@@ -331,7 +385,6 @@ jobs:
 
       - run: |
           echo '${{ steps.get-github-repositories.outputs.repositories }}'
-
 ```
 
 #### 引数
@@ -614,7 +667,6 @@ jobs:
           labels: null
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
- 
 ```
 
 #### 引数

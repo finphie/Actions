@@ -1,0 +1,86 @@
+name: .NET Publish
+description: dotnet publishコマンドを実行するGitHub Actionです。
+
+inputs:
+  dotnet-version:
+    description: インストールする.NET SDKバージョン。
+    required: false
+    type: string
+    default: '7.0'
+  project:
+    description: プロジェクト名。
+    required: true
+    type: string
+  configuration:
+    description: ReleaseまたはDebug。
+    required: false
+    type: choice
+    options:
+      - Release
+      - Debug
+    default: Release
+  version:
+    description: バージョンを表す文字列。
+    required: true
+    type: string
+  target-platform-identifier:
+    description: プラットフォーム識別子。
+    required: false
+    type: choice
+    options:
+      - none
+      - windows
+      - android
+      - maccatalyst
+      - ios
+      - tvos
+      - tizen
+    default: none
+  target-platform-version:
+    description: プラットフォームバージョンを表す文字列。
+    required: false
+    type: string
+    default: null
+  runtime:
+    description: ランタイム名。
+    required: true
+    type: string
+  workload-restore:
+    description: dotnet workload restoreを実行するかどうか。
+    required: false
+    type: boolean
+    default: false
+  output-directory:
+    description: 出力先ディレクトリ。
+    required: false
+    type: string
+    default: publish
+
+runs:
+  using: composite
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}.x
+
+    - name: Workload restore
+      if: inputs.workload-restore == 'true'
+      shell: pwsh
+      run: dotnet workload restore
+
+    - name: Publish
+      shell: pwsh
+      env:
+        DOTNET_NOLOGO: true
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+        PLATFORM: ${{ inputs.target-platform-identifier != 'none' && format('-{0}{1}', inputs.target-platform-identifier, inputs.target-platform-version) || '' }}
+        FRAMEWORK: net${{ inputs.dotnet-version }}${{ inputs.target-platform-identifier != 'none' && env.PLATFORM || '' }}
+      run: |
+        dotnet publish Source/${{ inputs.project }}/${{ inputs.project }}.csproj `
+            --configuration ${{ inputs.configuration }} `
+            --framework ${{ env.FRAMEWORK }} `
+            --runtime ${{ inputs.runtime }} `
+            --output ${{ inputs.output-directory }} `
+            -p:Version=${{ inputs.version }}
