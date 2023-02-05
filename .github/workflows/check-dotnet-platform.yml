@@ -1,0 +1,34 @@
+name: Check .NET platform
+
+on:
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  main:
+    name: Main
+    runs-on: ubuntu-latest
+
+    outputs:
+      console: ${{ steps.get-dotnet-platform.outputs.console }}
+      windows: ${{ steps.get-dotnet-platform.outputs.windows }}
+      android: ${{ steps.get-dotnet-platform.outputs.android }}
+      server: ${{ steps.get-dotnet-platform.outputs.server }}
+      browser: ${{ steps.get-dotnet-platform.outputs.browser }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get ProjectIdentifier
+        id: project-identifier
+        uses: finphie/Actions/.github/actions/run-msbuild-target@main
+        with:
+          target: GetProjectIdentifier
+
+      - name: Get .NET platform
+        id: get-dotnet-platform
+        uses: finphie/Actions/.github/actions/get-dotnet-platform@main
+        with:
+          projects: ${{ steps.project-identifier.outputs.lines }}

@@ -939,6 +939,48 @@ jobs:
 
 なし
 
+### check-dotnet-platform.yml
+
+.NETプロジェクトのターゲットプラットフォーム名を取得する再利用可能なワークフローです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
+
+  echo:
+    needs: main
+    run: |
+      echo '${{ needs.main.outputs.console }}'
+      echo '${{ needs.main.outputs.windows }}'
+      echo '${{ needs.main.outputs.android }}'
+      echo '${{ needs.main.outputs.server }}'
+      echo '${{ needs.main.outputs.browser }}'
+```
+
+#### 引数
+
+なし
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+console|コンソールプロジェクトのリスト。JSON文字列を出力する。
+windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
+android|Android関連プロジェクトのリスト。JSON文字列を出力する。
+server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
+browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+
 ### deploy-docker.yml
 
 Dockerのデプロイを実行する再利用可能なワークフローです。
@@ -1099,36 +1141,6 @@ jobs:
 -|-|-|-|-
 version|string|**true**|-|バージョンを表す文字列。
 tag|string|**true**|-|gitタグ名。
-
-#### 環境変数
-
-なし
-
-#### 出力
-
-なし
-
-### update-repository-json.yml
-
-repository.jsonを更新する再利用可能なワークフローです。
-
-```yaml
-on:
-  pull_request:
-
-permissions:
-  contents: write
-
-jobs:
-  main:
-    uses: finphie/Actions/.github/workflows/update-repository-json.yml@main
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-#### 引数
-
-なし
 
 #### 環境変数
 
