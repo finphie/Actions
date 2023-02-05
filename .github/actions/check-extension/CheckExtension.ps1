@@ -78,12 +78,6 @@ function Get-GitHubOutput
 }
 
 Write-Verbose "Path: $path"
-Write-Verbose $path.Length
-Get-ChildItem $path
-
-Write-Verbose "a"
-(Get-ChildItem $path -File -Force -Recurse:$recurse -Include "*").FullName
-
 [Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs
