@@ -63,5 +63,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT_FILE_NAME }}
-          path: ${{ runner.temp }}
+          path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.zip
           retention-days: ${{ env.RETENTION_DAYS }}

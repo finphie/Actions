@@ -75,8 +75,7 @@ runs:
         DOTNET_NOLOGO: true
         DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
         DOTNET_CLI_TELEMETRY_OPTOUT: true
-        PLATFORM: ${{ inputs.target-platform-identifier != 'none' && format('-{0}{1}', inputs.target-platform-identifier, inputs.target-platform-version) || '' }}
-        FRAMEWORK: net${{ inputs.dotnet-version }}${{ inputs.target-platform-identifier != 'none' && env.PLATFORM || '' }}
+        FRAMEWORK: net${{ inputs.dotnet-version }}${{ inputs.target-platform-identifier != 'none' && format('-{0}{1}', inputs.target-platform-identifier, inputs.target-platform-version) || '' }}
       run: |
         dotnet publish Source/${{ inputs.project }}/${{ inputs.project }}.csproj `
             --configuration ${{ inputs.configuration }} `
