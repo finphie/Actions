@@ -19,7 +19,7 @@ function Write-GitHubOutput
 
         if ($value -isnot [Array])
         {
-            if ($value -eq '')
+            if ($value -is [string] -and $value -eq '')
             {
                 return
             }

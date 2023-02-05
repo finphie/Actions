@@ -32,7 +32,7 @@ function Test-Extension
     [string]$fullFileName = $extension -eq '' ? $fileName : "$fileName.$extension"
 
     # Test-Pathは隠しファイルを取得できない。
-    [string[]]$files = (Get-ChildItem $path -File -Force -Recurse:$recurse -Include $fullFileName -ErrorAction SilentlyContinue).FullName |
+    [string[]]$files = (Get-ChildItem (Join-Path $path '*') -File -Force -Recurse:$recurse -Include $fullFileName -ErrorAction SilentlyContinue).FullName |
         Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
     if ($files.Count -eq 0)
