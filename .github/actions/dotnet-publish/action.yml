@@ -42,7 +42,7 @@ inputs:
     type: string
     default: null
   runtime:
-    description: ランタイム名。
+    description: ランタイム識別子。
     required: true
     type: string
   workload-restore:
