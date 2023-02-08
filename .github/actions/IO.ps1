@@ -35,6 +35,19 @@ function Get-FilePath
     return (Split-Path -IsAbsolute $childPath) ? $childPath : (Join-Path $path $childPath)
 }
 
+function Get-JsonFile
+{
+    [CmdletBinding()]
+    [OutputType([Hashtable])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        $path
+    )
+
+    return Get-Content $path | ConvertFrom-Json -AsHashtable -NoEnumerate
+}
+
 function New-Archive
 {
     [CmdletBinding(SupportsShouldProcess)]
