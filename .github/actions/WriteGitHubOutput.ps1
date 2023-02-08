@@ -18,6 +18,14 @@ function Write-GitHubOutput
         [string]$key = $_.Key
         $value = $_.Value
 
+        if ($json)
+        {
+            [string]$jsonText = $value | ConvertTo-Json -AsArray -Compress
+
+            Write-Output "$key=$jsonText"
+            return
+        }
+
         if ($value -isnot [Array])
         {
             if ($value -is [string] -and $value -eq '')
@@ -31,14 +39,6 @@ function Write-GitHubOutput
 
         if ($value.Count -eq 0)
         {
-            return
-        }
-
-        if ($json)
-        {
-            [string]$jsonText = $value | ConvertTo-Json -AsArray -Compress
-
-            Write-Output "$key=$jsonText"
             return
         }
 
