@@ -1,4 +1,5 @@
-﻿using namespace System.Diagnostics.CodeAnalysis
+﻿using namespace System.Collections.Specialized
+using namespace System.Diagnostics.CodeAnalysis
 
 function Write-GitHubOutput
 {
@@ -8,7 +9,7 @@ function Write-GitHubOutput
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [Collections.Specialized.OrderedDictionary]$outputList,
+        [OrderedDictionary]$outputList,
 
         [switch]$json
     )
@@ -35,9 +36,9 @@ function Write-GitHubOutput
 
         if ($json)
         {
-            [string]$values = $value | ConvertTo-Json -AsArray -Compress
+            [string]$jsonText = $value | ConvertTo-Json -AsArray -Compress
 
-            Write-Output "$key=$values"
+            Write-Output "$key=$jsonText"
             return
         }
 
