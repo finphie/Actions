@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
@@ -47,7 +49,7 @@ function Test-Extension
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
@@ -57,7 +59,7 @@ function Get-GitHubOutput
         [bool]$recurse
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'dotnet' = Test-Extension -Path $path -Extension 'sln' -Recurse $recurse
         'powershell' = Test-Extension -Path $path -Extension 'ps1' -Recurse $recurse
         'python' = Test-Extension -Path $path -Extension 'py' -Recurse $recurse
@@ -78,6 +80,6 @@ function Get-GitHubOutput
 }
 
 Write-Verbose "Path: $path"
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
+[OrderedDictionary]$outputs = Get-GitHubOutput -Path $path -Recurse $recurse
 
 Write-GitHubOutput -OutputList $outputs

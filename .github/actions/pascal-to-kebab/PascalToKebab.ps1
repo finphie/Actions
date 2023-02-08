@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -49,19 +51,19 @@ function PascalToKebab
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$text
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'text' = PascalToKebab $text
     }
 
     return $outputs
 }
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
+[OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
 Write-GitHubOutput -OutputList $outputs
