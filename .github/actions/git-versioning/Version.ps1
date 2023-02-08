@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [ValidateScript({ (Split-Path $_ -Parent) -eq '' }, ErrorMessage='Invalid file name.')]
     [string]$versionFileName = 'version.json',
@@ -40,7 +42,7 @@ function Get-Version
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
@@ -50,7 +52,7 @@ function Get-GitHubOutput
         [bool]$release
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'version' = $version
         'version-major' = $version.Major
         'version-minor' = $version.Minor
@@ -83,5 +85,5 @@ if (!(Test-Path $versionFileName -PathType Leaf))
 Write-Verbose "Version: $displayVersion"
 Write-Verbose "Release: $release"
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
+[OrderedDictionary]$outputs = Get-GitHubOutput -Version $displayVersion -Release $release
 Write-GitHubOutput -OutputList $outputs

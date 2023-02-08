@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -11,14 +13,14 @@ param (
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string[]]$lineList
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'lines' = $lineList
     }
 
@@ -27,5 +29,5 @@ function Get-GitHubOutput
 
 [string[]]$lines = dotnet msbuild -nologo -target:$target | ForEach-Object { $_.Trim() }
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -LineList $lines
+[OrderedDictionary]$outputs = Get-GitHubOutput -LineList $lines
 Write-GitHubOutput -OutputList $outputs

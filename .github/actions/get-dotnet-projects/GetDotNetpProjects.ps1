@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
@@ -20,7 +22,7 @@ param (
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
@@ -56,7 +58,7 @@ function Get-GitHubOutput
 
         foreach ($element in $elements)
         {
-            [Collections.Specialized.OrderedDictionary]$output = [Ordered]@{
+            [OrderedDictionary]$output = [Ordered]@{
                 'project' = $projectName
                 'os' = $element['os']
                 'architecture' = $element['architecture']
@@ -70,7 +72,7 @@ function Get-GitHubOutput
         }
     }
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'projects' = [Ordered]@{
             'include' = $projects
         }
@@ -84,5 +86,5 @@ Write-Verbose "SolutionName: $solutionName"
 [hashtable]$settings = Get-JsonFile -Path $settingsFilePath
 [string[]]$projectList = Get-List -Value $projects -WithoutConnma | Where-Object { $_.StartsWith($solutionName) }
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Settings $settings -ProjectList $projectList
+[OrderedDictionary]$outputs = Get-GitHubOutput -Settings $settings -ProjectList $projectList
 Write-GitHubOutput -OutputList $outputs -Json

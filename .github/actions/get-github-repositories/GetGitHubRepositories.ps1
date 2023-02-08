@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [switch]$archived,
     [switch]$fork,
@@ -23,14 +25,14 @@ param (
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string[]]$repositories
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'repositories' = $repositories
     }
 
@@ -55,5 +57,5 @@ if ($exclude -ne '')
     $repositories = $repositories | Where-Object { !($_ -in $excludeRepositories) }
 }
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Repositories $repositories
+[OrderedDictionary]$outputs = Get-GitHubOutput -Repositories $repositories
 Write-GitHubOutput -OutputList $outputs

@@ -1,4 +1,6 @@
-﻿[CmdletBinding(SupportsShouldProcess)]
+﻿using namespace System.Collections.Specialized
+
+[CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory)]
     [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
@@ -11,14 +13,14 @@ param (
 function Get-GitHubOutput
 {
     [CmdletBinding()]
-    [OutputType([Collections.Specialized.OrderedDictionary])]
+    [OutputType([OrderedDictionary])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string[]]$text
     )
 
-    [Collections.Specialized.OrderedDictionary]$outputs = [Ordered]@{
+    [OrderedDictionary]$outputs = [Ordered]@{
         'text' = $text
     }
 
@@ -28,5 +30,5 @@ function Get-GitHubOutput
 
 $text = Get-Content $filePath
 
-[Collections.Specialized.OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
+[OrderedDictionary]$outputs = Get-GitHubOutput -Text $text
 Write-GitHubOutput -OutputList $outputs
