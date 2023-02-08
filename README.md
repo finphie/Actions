@@ -1198,9 +1198,13 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
+      runs-on: ubuntu-latest
       project: ProjectName
-      platform: console
+      target-platform-identifier: none
+      target-platform-version: ''
+      os: win10
       architecture: x64
+      workload-restore: false
       version: '1.0.0'
       suffix: v1.0.0
 ```
@@ -1209,9 +1213,13 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
+runs-on|false|ubuntu-latest|ランナー環境。
 project|**true**|-|プロジェクト名。
-platform|**true**|-|プラットフォーム名。console/windows/android/server/browserのいずれか。
-architecture|**true**|-|アーキテクチャ名。x64/arm64/wasmのいずれか。
+target-platform-identifier|false|none|プラットフォーム識別子。
+target-platform-version|false|-|プラットフォームバージョンを表す文字列。
+os|**true**|-|OSの名前。（ランタイム識別子）
+architecture|**true**|-|アーキテクチャ名。（ランタイム識別子）
+workload-restore|false|false|dotnet workload restoreを実行するかどうか。
 version|**true**|-|バージョンを表す文字列。
 suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
 
