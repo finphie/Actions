@@ -20,7 +20,7 @@ function Write-GitHubOutput
 
         if ($json)
         {
-            [string]$jsonText = $value | ConvertTo-Json -AsArray -Compress
+            [string]$jsonText = $value | ConvertTo-Json -Depth 10 -Compress
 
             Write-Output "$key=$jsonText"
             return
