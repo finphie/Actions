@@ -21,7 +21,7 @@ function Get-Version
     [OutputType([Version])]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
+        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
         [string]$versionFileName
     )
 
