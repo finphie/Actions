@@ -3,40 +3,61 @@ name: Upload artifacts (.NET)
 on:
   workflow_call:
     inputs:
+      runs-on:
+        description: ランナー環境。
+        required: false
+        type: string
+        default: ubuntu-latest
       project:
         description: プロジェクト名。
         required: true
         type: string
-      platform:
-        description: プラットフォーム名。console/windows/android/server/browserのいずれか。
+      target-platform-identifier:
+        description: プラットフォーム識別子。
+        required: false
+        type: string
+        default: none
+      target-platform-version:
+        description: プラットフォームバージョンを表す文字列。
+        required: false
+        type: string
+        default: null
+      os:
+        description: OSの名前。（ランタイム識別子）
         required: true
         type: string
       architecture:
-        description: アーキテクチャ名。x64/arm64/wasmのいずれか。
-        required: false
+        description: アーキテクチャ名。（ランタイム識別子）
+        required: true
         type: string
+      workload-restore:
+        description: dotnet workload restoreを実行するかどうか。
+        required: false
+        type: boolean
+        default: false
       version:
         description: バージョンを表す文字列。
         required: true
         type: string
       suffix:
         description: アップロードする成果物名の末尾に追加する文字列。
-        required: true
+        required: false
         type: string
+        default: null
 
 permissions: {}
 
 env:
-  WINDOWS_TARGET_PLATFORM_VERSION: '10.0.19041.0'
-  ANDROID_TARGET_SDK_VERSION: '32.0'
   OUTPUT_DIRECTORY: publish
-  OUTPUT_FILE_NAME: ${{ inputs.project }}_${{ inputs.suffix }}_${{ inputs.architecture }}
+  OUTPUT_FILE_NAME: ${{ inputs.suffix != '' && format('{0}_{1}', inputs.project, inputs.suffix) || inputs.project }}
   RETENTION_DAYS: 1
 
 jobs:
   main:
-    name: Publish(${{ inputs.platform }})
-    runs-on: ${{ inputs.platform != 'browser' && 'windows-latest' || 'ubuntu-latest' }}
+    name: >-
+      ${{ inputs.project }} -
+      ${{ (startsWith(inputs.os, 'win') && 'windows') || (startsWith(inputs.os, 'osx') && 'macos') || 'linux' }}(${{ inputs.architecture }})
+    runs-on: ${{ inputs.runs-on }}
 
     steps:
       - name: Checkout repository
@@ -47,10 +68,10 @@ jobs:
         with:
           project: ${{ inputs.project }}
           version: ${{ inputs.version }}
-          target-platform-identifier: ${{ (inputs.platform == 'windows' || inputs.platform == 'android') && inputs.platform || 'none' }}
-          target-platform-version: ${{ (inputs.platform == 'windows' && env.WINDOWS_TARGET_PLATFORM_VERSION) || (inputs.platform == 'android' && env.ANDROID_TARGET_SDK_VERSION) || '' }}
-          runtime: ${{ (inputs.platform == 'console' || inputs.platform == 'windows' || inputs.platform == 'server') && 'win10' || inputs.platform }}-${{ inputs.architecture }}
-          workload-restore: ${{ inputs.platform == 'windows' || inputs.platform == 'android' || inputs.platform == 'browser' }}
+          target-platform-identifier: ${{ inputs.target-platform-identifier }}
+          target-platform-version: ${{ inputs.target-platform-version }}
+          runtime: ${{ inputs.os }}-${{ inputs.architecture }}
+          workload-restore: ${{ inputs.workload-restore }}
           output-directory: ${{ env.OUTPUT_DIRECTORY }}
 
       - name: Compress archive

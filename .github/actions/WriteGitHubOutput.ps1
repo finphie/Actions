@@ -1,4 +1,5 @@
-﻿using namespace System.Diagnostics.CodeAnalysis
+﻿using namespace System.Collections.Specialized
+using namespace System.Diagnostics.CodeAnalysis
 
 function Write-GitHubOutput
 {
@@ -8,7 +9,7 @@ function Write-GitHubOutput
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [Collections.Specialized.OrderedDictionary]$outputList,
+        [OrderedDictionary]$outputList,
 
         [switch]$json
     )
@@ -16,6 +17,14 @@ function Write-GitHubOutput
     [string[]]$output = $outputList.GetEnumerator() | ForEach-Object {
         [string]$key = $_.Key
         $value = $_.Value
+
+        if ($json)
+        {
+            [string]$jsonText = $value | ConvertTo-Json -Depth 10 -Compress
+
+            Write-Output "$key=$jsonText"
+            return
+        }
 
         if ($value -isnot [Array])
         {
@@ -30,14 +39,6 @@ function Write-GitHubOutput
 
         if ($value.Count -eq 0)
         {
-            return
-        }
-
-        if ($json)
-        {
-            [string]$values = $value | ConvertTo-Json -AsArray -Compress
-
-            Write-Output "$key=$values"
             return
         }
 
