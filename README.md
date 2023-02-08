@@ -16,7 +16,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [create-pull-request](#create-pull-request)
   - [dotnet-pack](#dotnet-pack)
   - [dotnet-publish](#dotnet-publish)
-  - [get-dotnet-platform](#get-dotnet-platform)
+  - [get-dotnet-projects](#get-dotnet-projects)
   - [get-github-repositories](#get-github-repositories)
   - [git-push](#git-push)
   - [git-versioning](#git-versioning)
@@ -403,9 +403,9 @@ output-directory|false|publish|出力先ディレクトリ。
 
 なし
 
-### get-dotnet-platform
+### get-dotnet-projects
 
-.NETプロジェクトのターゲットプラットフォーム名を取得するアクションです。
+.NETプロジェクトの情報を取得するアクションです。
 
 ```yaml
 on:
@@ -421,24 +421,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get .NET platform
-        id: get-dotnet-platform
-        uses: finphie/Actions/.github/actions/get-dotnet-platform@main
+      - name: Get .NET projects
+        id: get-dotnet-projects
+        uses: finphie/Actions/.github/actions/get-dotnet-projects@main
         with: 
           solution-name: ${{ github.event.repository.name }}
           projects: |
             Project1,Console
             Project2,Windows
             Project3,Android
-            Project4,AspNet
-            Project5,BlazorWebAssembly
+            Project4,Server
+            Project5,Browser
+          settings-file-path: ${{ github.action_path }}/default.json
 
       - run: |
-          echo '${{ steps.get-dotnet-platform.outputs.console }}'
-          echo '${{ steps.get-dotnet-platform.outputs.windows }}'
-          echo '${{ steps.get-dotnet-platform.outputs.android }}'
-          echo '${{ steps.get-dotnet-platform.outputs.server }}'
-          echo '${{ steps.get-dotnet-platform.outputs.browser }}'
+          echo '${{ steps.get-dotnet-projects.outputs.projects }}'
 ```
 
 #### 引数
@@ -447,6 +444,7 @@ jobs:
 -|-|-|-
 solution-name|false|-|ソリューション名。
 projects|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
+settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。
 
 #### 環境変数
 
@@ -456,11 +454,7 @@ projects|**true**|-|「プロジェクト名,プラットフォーム名」区�
 
 名前|説明
 -|-
-console|コンソールプロジェクトのリスト。JSON文字列を出力する。
-windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
-android|Android関連プロジェクトのリスト。JSON文字列を出力する。
-server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
-browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。
 
 ### get-github-repositories
 
@@ -1006,11 +1000,7 @@ jobs:
   echo:
     needs: main
     run: |
-      echo '${{ needs.main.outputs.console }}'
-      echo '${{ needs.main.outputs.windows }}'
-      echo '${{ needs.main.outputs.android }}'
-      echo '${{ needs.main.outputs.server }}'
-      echo '${{ needs.main.outputs.browser }}'
+      echo '${{ needs.main.outputs.projects }}'
 ```
 
 #### 引数
@@ -1025,11 +1015,7 @@ jobs:
 
 名前|説明
 -|-
-console|コンソールプロジェクトのリスト。JSON文字列を出力する。
-windows|Windows関連プロジェクトのリスト。JSON文字列を出力する。
-android|Android関連プロジェクトのリスト。JSON文字列を出力する。
-server|サーバー関連プロジェクトのリスト。JSON文字列を出力する。
-browser|ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
+projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。
 
 ### deploy-docker.yml
 

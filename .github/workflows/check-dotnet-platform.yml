@@ -3,21 +3,9 @@ name: Check .NET platform
 on:
   workflow_call:
     outputs:
-      console:
-        description: コンソールプロジェクトのリスト。JSON文字列を出力する。
-        value: ${{ jobs.main.outputs.console }}
-      windows:
-        description: Windows関連プロジェクトのリスト。JSON文字列を出力する。
-        value: ${{ jobs.main.outputs.windows }}
-      android:
-        description: Android関連プロジェクトのリスト。JSON文字列を出力する。
-        value: ${{ jobs.main.outputs.android }}
-      server:
-        description: サーバー関連プロジェクトのリスト。JSON文字列を出力する。
-        value: ${{ jobs.main.outputs.server }}
-      browser:
-        description: ブラウザ関連プロジェクトのリスト。JSON文字列を出力する。
-        value: ${{ jobs.main.outputs.browser }}
+      projects:
+        description: upload-artifacts-dotnet.ymlワークフローの引数となるJSON文字列を出力する。
+        value: ${{ jobs.main.outputs.projects }}
 
 permissions: {}
 
@@ -27,11 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      console: ${{ steps.get-dotnet-platform.outputs.console }}
-      windows: ${{ steps.get-dotnet-platform.outputs.windows }}
-      android: ${{ steps.get-dotnet-platform.outputs.android }}
-      server: ${{ steps.get-dotnet-platform.outputs.server }}
-      browser: ${{ steps.get-dotnet-platform.outputs.browser }}
+      projects: ${{ steps.get-dotnet-projects.outputs.projects }}
 
     steps:
       - name: Checkout repository
@@ -43,8 +27,8 @@ jobs:
         with:
           target: GetProjectIdentifier
 
-      - name: Get .NET platform
-        id: get-dotnet-platform
-        uses: finphie/Actions/.github/actions/get-dotnet-platform@main
+      - name: Get .NET projects
+        id: get-dotnet-projects
+        uses: finphie/Actions/.github/actions/get-dotnet-projects@main
         with:
           projects: ${{ steps.project-identifier.outputs.lines }}
