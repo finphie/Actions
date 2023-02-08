@@ -40,95 +40,25 @@ jobs:
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-  publish-console:
-    name: Publish(console)
+  publish:
+    name: Publish
     needs: check
-    if: needs.check.outputs.console != ''
-
+    if: needs.check.outputs.projects != ''
     strategy:
       fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.check.outputs.console) }}
-        architecture: ['x64', 'arm64']
+      matrix: ${{ fromJson(needs.check.outputs.projects) }}
 
     uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
+      runs-on: ${{ (matrix.runs-on != '' && matrix.runs-on) || (startsWith(matrix.os, 'win') && 'windows-latest') || (startsWith(matrix.os, 'osx') && 'macos-latest') || 'ubuntu-latest' }}
       project: ${{ matrix.project }}
-      platform: console
+      target-platform-identifier: ${{ matrix.target-platform-identifier != '' && matrix.target-platform-identifier || 'none' }}
+      target-platform-version: ${{ matrix.target-platform-version }}
+      os: ${{ matrix.os }}
       architecture: ${{ matrix.architecture }}
+      workload-restore: ${{ matrix.workload-restore }}
       version: ${{ inputs.version }}
-      suffix: ${{ inputs.suffix }}
-
-  publish-windows:
-    name: Publish(windows)
-    needs: check
-    if: needs.check.outputs.windows != ''
-
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.check.outputs.windows) }}
-        architecture: ['x64', 'arm64']
-
-    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
-    with:
-      project: ${{ matrix.project }}
-      platform: windows
-      architecture: ${{ matrix.architecture }}
-      version: ${{ inputs.version }}
-      suffix: ${{ inputs.suffix }}
-
-  publish-android:
-    name: Publish(android)
-    needs: check
-    if: needs.check.outputs.android != ''
-
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.check.outputs.android) }}
-
-    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
-    with:
-      project: ${{ matrix.project }}
-      platform: android
-      architecture: arm64
-      version: ${{ inputs.version }}
-      suffix: ${{ inputs.suffix }}
-
-  publish-server:
-    name: Publish(server)
-    needs: check
-    if: needs.check.outputs.server != ''
-
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.check.outputs.server) }}
-        architecture: ['x64', 'arm64']
-
-    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
-    with:
-      project: ${{ matrix.project }}
-      platform: server
-      architecture: ${{ matrix.architecture }}
-      version: ${{ inputs.version }}
-      suffix: ${{ inputs.suffix }}
-
-  publish-browser:
-    name: Publish(browser)
-    needs: check
-    if: needs.check.outputs.browser != ''
-
-    strategy:
-      fail-fast: false
-      matrix:
-        project: ${{ fromJson(needs.check.outputs.browser) }}
-
-    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
-    with:
-      project: ${{ matrix.project }}
-      platform: browser
-      architecture: wasm
-      version: ${{ inputs.version }}
-      suffix: ${{ inputs.suffix }}
+      suffix: "\
+        ${{ (startsWith(matrix.os, 'win') && 'windows') || (startsWith(matrix.os, 'osx') && 'macos') || 'linux' }}_\
+        ${{ inputs.suffix }}_
+        ${{ matrix.architecture }}"
