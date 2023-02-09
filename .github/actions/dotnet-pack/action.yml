@@ -46,8 +46,8 @@ runs:
         DOTNET_CLI_TELEMETRY_OPTOUT: true
       run: |
         dotnet pack `
-            --configuration ${{ inputs.configuration }} `
-            --output ${{ inputs.output-directory }} `
+            --configuration '${{ inputs.configuration }}' `
+            --output '${{ inputs.output-directory }}' `
             -p:Version=${{ inputs.version }}
 
     - name: Check extension
