@@ -58,7 +58,10 @@ function New-Archive
 
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
-        [string]$destinationFilePath
+        [string]$destinationFilePath,
+
+        [ValidateSet('Zip', 'GZip')]
+        [string]$type = 'Zip'
     )
 
     if (!$PSCmdlet.ShouldProcess('io'))
@@ -71,11 +74,18 @@ function New-Archive
     [string]$destinationFullFilePath =  Get-FilePath -Path $rootPath -ChildPath $destinationFilePath
     [string]$destinationParentPath = Split-Path $destinationFullFilePath
 
-    Write-Verbose $destinationParentPath
-    Write-Verbose "path: $fullFilePath"
-    Write-Verbose "destinationFilePath: $destinationFullFilePath"
+    Write-Verbose "Type: $type"
+    Write-Verbose "Path: $fullFilePath"
+    Write-Verbose "DestinationFilePath: $destinationFullFilePath"
+    Write-Verbose "destinationParentPath: $destinationParentPath"
 
     New-Directory $destinationParentPath
+
+    if ($type -eq 'GZip')
+    {
+        tar -C $fullFilePath -czvf $destinationFullFilePath *
+        return
+    }
 
     try
     {

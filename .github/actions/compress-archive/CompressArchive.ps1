@@ -6,6 +6,9 @@ param (
     [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
     [string]$path,
 
+    [ValidateSet('Zip', 'GZip')]
+    [string]$type = 'Zip',
+
     [Parameter(ParameterSetName='DestinationFile')]
     [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$destinationFilePath,
@@ -27,12 +30,13 @@ param (
 
 if ($destinationFilePath -ne '')
 {
-    New-Archive -Path $path -DestinationFilePath $destinationFilePath
+    New-Archive -Path $path -DestinationFilePath $destinationFilePath -Type $type
     exit
 }
 
 [DirectoryInfo[]]$directories = Get-ChildItem $path -Directory
 [string[]]$excludeList = $exclude -eq '' ? $null : (Get-List -Value $exclude)
+[string]$destinationFileExtension = $type -eq 'Zip' ? '.zip' : '.tar.gz'
 
 Write-Verbose "Exclude: $($excludeList -join ',')"
 
@@ -59,5 +63,5 @@ foreach ($directory in $directories)
         }
     }
 
-    New-Archive -Path $directory.FullName -DestinationFilePath "$filePath.zip"
+    New-Archive -Path $directory.FullName -DestinationFilePath "$filePath$destinationFileExtension" -Type $type
 }
