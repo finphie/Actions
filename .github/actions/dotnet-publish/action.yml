@@ -78,8 +78,8 @@ runs:
         FRAMEWORK: net${{ inputs.dotnet-version }}${{ inputs.target-platform-identifier != 'none' && format('-{0}{1}', inputs.target-platform-identifier, inputs.target-platform-version) || '' }}
       run: |
         dotnet publish Source/${{ inputs.project }}/${{ inputs.project }}.csproj `
-            --configuration ${{ inputs.configuration }} `
-            --framework ${{ env.FRAMEWORK }} `
-            --runtime ${{ inputs.runtime }} `
-            --output ${{ inputs.output-directory }} `
+            --configuration '${{ inputs.configuration }}' `
+            --framework '${{ env.FRAMEWORK }}' `
+            --runtime '${{ inputs.runtime }}' `
+            --output '${{ inputs.output-directory }}' `
             -p:Version=${{ inputs.version }}
