@@ -120,7 +120,7 @@ exe|exeファイルが含まれているかどうか。
 
 ### compress-archive
 
-zipファイルを作成するアクションです。
+圧縮されたアーカイブを作成するアクションです。
 
 ```yaml
 on:
@@ -144,6 +144,7 @@ jobs:
         uses: finphie/Actions/.github/actions/compress-archive@main
         with: 
           path: target-path
+          type: zip
           destination-path: destination-directory
           root: false
           suffix: _suffix
@@ -156,6 +157,7 @@ jobs:
 名前|必須|デフォルト|説明
 -|-|-|-
 path|**true**|-|圧縮対象のファイルが存在するディレクトリ。
+type|false|zip|圧縮形式。zip/gzipのいずれか。
 destination-path|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
 root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
 suffix|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
