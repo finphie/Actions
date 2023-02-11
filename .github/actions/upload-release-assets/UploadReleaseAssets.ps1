@@ -12,6 +12,6 @@ param (
 [string]$rootPath = Split-Path $PSScriptRoot
 . $rootPath/Utility.ps1
 
-[string[]]$fileList = Get-List -Value $files | ForEach-Object { Get-Item $_ }
+[string[]]$fileList = Get-List -Value $files | ForEach-Object { Get-ChildItem $_ -File }
 
 gh release upload $tag $fileList
