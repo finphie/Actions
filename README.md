@@ -819,8 +819,8 @@ jobs:
         with: 
           tag: v1.0.0
           files: |
-            *.zip
-            *.exe
+            **/*.zip
+            **/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -39,7 +39,7 @@ jobs:
         id: download-artifact
         uses: actions/download-artifact@v3
         with:
-          path: ${{ runner.temp }}/download
+          path: ${{ runner.temp }}
 
       - name: Check extension
         id: check-extension
@@ -48,22 +48,14 @@ jobs:
           path: ${{ steps.download-artifact.outputs.download-path }}
           recurse: true
 
-      - name: Compress archive
-        if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
-        uses: finphie/Actions/.github/actions/compress-archive@main
-        with:
-          path: ${{ steps.download-artifact.outputs.download-path }}
-          destination-path: ${{ runner.temp }}/release
-          root: false
-          exclude: '*Setup_${{ inputs.tag }}_*.exe'
-
       - name: Upload release assets
         if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
         uses: finphie/Actions/.github/actions/upload-release-assets@main
         with:
           tag: ${{ inputs.tag }}
           files: |
-            ${{ runner.temp }}/release/*.zip
-            ${{ runner.temp }}/release/*.exe
+            ${{ runner.temp }}/**/*.zip
+            ${{ runner.temp }}/**/*.tar.gz
+            ${{ runner.temp }}/**/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
