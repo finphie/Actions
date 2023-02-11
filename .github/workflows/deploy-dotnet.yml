@@ -56,7 +56,7 @@ jobs:
       target-platform-version: ${{ matrix.target-platform-version }}
       os: ${{ matrix.os }}
       architecture: ${{ matrix.architecture }}
-      workload-restore: ${{ matrix.workload-restore }}
+      workload-restore: ${{ matrix.workload-restore == 'true' }}
       version: ${{ inputs.version }}
       suffix: "\
         ${{ (startsWith(matrix.os, 'win') && 'windows') || (startsWith(matrix.os, 'osx') && 'macos') || 'linux' }}_\
