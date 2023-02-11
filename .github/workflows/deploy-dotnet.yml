@@ -60,5 +60,5 @@ jobs:
       version: ${{ inputs.version }}
       suffix: "\
         ${{ (startsWith(matrix.os, 'win') && 'windows') || (startsWith(matrix.os, 'osx') && 'macos') || 'linux' }}_\
-        ${{ inputs.suffix }}_
+        ${{ inputs.suffix }}_\
         ${{ matrix.architecture }}"
