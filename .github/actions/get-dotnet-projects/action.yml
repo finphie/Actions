@@ -15,7 +15,7 @@ inputs:
     description: 設定ファイルのパス。
     required: false
     type: string
-    default: ${{ github.action_path }}/default.json
+    default: null
 
 outputs:
   projects:
@@ -32,6 +32,6 @@ runs:
         ${{ github.action_path }}/GetDotNetProjects.ps1 `
             -SolutionName '${{ inputs.solution-name }}' `
             -Projects '${{ inputs.projects }}' `
-            -SettingsFilePath '${{ inputs.settings-file-path }}' `
+            -SettingsFilePath '${{ inputs.settings-file-path != '' && inputs.settings-file-path || format('{0}/{1}', github.action_path, 'default.json') }}' `
             -Verbose `
             -ErrorAction Stop
