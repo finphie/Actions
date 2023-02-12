@@ -52,6 +52,7 @@ function Get-JsonFile
 function New-Archive
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -106,6 +107,7 @@ function New-Archive
 function New-Directory
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container -IsValid }, ErrorMessage='"{0}" is invalid.')]
