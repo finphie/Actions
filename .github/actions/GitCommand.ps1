@@ -125,6 +125,7 @@ function Get-RepositoryFile
 function Set-GitConfig
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param ()
 
     if ($PSCmdlet.ShouldProcess('git') -and $Env:GITHUB_ACTIONS -eq 'true')
@@ -136,6 +137,10 @@ function Set-GitConfig
 
 function Test-Diff
 {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param ()
+
     git add -N .
     git diff --name-only --exit-code
 
