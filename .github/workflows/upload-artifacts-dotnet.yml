@@ -78,7 +78,8 @@ jobs:
         uses: finphie/Actions/.github/actions/compress-archive@main
         with:
           path: ${{ env.OUTPUT_DIRECTORY }}
-          destination-path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.zip
+          type: ${{ (startsWith(inputs.os, 'win') || startsWith(inputs.os, 'osx')) && 'zip' || 'gzip' }}
+          destination-path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ (startsWith(inputs.os, 'win') || startsWith(inputs.os, 'osx')) && 'zip' || 'tar.gz' }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
