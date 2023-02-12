@@ -1,4 +1,5 @@
-﻿using namespace System.IO.Compression
+﻿using namespace System.IO
+using namespace System.IO.Compression
 
 function Copy-File
 {
@@ -83,7 +84,10 @@ function New-Archive
 
     if ($type -eq 'GZip')
     {
-        tar -C $fullFilePath -czvf $destinationFullFilePath *
+
+        [string[]]$filePaths = Get-ChildItem $fullFilePath | ForEach-Object { [Path]::GetRelativePath($fullFilePath, $_) }
+        tar -C $fullFilePath -czvf $destinationFullFilePath $filePaths
+
         return
     }
 
