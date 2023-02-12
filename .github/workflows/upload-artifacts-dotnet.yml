@@ -50,6 +50,7 @@ permissions: {}
 env:
   OUTPUT_DIRECTORY: publish
   OUTPUT_FILE_NAME: ${{ inputs.suffix != '' && format('{0}_{1}', inputs.project, inputs.suffix) || inputs.project }}
+  OUTPUT_FILE_EXTENSION: ${{ (startsWith(inputs.os, 'win') || startsWith(inputs.os, 'osx')) && 'zip' || 'tar.gz' }}
   RETENTION_DAYS: 1
 
 jobs:
@@ -78,12 +79,12 @@ jobs:
         uses: finphie/Actions/.github/actions/compress-archive@main
         with:
           path: ${{ env.OUTPUT_DIRECTORY }}
-          type: ${{ (startsWith(inputs.os, 'win') || startsWith(inputs.os, 'osx')) && 'zip' || 'gzip' }}
-          destination-path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ (startsWith(inputs.os, 'win') || startsWith(inputs.os, 'osx')) && 'zip' || 'tar.gz' }}
+          type: ${{ env.OUTPUT_FILE_EXTENSION == 'zip' && 'zip' || 'gzip' }}
+          destination-path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ env.OUTPUT_FILE_EXTENSION }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT_FILE_NAME }}
-          path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.zip
+          path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ env.OUTPUT_FILE_EXTENSION }}
           retention-days: ${{ env.RETENTION_DAYS }}
