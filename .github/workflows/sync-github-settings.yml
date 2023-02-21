@@ -29,15 +29,21 @@ jobs:
           repositories: ${{ steps.get.outputs.repositories }}
           has-projects: false
           has-wiki: false
+          allow-merge-commit: true
+          allow-squash-merge: true
           allow-rebase-merge: false
           delete-branch-on-merge: true
           allow-update-branch: true
+          merge-commit-title: PullRequestTitle
+          merge-commit-message: PullRequestBody
+          squash-merge-commit-title: PullRequestTitle
+          squash-merge-commit-message: PullRequestBody
           branch-protection: true
           branch-protection-required-linear-history: true
           branch-protection-required-conversation-resolution: true
           branch-protection-required-reviews: true
           branch-protection-required-reviews-dismiss-stale-reviews: true
-          branch-protection-required-reviews-require-code-owner-review: true
+          branch-protection-required-reviews-require-code-owner-reviews: true
           branch-protection-required-reviews-required-approving-review-count: 1
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
