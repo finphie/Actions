@@ -46,6 +46,11 @@ inputs:
     required: false
     type: string
     default: null
+  json:
+    description: JSON形式で出力するかどうか。
+    required: false
+    type: boolean
+    default: false
 
 outputs:
   repositories:
@@ -68,5 +73,6 @@ runs:
             ${{ inputs.source == 'true' && '-Source' || '' }} `
             -Visibility ${{ inputs.visibility }} `
             -Exclude '${{ inputs.exclude }}' `
+            ${{ inputs.json == 'true' && '-Json' || '' }} `
             -Verbose `
             -ErrorAction Stop

@@ -15,7 +15,9 @@ param (
     [ValidateSet('public', 'private', 'internal')]
     [string]$visibility = 'public',
 
-    [string]$exclude = ''
+    [string]$exclude = '',
+
+    [switch]$json
 )
 
 [string]$rootPath = Split-Path $PSScriptRoot
@@ -58,4 +60,4 @@ if ($exclude -ne '')
 }
 
 [OrderedDictionary]$outputs = Get-GitHubOutput -Repositories $repositories
-Write-GitHubOutput -OutputList $outputs
+Write-GitHubOutput -OutputList $outputs -Json:$json

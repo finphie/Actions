@@ -28,8 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repositories: ${{ steps.get.outputs.repositories }}
-      repository: ${{ format('[{0}]', github.event.inputs.repository) }}
+      repositories: ${{ github.event.inputs.repository == 'All' && format('["{0}"]', github.event.inputs.repository) || steps.get.outputs.repositories }}
 
     steps:
       - name: Checkout repository
@@ -59,7 +58,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        repository: ${{ fromJSON(needs.check.outputs.repositories != '' && needs.check.outputs.repositories || needs.check.outputs.repository) }}
+        repository: ${{ fromJSON(needs.check.outputs.repositories) }}
 
     env:
       SOURCE_REPOSITORY: ${{ github.actor }}/dotfiles
