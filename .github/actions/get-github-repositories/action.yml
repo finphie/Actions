@@ -73,6 +73,6 @@ runs:
             ${{ inputs.source == 'true' && '-Source' || '' }} `
             -Visibility ${{ inputs.visibility }} `
             -Exclude '${{ inputs.exclude }}' `
-            -Json:${{ inputs.json }} `
+            ${{ inputs.json == 'true' && '-Json' || '' }} `
             -Verbose `
             -ErrorAction Stop
