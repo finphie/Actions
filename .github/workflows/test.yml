@@ -40,7 +40,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        repository: ${{ needs.check.outputs.repositories != '' && fromJSON(needs.check.outputs.repositories) || fromJSON(needs.check.outputs.repository) }}
+        repository: ${{ fromJSON(needs.check.outputs.repository) }}
 
     steps:
       - run: echo '${{ matrix.repository }}'
