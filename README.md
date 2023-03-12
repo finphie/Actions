@@ -485,6 +485,7 @@ jobs:
           source: false
           visibility: public
           exclude: null
+          json: false
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
 
@@ -508,6 +509,7 @@ no-archived|false|false|アーカイブされていないリポジトリを取�
 source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
 visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
 exclude|false|null|除外する「オーナー名/リポジトリ名」形式のリスト。
+json|false|false|JSON形式で出力するかどうか。
 
 #### 環境変数
 
