@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repositories: ${{ steps.get.outputs.repositories }}
-      repository: '["finphie/GitHubSettingsSync"]'
+      repositories: ${{ steps.get.outputs.repositories != '' && steps.get.outputs.repositories || '["finphie/GitHubSettingsSync"]' }}
 
     steps:
       - name: Checkout repository
@@ -40,7 +39,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        repository: ${{ fromJSON(needs.check.outputs.repository) }}
+        repository: ${{ needs.check.outputs.repositories }}
 
     steps:
       - run: echo '${{ matrix.repository }}'
