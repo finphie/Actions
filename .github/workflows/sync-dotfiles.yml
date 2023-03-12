@@ -2,12 +2,29 @@ name: Sync(dotfiles)
 
 on:
   workflow_dispatch:
+    inputs:
+      repository:
+        description: リポジトリ名
+        required: false
+        type: choice
+        options:
+          - All
+          - finphie/SimpleTextTemplate
+          - finphie/GitHubSettingsSync
+          - finphie/SharpNote
+          - finphie/Stazor
+          - finphie/WpfHosting
+          - finphie/Utf8Utility
+          - finphie/PathUtility
+          - finphie/Benchmarks
+          - finphie/FToolkit
 
 permissions: {}
 
 jobs:
   check:
     name: Check
+    if: github.event.inputs.repository == 'All'
     runs-on: ubuntu-latest
 
     outputs:
@@ -21,21 +38,29 @@ jobs:
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
+          language: C#
           no-archived: true
           source: true
+          exclude:
+            ${{ github.repository }}
+            finphie/dotfiles
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
   main:
     name: Main
     needs: check
+    if: |
+      always() &&
+      !cancelled() &&
+      (needs.check.result == 'success' || needs.check.result == 'skipped')
     runs-on: ubuntu-latest
 
     strategy:
       max-parallel: 3
       fail-fast: false
       matrix:
-        repository: ${{ needs.check.outputs.repositories }}
+        repository: ${{ needs.check.result == 'success' && needs.check.outputs.repositories || github.event.inputs.repository }}
 
     env:
       SOURCE_REPOSITORY: ${{ github.actor }}/dotfiles
