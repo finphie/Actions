@@ -25,17 +25,18 @@ permissions: {}
 jobs:
   check:
     name: Check
-    if: github.event.inputs.repository == 'All'
     runs-on: ubuntu-latest
 
     outputs:
-      repositories: ${{ steps.get.outputs.repositories }}
+      repositories: ${{ steps.get.outputs.repositories != '' && steps.get.outputs.repositories || format('[{0}]', github.event.inputs.repository) }}
 
     steps:
       - name: Checkout repository
+        if: github.event.inputs.repository == 'All'
         uses: actions/checkout@v3
 
       - name: Get repositories
+        if: github.event.inputs.repository == 'All'
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
@@ -51,17 +52,13 @@ jobs:
   main:
     name: Main
     needs: check
-    if: |
-      always() &&
-      !cancelled() &&
-      (needs.check.result == 'success' || needs.check.result == 'skipped')
     runs-on: ubuntu-latest
 
     strategy:
       max-parallel: 3
       fail-fast: false
       matrix:
-        repository: ${{ needs.check.result == 'success' && needs.check.outputs.repositories || fromJSON(format('[{0}]', github.event.inputs.repository)) }}
+        repository: ${{ fromJSON(needs.check.outputs.repositories) }}
 
     env:
       SOURCE_REPOSITORY: ${{ github.actor }}/dotfiles
