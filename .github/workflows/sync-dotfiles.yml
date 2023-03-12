@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      repositories: ${{ github.event.inputs.repository == 'All' && format('["{0}"]', github.event.inputs.repository) || steps.get.outputs.repositories }}
+      repositories: ${{ github.event.inputs.repository == 'All' && steps.get.outputs.repositories || format('["{0}"]', github.event.inputs.repository) }}
 
     steps:
       - name: Checkout repository
