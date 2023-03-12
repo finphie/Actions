@@ -42,5 +42,5 @@ jobs:
       matrix:
         repository: ${{ fromJSON(needs.check.outputs.repositories != '' && needs.check.outputs.repositories || needs.check.outputs.repository) }}
 
-      steps:
-        run: echo '${{ matrix.repository }}'
+    steps:
+      run: echo '${{ matrix.repository }}'
