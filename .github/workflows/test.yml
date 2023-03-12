@@ -27,6 +27,7 @@ jobs:
           exclude:
             ${{ github.repository }}
             finphie/dotfiles
+          json: true
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
