@@ -12,7 +12,7 @@ jobs:
 
     outputs:
       repositories: ${{ steps.get.outputs.repositories }}
-      repository: '[finphie/GitHubSettingsSync]'
+      repository: '["finphie/GitHubSettingsSync"]'
 
     steps:
       - name: Checkout repository
