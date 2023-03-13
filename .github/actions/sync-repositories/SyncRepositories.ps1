@@ -9,7 +9,7 @@ param (
     [string]$targetPath,
 
     [Parameter(Mandatory)]
-    [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+    [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
     [string]$settingsFilePath,
 
     [Parameter(ValueFromRemainingArguments)]
@@ -27,7 +27,7 @@ function Get-CurrentGitHash
     [OutputType([string])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$settingsFilePath
     )
 
