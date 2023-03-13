@@ -45,6 +45,7 @@ runs:
     - name: Create pull request
       uses: finphie/Actions/.github/actions/create-pull-request@main
       with:
+        path: ${{ inputs.target-path }}
         commit-message: ${{ inputs.commit-message }}
         branch: ${{ inputs.branch }}
         labels: ${{ inputs.labels }}
