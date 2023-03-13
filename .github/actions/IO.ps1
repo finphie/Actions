@@ -15,8 +15,10 @@ function Copy-File
         [string]$targetFilePath
     )
 
-    Write-Verbose "Copy file: `"$targetFilePath`""
-    Copy-Item $sourceFilePath $targetFilePath -Force
+    [string]$parentPath = Split-Path $targetFilePath
+
+    New-Directory -Path $parentPath
+    Copy-Item $sourceFilePath $targetFilePath -Force -Verbose
 }
 
 function Get-FilePath
@@ -126,8 +128,6 @@ function Remove-File
         [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
         [string]$filePath
     )
-
-    Write-Verbose "Delete file: `"$filePath`""
 
     # 既に存在しないファイルはエラーを出さずに無視する。
     Remove-Item $filePath -Verbose -ErrorAction SilentlyContinue

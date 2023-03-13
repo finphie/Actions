@@ -51,7 +51,7 @@ function Get-AddedFile
     # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
     [Diagnostics.CodeAnalysis.SuppressMessage('PSReviewUnusedParameter', 'targetPath', Justification = 'false positive')]
     [CmdletBinding()]
-    [OutputType([string[]])]
+    [OutputType([string[][]])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
@@ -121,8 +121,8 @@ Write-Verbose "Settings File: $settingsFullFilePath"
 Write-Verbose "Hash: $hash"
 
 # ソース元リポジトリのファイルを、ターゲットリポジトリへコピーする。
-$AddedFiles = Get-AddedFile -SourcePath $sourcePath -TargetPath $targetPath
-$AddedFiles | ForEach-Object { Copy-File -SourceFilePath $_[0] -TargetFilePath $_[1] }
+[string[][]]$addedFiles = Get-AddedFile -SourcePath $sourcePath -TargetPath $targetPath
+$addedFiles | ForEach-Object { Copy-File -SourceFilePath $_[0] -TargetFilePath $_[1] }
 
 # 前回同期時との差分から、ソース元リポジトリで削除されたファイルをターゲットリポジトリでも削除する。
 # また、同期対象外のファイルも削除する。
