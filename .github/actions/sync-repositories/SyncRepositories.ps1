@@ -135,4 +135,4 @@ $deletedFiles | ForEach-Object { Remove-File -FilePath $_ }
 }
 
 Write-Verbose "Write: $settingsFullFilePath"
-$json | ConvertTo-Json | Out-File $settingsFullFilePath -NoNewline
+$json | ConvertTo-Json | Out-File $settingsFullFilePath
