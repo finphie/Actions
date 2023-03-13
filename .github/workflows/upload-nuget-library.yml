@@ -21,6 +21,9 @@ on:
 
 permissions: {}
 
+env:
+  OUTPUT_DIRECTORY: pack
+
 jobs:
   main:
     name: Push(NuGet)
