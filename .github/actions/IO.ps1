@@ -15,8 +15,10 @@ function Copy-File
         [string]$targetFilePath
     )
 
-    Write-Verbose "Copy file: `"$targetFilePath`""
-    Copy-Item $sourceFilePath $targetFilePath -Force
+    [string]$parentPath = Split-Path $targetFilePath
+
+    New-Directory -Path $parentPath
+    Copy-Item $sourceFilePath $targetFilePath -Force -Verbose
 }
 
 function Get-FilePath
