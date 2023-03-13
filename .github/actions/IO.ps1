@@ -129,8 +129,6 @@ function Remove-File
         [string]$filePath
     )
 
-    Write-Verbose "Delete file: `"$filePath`""
-
     # 既に存在しないファイルはエラーを出さずに無視する。
     Remove-Item $filePath -Verbose -ErrorAction SilentlyContinue
 }
