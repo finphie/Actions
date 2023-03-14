@@ -38,6 +38,7 @@ jobs:
         uses: finphie/Actions/.github/actions/dotnet-pack@main
         with:
           version: ${{ inputs.version }}
+          output-directory: ${{ env.OUTPUT_DIRECTORY }}
 
       - name: Push(Azure Artifacts)
         if: steps.pack.outputs.success == 'true'
