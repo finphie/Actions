@@ -23,7 +23,7 @@ inputs:
     description: 出力先ディレクトリ。
     required: false
     type: string
-    default: publish
+    default: pack
 
 outputs:
   success:

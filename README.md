@@ -329,7 +329,7 @@ jobs:
           dotnet-version: '7.0'
           configuration: Release
           version: '1.0.0'
-          output-directory: publish
+          output-directory: pack
 ```
 
 #### 引数
@@ -339,7 +339,7 @@ jobs:
 dotnet-version|false|7.0|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
-output-directory|false|publish|出力先ディレクトリ。
+output-directory|false|pack|出力先ディレクトリ。
 
 #### 環境変数
 
