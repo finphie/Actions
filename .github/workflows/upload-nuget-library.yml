@@ -21,6 +21,9 @@ on:
 
 permissions: {}
 
+env:
+  OUTPUT_DIRECTORY: pack
+
 jobs:
   main:
     name: Push(NuGet)
@@ -38,9 +41,10 @@ jobs:
 
       - name: Push(Azure Artifacts)
         if: steps.pack.outputs.success == 'true'
+        shell: pwsh
         run: |
-          dotnet nuget add source $SOURCE_URL --name "$SOURCE" --user "$GITHUB_ACTOR" --password "$TOKEN"
-          dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE"
+          dotnet nuget add source $Env:SOURCE_URL --name $Env:SOURCE --user $Env:GITHUB_ACTOR --password $Env:TOKEN
+          dotnet nuget push ./${{ env.OUTPUT_DIRECTORY }}/*.nupkg --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE
         env:
           SOURCE: Azure Artifacts
           SOURCE_URL: 'https://pkgs.dev.azure.com/finphie/Main/_packaging/DotNet/nuget/v3/index.json'
@@ -48,7 +52,8 @@ jobs:
 
       - name: Push(NuGet)
         if: steps.pack.outputs.success == 'true' && inputs.release == 'true'
-        run: dotnet nuget push "./${{ env.OUTPUT_DIRECTORY }}/*.nupkg" --api-key "$TOKEN" --skip-duplicate --source "$SOURCE_URL"
+        shell: pwsh
+        run: dotnet nuget push ./${{ env.OUTPUT_DIRECTORY }}/*.nupkg --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE_URL
         env:
           SOURCE_URL: 'https://api.nuget.org/v3/index.json'
           TOKEN: ${{ secrets.NUGET_API_KEY }}
