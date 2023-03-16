@@ -52,7 +52,7 @@ jobs:
           TOKEN: ${{ secrets.AZURE_ARTIFACT_PAT }}
 
       - name: Push(NuGet)
-        if: steps.pack.outputs.success == 'true' && inputs.release == 'true'
+        if: steps.pack.outputs.success == 'true' && inputs.release
         shell: pwsh
         run: dotnet nuget push "${{ env.OUTPUT_DIRECTORY }}/**/*.nupkg" --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE_URL
         env:
