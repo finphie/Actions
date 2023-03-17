@@ -46,6 +46,7 @@ jobs:
           exclude:
             ${{ github.repository }}
             finphie/dotfiles
+            finphie/CryHydrangea
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
