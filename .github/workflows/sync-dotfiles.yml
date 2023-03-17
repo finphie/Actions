@@ -9,15 +9,15 @@ on:
         type: choice
         options:
           - All
-          - finphie/SimpleTextTemplate
-          - finphie/GitHubSettingsSync
-          - finphie/SharpNote
-          - finphie/Stazor
-          - finphie/WpfHosting
-          - finphie/Utf8Utility
-          - finphie/PathUtility
-          - finphie/Benchmarks
           - finphie/FToolkit
+          - finphie/GitHubSettingsSync
+          - finphie/PathUtility
+          - finphie/Performance
+          - finphie/SharpNote
+          - finphie/SimpleTextTemplate
+          - finphie/Stazor
+          - finphie/Utf8Utility
+          - finphie/WpfHosting
         default: All
 
 permissions: {}
