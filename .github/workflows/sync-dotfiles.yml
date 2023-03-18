@@ -47,6 +47,7 @@ jobs:
             ${{ github.repository }}
             finphie/dotfiles
             finphie/CryHydrangea
+          json: true
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
