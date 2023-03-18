@@ -125,7 +125,7 @@ function Remove-File
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Leaf -IsValid }, ErrorMessage='"{0}" is invalid.')]
         [string]$filePath
     )
 
