@@ -19,10 +19,10 @@ param (
 . $rootPath/Utility.ps1
 . $rootPath/WriteGitHubOutput.ps1
 
-function Get-GitHubOutput
+function Get-ProjectList
 {
     [CmdletBinding()]
-    [OutputType([OrderedDictionary])]
+    [OutputType([OrderedDictionary[]])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
@@ -72,9 +72,22 @@ function Get-GitHubOutput
         }
     }
 
+    return $projects -as [OrderedDictionary[]]
+}
+
+function Get-GitHubOutput
+{
+    [CmdletBinding()]
+    [OutputType([OrderedDictionary])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNull()]
+        [OrderedDictionary[]]$projectList
+    )
+
     [OrderedDictionary]$outputs = [Ordered]@{
         'projects' = [Ordered]@{
-            'include' = $projects
+            'include' = $projectList
         }
     }
 
@@ -84,7 +97,13 @@ function Get-GitHubOutput
 Write-Verbose "SolutionName: $solutionName"
 
 [hashtable]$settings = Get-JsonFile -Path $settingsFilePath
-[string[]]$projectList = Get-List -Value $projects -WithoutConnma | Where-Object { $_.StartsWith($solutionName) }
+[string[]]$list = Get-List -Value $projects -WithoutConnma | Where-Object { $_.StartsWith($solutionName) }
+[OrderedDictionary[]]$projectList = Get-ProjectList -Settings $settings -ProjectList $list
 
-[OrderedDictionary]$outputs = Get-GitHubOutput -Settings $settings -ProjectList $projectList
+if ($projectList.Count -eq 0)
+{
+    exit
+}
+
+[OrderedDictionary]$outputs = Get-GitHubOutput -ProjectList $projectList
 Write-GitHubOutput -OutputList $outputs -Json
