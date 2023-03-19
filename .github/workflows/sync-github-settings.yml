@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 
       - name: Sync github settings
-        uses: finphie/GitHubSettingsSync@v1.1.0
+        uses: finphie/GitHubSettingsSync@v1.1.1
         with:
           repositories: ${{ steps.get.outputs.repositories }}
           has-projects: false
