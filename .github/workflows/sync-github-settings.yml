@@ -29,6 +29,7 @@ jobs:
           repositories: ${{ steps.get.outputs.repositories }}
           has-projects: false
           has-wiki: false
+          has-discussions: true
           allow-merge-commit: true
           allow-squash-merge: true
           allow-rebase-merge: false
