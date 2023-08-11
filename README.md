@@ -326,7 +326,7 @@ jobs:
       - name: .NET Pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
         with: 
-          dotnet-version: '7.0'
+          dotnet-version: 7.0.x
           configuration: Release
           version: '1.0.0'
           output-directory: pack
@@ -336,7 +336,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 output-directory|false|pack|出力先ディレクトリ。
@@ -372,7 +372,7 @@ jobs:
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
         with: 
-          dotnet-version: '7.0'
+          dotnet-version: 7.0.x
           project: ProjectName
           configuration: Release
           version: '1.0.0'
@@ -387,7 +387,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 project|**true**|-|プロジェクト名。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
@@ -860,7 +860,7 @@ jobs:
   main:
     uses: finphie/Actions/workflows/build-dotnet.yml@main
     with:
-      dotnet-version: '7.0'
+      dotnet-version: 7.0.x
       configuration: Release
 ```
 
@@ -868,7 +868,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|7.0|インストールする.NET SDKバージョン。
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 
 #### 環境変数

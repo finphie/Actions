@@ -6,7 +6,7 @@ inputs:
     description: インストールする.NET SDKバージョン。
     required: false
     type: string
-    default: '7.0'
+    default: 7.0.x
   configuration:
     description: ビルド構成。
     required: false
@@ -36,7 +36,7 @@ runs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ inputs.dotnet-version }}.x
+        dotnet-version: ${{ inputs.dotnet-version }}
 
     - name: Pack
       shell: pwsh
