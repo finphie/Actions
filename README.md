@@ -355,6 +355,8 @@ success|nupkgファイルの生成に成功したかどうか。
 
 dotnet publishコマンドを実行するアクションです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
 
+現在、.NET 8と.NET 7のみに対応しています。
+
 ```yaml
 on:
   workflow_dispatch:
