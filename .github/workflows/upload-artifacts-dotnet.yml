@@ -3,6 +3,11 @@ name: Upload artifacts (.NET)
 on:
   workflow_call:
     inputs:
+      dotnet-version:
+        description: インストールする.NET SDKバージョン。
+        required: false
+        type: string
+        default: 7.0.x
       runs-on:
         description: ランナー環境。
         required: false
@@ -67,6 +72,7 @@ jobs:
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
         with:
+          dotnet-version: ${{ inputs.dotnet-version }}
           project: ${{ inputs.project }}
           version: ${{ inputs.version }}
           target-platform-identifier: ${{ inputs.target-platform-identifier }}

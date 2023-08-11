@@ -1073,6 +1073,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
     with:
+      dotnet-version: 7.0.x
       version: '1.0.0'
       release: true
       suffix: v1.0.0
@@ -1085,6 +1086,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 version|**true**|-|バージョンを表す文字列。
 release|**true**|-|安定版リリースかどうか。
 suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
@@ -1202,6 +1204,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
+      dotnet-version: 7.0.x
       runs-on: ubuntu-latest
       project: ProjectName
       target-platform-identifier: none
@@ -1217,6 +1220,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 runs-on|false|ubuntu-latest|ランナー環境。
 project|**true**|-|プロジェクト名。
 target-platform-identifier|false|none|プラットフォーム識別子。
@@ -1249,6 +1253,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
     with:
+      dotnet-version: 7.0.x
       version: '1.0.0'
       release: true
     secrets:
@@ -1260,6 +1265,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
+dotnet-version|false|7.0.x|インストールする.NET SDKバージョン。
 version|**true**|-|バージョンを表す文字列。
 release|**true**|-|安定版リリースかどうか。
 

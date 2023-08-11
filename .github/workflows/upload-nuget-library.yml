@@ -3,6 +3,11 @@ name: Upload NuGet library
 on:
   workflow_call:
     inputs:
+      dotnet-version:
+        description: インストールする.NET SDKバージョン。
+        required: false
+        type: string
+        default: 7.0.x
       version:
         description: バージョンを表す文字列。
         required: true
@@ -37,6 +42,7 @@ jobs:
         id: pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
         with:
+          dotnet-version: ${{ inputs.dotnet-version }}
           version: ${{ inputs.version }}
           output-directory: ${{ env.OUTPUT_DIRECTORY }}
 
