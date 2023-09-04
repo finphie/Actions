@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check extension
         id: check-extension
@@ -235,13 +235,13 @@ jobs:
     steps:
       - name: Checkout repository
         if: github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
       - name: Checkout repository
         if: github.ref_name != 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -270,7 +270,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: finphie/dotfiles
           token: ${{ secrets.PAT }}
@@ -321,7 +321,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: .NET Pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
@@ -369,7 +369,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
@@ -423,7 +423,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get .NET projects
         id: get-dotnet-projects
@@ -542,7 +542,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
@@ -582,7 +582,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git versioning
         id: git-versioning
@@ -681,7 +681,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Read file
         id: read-file
@@ -816,7 +816,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload release assets
         uses: finphie/Actions/.github/actions/upload-release-assets@main
