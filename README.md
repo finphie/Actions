@@ -9,7 +9,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
 
 ## 目次
 
-- [複合アクション](#複合アクション)
+- 複合アクション
   - [check-extension](#check-extension)
   - [compress-archive](#compress-archive)
   - [copy-github-labels](#copy-github-labels)
@@ -25,7 +25,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [run-msbuild-target](#run-msbuild-target)
   - [sync-repositories](#sync-repositories)
   - [upload-release-assets](#upload-release-assets)
-- [再利用可能なワークフロー](#再利用可能なワークフロー)
+- 再利用可能なワークフロー
   - [build-dotnet.yml](#build-dotnetyml)
   - [build-markdown.yml](#build-markdownyml)
   - [build-powershell.yml](#build-powershellyml)
@@ -38,13 +38,11 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [release.yml](#releaseyml)
   - [upload-artifacts-dotnet.yml](#upload-artifacts-dotnetyml)
   - [upload-nuget-library.yml](#upload-nuget-libraryyml)
-- [ワークフロー](#ワークフロー)
+- ワークフロー
   - [sync-dotfiles.yml](#sync-dotfilesyml)
   - [sync-github-settings.yml](#sync-github-settingsyml)
   - [sync-labels.yml](#sync-labelsyml)
   - [sync-secrets.yml](#sync-secretsyml)
-- [作者](#作者)
-- [ライセンス](#ライセンス)
 
 ## 複合アクション
 
@@ -64,7 +62,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check extension
         id: check-extension
@@ -235,13 +233,13 @@ jobs:
     steps:
       - name: Checkout repository
         if: github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
       - name: Checkout repository
         if: github.ref_name != 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -270,7 +268,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: finphie/dotfiles
           token: ${{ secrets.PAT }}
@@ -321,7 +319,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: .NET Pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
@@ -369,7 +367,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
@@ -423,7 +421,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get .NET projects
         id: get-dotnet-projects
@@ -542,7 +540,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
@@ -582,7 +580,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git versioning
         id: git-versioning
@@ -681,7 +679,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Read file
         id: read-file
@@ -816,7 +814,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload release assets
         uses: finphie/Actions/.github/actions/upload-release-assets@main

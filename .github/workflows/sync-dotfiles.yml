@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Checkout repository
         if: github.event.inputs.repository == 'All'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get repositories
         if: github.event.inputs.repository == 'All'
@@ -70,14 +70,14 @@ jobs:
 
     steps:
       - name: Checkout ${{ env.SOURCE_REPOSITORY }} repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.SOURCE_REPOSITORY }}
           path: ${{ env.SOURCE_REPOSITORY_PATH }}
           fetch-depth: 0
 
       - name: Checkout ${{ env.TARGET_REPOSITORY }} repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.TARGET_REPOSITORY }}
           path: ${{ env.TARGET_REPOSITORY_PATH }}
