@@ -9,7 +9,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
 
 ## 目次
 
-- [複合アクション](#複合アクション)
+- 複合アクション
   - [check-extension](#check-extension)
   - [compress-archive](#compress-archive)
   - [copy-github-labels](#copy-github-labels)
@@ -25,7 +25,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [run-msbuild-target](#run-msbuild-target)
   - [sync-repositories](#sync-repositories)
   - [upload-release-assets](#upload-release-assets)
-- [再利用可能なワークフロー](#再利用可能なワークフロー)
+- 再利用可能なワークフロー
   - [build-dotnet.yml](#build-dotnetyml)
   - [build-markdown.yml](#build-markdownyml)
   - [build-powershell.yml](#build-powershellyml)
@@ -38,13 +38,11 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [release.yml](#releaseyml)
   - [upload-artifacts-dotnet.yml](#upload-artifacts-dotnetyml)
   - [upload-nuget-library.yml](#upload-nuget-libraryyml)
-- [ワークフロー](#ワークフロー)
+- ワークフロー
   - [sync-dotfiles.yml](#sync-dotfilesyml)
   - [sync-github-settings.yml](#sync-github-settingsyml)
   - [sync-labels.yml](#sync-labelsyml)
   - [sync-secrets.yml](#sync-secretsyml)
-- [作者](#作者)
-- [ライセンス](#ライセンス)
 
 ## 複合アクション
 
