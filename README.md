@@ -378,7 +378,7 @@ jobs:
           version: '1.0.0'
           target-platform-identifier: none
           target-platform-version: null
-          runtime: win10-x64
+          runtime: win-x64
           workload-restore: false
           output-directory: publish
 ```
@@ -1209,7 +1209,7 @@ jobs:
       project: ProjectName
       target-platform-identifier: none
       target-platform-version: ''
-      os: win10
+      os: win
       architecture: x64
       workload-restore: false
       version: '1.0.0'
