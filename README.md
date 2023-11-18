@@ -434,7 +434,7 @@ jobs:
             Project3,Android
             Project4,Server
             Project5,Browser
-          settings-file-path: ${{ github.action_path }}/default.json
+          settings-file-path: default.json
 
       - run: |
           echo '${{ steps.get-dotnet-projects.outputs.projects }}'
@@ -1000,6 +1000,8 @@ permissions: {}
 jobs:
   main:
     uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
+    with:
+      settings-file-path: default.json
 
   echo:
     needs: main
@@ -1009,7 +1011,9 @@ jobs:
 
 #### 引数
 
-なし
+名前|必須|デフォルト|説明
+-|-|-|-
+settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。
 
 #### 環境変数
 

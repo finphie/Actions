@@ -2,6 +2,12 @@ name: Check .NET platform
 
 on:
   workflow_call:
+    inputs:
+      settings-file-path:
+        description: 設定ファイルのパス。
+        required: false
+        type: string
+        default: null
     outputs:
       projects:
         description: upload-artifacts-dotnet.ymlワークフローの引数となるJSON文字列を出力する。
@@ -32,3 +38,4 @@ jobs:
         uses: finphie/Actions/.github/actions/get-dotnet-projects@main
         with:
           projects: ${{ steps.project-identifier.outputs.lines }}
+          settings-file-path: ${{ inputs.settings-file-path }}
