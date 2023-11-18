@@ -28,7 +28,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get repository name
@@ -43,5 +43,5 @@ jobs:
           push: true
           build-args: VERSION=${{ inputs.version }}
           tags: |
-            ghcr.io/${{ github.actor }}/${{ steps.get.outputs.text }}:v${{ inputs.version }}
-            ghcr.io/${{ github.actor }}/${{ steps.get.outputs.text }}:v${{ inputs.version-major }}
+            ghcr.io/${{ github.repository_owner }}/${{ steps.get.outputs.text }}:v${{ inputs.version }}
+            ghcr.io/${{ github.repository_owner }}/${{ steps.get.outputs.text }}:v${{ inputs.version-major }}

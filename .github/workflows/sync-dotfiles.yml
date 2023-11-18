@@ -63,7 +63,7 @@ jobs:
         repository: ${{ fromJSON(needs.check.outputs.repositories) }}
 
     env:
-      SOURCE_REPOSITORY: ${{ github.actor }}/dotfiles
+      SOURCE_REPOSITORY: ${{ github.repository_owner }}/dotfiles
       TARGET_REPOSITORY: ${{ matrix.repository }}
       SOURCE_REPOSITORY_PATH: __source_repository__
       TARGET_REPOSITORY_PATH: __target_repository__

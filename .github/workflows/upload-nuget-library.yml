@@ -50,7 +50,7 @@ jobs:
         if: steps.pack.outputs.success == 'true'
         shell: pwsh
         run: |
-          dotnet nuget add source $Env:SOURCE_URL --name $Env:SOURCE --username $Env:GITHUB_ACTOR --password $Env:TOKEN
+          dotnet nuget add source $Env:SOURCE_URL --name $Env:SOURCE --username ${{ github.repository_owner }} --password $Env:TOKEN
           dotnet nuget push "${{ env.OUTPUT_DIRECTORY }}/**/*.nupkg" --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE
         env:
           SOURCE: Azure Artifacts
