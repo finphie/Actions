@@ -32,6 +32,6 @@ runs:
         ${{ github.action_path }}/GetDotNetProjects.ps1 `
             -SolutionName '${{ inputs.solution-name }}' `
             -Projects '${{ inputs.projects }}' `
-            -SettingsFilePath '${{ inputs.settings-file-path != '' && inputs.settings-file-path || format('{0}/{1}', github.action_path, 'default.json') }}' `
+            -SettingsFilePath '${{ inputs.settings-file-path != '' && inputs.settings-file-path || format('{0}/{1}', github.action_path, (github.repository_owner == 'finphie' && 'finphie.json' || 'default.json')) }}' `
             -Verbose `
             -ErrorAction Stop

@@ -34,8 +34,6 @@ jobs:
   check:
     name: Check
     uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
-    with:
-      settings-file-path: ${{ github.repository_owner == 'finphie' && format('{0}/{1}', github.action_path, 'finphie.json') || '' }}
 
   pack:
     name: Push(NuGet)
