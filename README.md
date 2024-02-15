@@ -376,6 +376,7 @@ jobs:
           project: ProjectName
           configuration: Release
           version: '1.0.0'
+          target-framework-moniker: net8.0
           target-platform-identifier: none
           target-platform-version: null
           runtime: win-x64
@@ -391,6 +392,7 @@ dotnet-version|false|8.0.x|インストールする.NET SDKバージョン。
 project|**true**|-|プロジェクト名。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
+target-framework-moniker|false|net8.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。
 target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
 target-platform-version|false|null|プラットフォームバージョンを表す文字列。
 runtime|**true**|-|ランタイム識別子。
