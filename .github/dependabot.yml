@@ -8,7 +8,105 @@ updates:
       - dependencies
 
   - package-ecosystem: github-actions
-    directory: /.github/actions
+    directory: /.github/actions/check-extension
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/compress-archive
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/copy-github-labels
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/create-pull-request
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/dotnet-pack
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/dotnet-publish
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/get-dotnet-projects
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/get-github-repositories
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/git-push
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/git-versioning
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/pascal-to-kebab
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/read-file
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/run-msbuild-target
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/sync-repositories
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /.github/actions/upload-release-assets
     schedule:
       interval: daily
     labels:
