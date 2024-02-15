@@ -6,8 +6,9 @@ updates:
       interval: daily
     labels:
       - dependencies
+
   - package-ecosystem: github-actions
-    directory: /
+    directory: /.github/actions
     schedule:
       interval: daily
     labels:
