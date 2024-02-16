@@ -89,7 +89,7 @@ jobs:
           destination-path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ env.OUTPUT_FILE_EXTENSION }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.OUTPUT_FILE_NAME }}
           path: ${{ runner.temp }}/${{ env.OUTPUT_FILE_NAME }}.${{ env.OUTPUT_FILE_EXTENSION }}
