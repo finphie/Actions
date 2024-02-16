@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create release notes
-        uses: toolmantim/release-drafter@v5
+        uses: toolmantim/release-drafter@v6
         with:
           publish: true
           prerelease: false
