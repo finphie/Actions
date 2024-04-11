@@ -27,7 +27,18 @@ function Get-GitHubOutput
     return $outputs
 }
 
-[string[]]$lines = dotnet msbuild -nologo -target:$target | ForEach-Object { $_.Trim() }
+[string]$dotnetVersion = dotnet --version
+Write-Verbose ".NET version: $dotnetVersion"
+
+[Version]$version = ($dotnetVersion -Split '-')[0]
+[string]$terminalLogger = ''
+
+if ($version.Major -ge 9)
+{
+    $terminalLogger = '--tl:off'
+}
+
+[string[]]$lines = dotnet msbuild -nologo -target:$target $terminalLogger | ForEach-Object { $_.Trim() }
 
 [OrderedDictionary]$outputs = Get-GitHubOutput -LineList $lines
 Write-GitHubOutput -OutputList $outputs
