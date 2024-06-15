@@ -862,7 +862,7 @@ jobs:
   main:
     uses: finphie/Actions/workflows/build-dotnet.yml@main
     with:
-      dotnet-version: 9.0.100-preview.4.24267.66
+      dotnet-version: 9.0.100-preview.5.24307.3
       configuration: Release
 ```
 
@@ -870,7 +870,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|9.0.100-preview.4.24267.66|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-preview.5.24307.3|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 
 #### 環境変数
@@ -1079,7 +1079,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
     with:
-      dotnet-version: 9.0.100-preview.4.24267.66
+      dotnet-version: 9.0.100-preview.5.24307.3
       version: '1.0.0'
       release: true
       suffix: v1.0.0
@@ -1092,7 +1092,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|9.0.100-preview.4.24267.66|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-preview.5.24307.3|インストールする.NET SDKバージョン。
 version|**true**|-|バージョンを表す文字列。
 release|**true**|-|安定版リリースかどうか。
 suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
