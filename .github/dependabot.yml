@@ -8,105 +8,22 @@ updates:
       - dependencies
 
   - package-ecosystem: github-actions
-    directory: /.github/actions/check-extension
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/compress-archive
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/copy-github-labels
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/create-pull-request
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/dotnet-pack
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/dotnet-publish
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/get-dotnet-projects
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/get-github-repositories
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/git-push
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/git-versioning
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/pascal-to-kebab
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/read-file
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/run-msbuild-target
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/sync-repositories
-    schedule:
-      interval: daily
-    labels:
-      - dependencies
-
-  - package-ecosystem: github-actions
-    directory: /.github/actions/upload-release-assets
+    directories:
+      - /.github/actions/check-extension
+      - /.github/actions/compress-archive
+      - /.github/actions/copy-github-labels
+      - /.github/actions/create-pull-request
+      - /.github/actions/dotnet-pack
+      - /.github/actions/dotnet-publish
+      - /.github/actions/get-dotnet-projects
+      - /.github/actions/get-github-repositories
+      - /.github/actions/git-push
+      - /.github/actions/git-versioning
+      - /.github/actions/pascal-to-kebab
+      - /.github/actions/read-file
+      - /.github/actions/run-msbuild-target
+      - /.github/actions/sync-repositories
+      - /.github/actions/upload-release-assets
     schedule:
       interval: daily
     labels:
