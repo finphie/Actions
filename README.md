@@ -324,7 +324,7 @@ jobs:
       - name: .NET Pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
         with: 
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.100-rc.1.24452.12
           configuration: Release
           version: '1.0.0'
           output-directory: pack
@@ -334,7 +334,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|8.0.x|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 output-directory|false|pack|出力先ディレクトリ。
@@ -372,11 +372,11 @@ jobs:
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
         with: 
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.100-rc.1.24452.12
           project: ProjectName
           configuration: Release
           version: '1.0.0'
-          target-framework-moniker: net8.0
+          target-framework-moniker: net9.0
           target-platform-identifier: none
           target-platform-version: null
           runtime: win-x64
@@ -388,11 +388,11 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|8.0.x|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 project|**true**|-|プロジェクト名。
 configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
-target-framework-moniker|false|net8.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。
+target-framework-moniker|false|net9.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。
 target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
 target-platform-version|false|null|プラットフォームバージョンを表す文字列。
 runtime|**true**|-|ランタイム識別子。
@@ -862,7 +862,7 @@ jobs:
   main:
     uses: finphie/Actions/workflows/build-dotnet.yml@main
     with:
-      dotnet-version: 9.0.100-preview.7.24407.12
+      dotnet-version: 9.0.100-rc.1.24452.12
       configuration: Release
 ```
 
@@ -870,7 +870,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|9.0.100-preview.7.24407.12|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 configuration|false|Release|ビルド構成。
 
 #### 環境変数
@@ -1079,7 +1079,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/deploy-dotnet.yml@main
     with:
-      dotnet-version: 9.0.100-preview.7.24407.12
+      dotnet-version: 9.0.100-rc.1.24452.12
       version: '1.0.0'
       release: true
       suffix: v1.0.0
@@ -1092,7 +1092,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|9.0.100-preview.7.24407.12|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 version|**true**|-|バージョンを表す文字列。
 release|**true**|-|安定版リリースかどうか。
 suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
@@ -1210,7 +1210,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
-      dotnet-version: 8.0.x
+      dotnet-version: 9.0.100-rc.1.24452.12
       runs-on: ubuntu-latest
       project: ProjectName
       target-platform-identifier: none
@@ -1226,7 +1226,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|8.0.x|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 runs-on|false|ubuntu-latest|ランナー環境。
 project|**true**|-|プロジェクト名。
 target-platform-identifier|false|none|プラットフォーム識別子。
@@ -1259,7 +1259,7 @@ jobs:
   main:
     uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
     with:
-      dotnet-version: 8.0.x
+      dotnet-version: 9.0.100-rc.1.24452.12
       version: '1.0.0'
       release: true
     secrets:
@@ -1271,7 +1271,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-dotnet-version|false|8.0.x|インストールする.NET SDKバージョン。
+dotnet-version|false|9.0.100-rc.1.24452.12|インストールする.NET SDKバージョン。
 version|**true**|-|バージョンを表す文字列。
 release|**true**|-|安定版リリースかどうか。
 

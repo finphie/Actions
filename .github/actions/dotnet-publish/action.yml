@@ -6,7 +6,7 @@ inputs:
     description: インストールする.NET SDKバージョン。
     required: false
     type: string
-    default: 8.0.x
+    default: 9.0.100-rc.1.24452.12
   project:
     description: プロジェクト名。
     required: true
@@ -32,7 +32,7 @@ inputs:
       - net8.0
       - net7.0
       - net6.0
-    default: net8.0
+    default: net9.0
   target-platform-identifier:
     description: プラットフォーム識別子。
     required: false

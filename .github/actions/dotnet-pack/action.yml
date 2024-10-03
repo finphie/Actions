@@ -6,7 +6,7 @@ inputs:
     description: インストールする.NET SDKバージョン。
     required: false
     type: string
-    default: 8.0.x
+    default: 9.0.100-rc.1.24452.12
   configuration:
     description: ビルド構成。
     required: false
