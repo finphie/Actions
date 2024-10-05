@@ -30,13 +30,13 @@
       "os": "win",
       "architecture": "x64",
       "target-platform-identifier": "windows",
-      "target-platform-version": "10.0.19041.0"
+      "target-platform-version": "10.0.26100.0"
     },
     {
       "os": "win",
       "architecture": "arm64",
       "target-platform-identifier": "windows",
-      "target-platform-version": "10.0.19041.0"
+      "target-platform-version": "10.0.26100.0"
     }
   ],
   "maui": [
@@ -44,33 +44,33 @@
       "os": "win",
       "architecture": "x64",
       "target-platform-identifier": "windows",
-      "target-platform-version": "10.0.19041.0"
+      "target-platform-version": "10.0.26100.0"
     },
     {
       "os": "win",
       "architecture": "arm64",
       "target-platform-identifier": "windows",
-      "target-platform-version": "10.0.19041.0"
+      "target-platform-version": "10.0.26100.0"
     },
     {
       "os": "osx",
       "architecture": "arm64",
       "target-platform-identifier": "maccatalyst",
-      "target-platform-version": "17.0",
+      "target-platform-version": "17.5",
       "workload-restore": true
     },
     {
       "os": "android",
       "architecture": "arm64",
       "target-platform-identifier": "android",
-      "target-platform-version": "34.0",
+      "target-platform-version": "35.0",
       "workload-restore": true
     },
     {
       "os": "ios",
       "architecture": "arm64",
       "target-platform-identifier": "ios",
-      "target-platform-version": "17.0",
+      "target-platform-version": "17.5",
       "workload-restore": true
     }
   ],
