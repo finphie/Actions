@@ -28,6 +28,7 @@ jobs:
   main:
     name: Main
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     outputs:
       version: ${{ steps.git-versioning.outputs.version }}

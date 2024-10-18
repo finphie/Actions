@@ -26,6 +26,7 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     outputs:
       repositories: ${{ github.event.inputs.repository == 'All' && steps.get.outputs.repositories || format('["{0}"]', github.event.inputs.repository) }}
@@ -55,6 +56,7 @@ jobs:
     name: Main
     needs: check
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     strategy:
       max-parallel: 3
