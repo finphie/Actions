@@ -5,13 +5,11 @@ inputs:
   path:
     description: 検索対象のディレクトリ。
     required: false
-    type: string
     default: ${{ github.workspace }}
   recurse:
     description: 再帰検索するかどうか。
     required: false
-    type: boolean
-    default: false
+    default: 'false'
 
 outputs:
   dotnet:

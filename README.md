@@ -156,10 +156,10 @@ jobs:
 -|-|-|-
 path|**true**|-|圧縮対象のファイルが存在するディレクトリ。
 type|false|zip|圧縮形式。zip/gzipのいずれか。
-destination-path|false|null|rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
+destination-path|false||rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
 root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
-suffix|false|null|zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
-exclude|false|null|ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
+suffix|false||zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
+exclude|false||ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
 
 #### 環境変数
 
@@ -249,7 +249,7 @@ jobs:
           path: ${{ github.workspace }}
           commit-message: Commit message
           branch: create-pull-request
-          labels: null
+          labels: test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -279,7 +279,7 @@ jobs:
           path: ${{ github.workspace }}
           commit-message: Commit message
           branch: create-pull-request
-          labels: null
+          labels: test
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
 ```
@@ -291,7 +291,7 @@ jobs:
 path|false|${{ github.workspace }}|リポジトリのパス。
 commit-message|**true**|-|コミットメッセージ。
 branch|false|create-pull-request|ブランチ名。
-labels|false|null|ラベルのリスト。
+labels|false||ラベルのリスト。
 
 #### 環境変数
 
@@ -353,8 +353,6 @@ success|nupkgファイルの生成に成功したかどうか。
 
 dotnet publishコマンドを実行するアクションです。`Source/${{ project }}/${{ project }}.csproj`を前提とします。
 
-現在、.NET 8と.NET 7のみに対応しています。
-
 ```yaml
 on:
   workflow_dispatch:
@@ -378,7 +376,7 @@ jobs:
           version: '1.0.0'
           target-framework-moniker: net9.0
           target-platform-identifier: none
-          target-platform-version: null
+          target-platform-version: ''
           runtime: win-x64
           workload-restore: false
           output-directory: publish
@@ -394,7 +392,7 @@ configuration|false|Release|ビルド構成。
 version|**true**|-|バージョンを表す文字列。
 target-framework-moniker|false|net9.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。
 target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
-target-platform-version|false|null|プラットフォームバージョンを表す文字列。
+target-platform-version|false||プラットフォームバージョンを表す文字列。
 runtime|**true**|-|ランタイム識別子。
 workload-restore|false|false|dotnet workload restoreを実行するかどうか。
 output-directory|false|publish|出力先ディレクトリ。
@@ -481,12 +479,12 @@ jobs:
         with: 
           archived: false
           fork: false
-          language: null
+          language: ''
           limit: false
           no-archived: false
           source: false
           visibility: public
-          exclude: null
+          exclude: ''
           json: false
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
@@ -502,15 +500,15 @@ jobs:
 path|false|${{ github.workspace }}|リポジトリのパス。
 commit-message|**true**|-|コミットメッセージ。
 branch|false|create-pull-request|ブランチ名。
-labels|false|null|ラベルのリスト。
+labels|false||ラベルのリスト。
 archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
 fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
-language|false|null|指定された言語が主要なリポジトリを取得する。
+language|false||指定された言語が主要なリポジトリを取得する。
 limit|false|1000|取得するリポジトリの最大数。
 no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
 source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
 visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
-exclude|false|null|除外する「オーナー名/リポジトリ名」形式のリスト。
+exclude|false||除外する「オーナー名/リポジトリ名」形式のリスト。
 json|false|false|JSON形式で出力するかどうか。
 
 #### 環境変数
@@ -773,7 +771,7 @@ jobs:
           settings-file-path: target-repository/dotfiles.json
           commit-message: Commit message
           branch: sync-github-repositories
-          labels: null
+          labels: sync
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
 ```

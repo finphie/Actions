@@ -5,7 +5,6 @@ inputs:
   commit-message:
     description: コミットメッセージ。
     required: true
-    type: string
 
 runs:
   using: composite

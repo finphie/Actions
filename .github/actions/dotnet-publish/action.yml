@@ -5,65 +5,39 @@ inputs:
   dotnet-version:
     description: インストールする.NET SDKバージョン。
     required: false
-    type: string
     default: 9.0.100-rc.2.24474.11
   project:
     description: プロジェクト名。
     required: true
-    type: string
   configuration:
     description: ビルド構成。
     required: false
-    type: choice
-    options:
-      - Release
-      - Debug
     default: Release
   version:
     description: バージョンを表す文字列。
     required: true
-    type: string
   target-framework-moniker:
     description: ターゲットフレームワーク。
     required: false
-    type: choice
-    options:
-      - net9.0
-      - net8.0
-      - net7.0
-      - net6.0
     default: net9.0
   target-platform-identifier:
     description: プラットフォーム識別子。
     required: false
-    type: choice
-    options:
-      - none
-      - windows
-      - android
-      - maccatalyst
-      - ios
-      - tvos
-      - tizen
     default: none
   target-platform-version:
     description: プラットフォームバージョンを表す文字列。
     required: false
-    type: string
-    default: null
+    default: ''
   runtime:
     description: ランタイム識別子。
     required: true
-    type: string
   workload-restore:
     description: dotnet workload restoreを実行するかどうか。
     required: false
-    type: boolean
-    default: false
+    default: 'false'
   output-directory:
     description: 出力先ディレクトリ。
     required: false
-    type: string
     default: publish
 
 runs:

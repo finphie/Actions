@@ -5,34 +5,25 @@ inputs:
   path:
     description: 圧縮対象のファイルが存在するディレクトリ。
     required: true
-    type: string
   type:
     description: 圧縮形式。
     required: false
-    type: choice
-    options:
-      - zip
-      - gzip
     default: zip
   destination-path:
     description: rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
     required: true
-    type: string
   root:
     description: path内のディレクトリ毎にzipファイルを作成するかどうか。
     required: false
-    type: boolean
-    default: true
+    default: 'true'
   suffix:
     description: zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
     required: false
-    type: string
-    default: null
+    default: ''
   exclude:
     description: ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
     required: false
-    type: string
-    default: null
+    default: ''
 
 runs:
   using: composite
