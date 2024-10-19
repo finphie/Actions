@@ -29,8 +29,8 @@ jobs:
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
-          no-archived: true
           source: true
+          no-archived: true
           visibility: public
           exclude: ${{ github.repository }}
         env:

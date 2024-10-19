@@ -480,14 +480,13 @@ jobs:
           archived: false
           fork: false
           language: ''
-          limit: false
           no-archived: false
           source: false
           visibility: public
           exclude: ''
           json: false
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: |
           echo '${{ steps.get-github-repositories.outputs.repositories }}'
@@ -497,16 +496,11 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
-path|false|${{ github.workspace }}|リポジトリのパス。
-commit-message|**true**|-|コミットメッセージ。
-branch|false|create-pull-request|ブランチ名。
-labels|false||ラベルのリスト。
-archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
-fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
-language|false||指定された言語が主要なリポジトリを取得する。
-limit|false|1000|取得するリポジトリの最大数。
-no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
 source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
+fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
+archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
+no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
+language|false||指定された言語が主要なリポジトリを取得する。
 visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
 exclude|false||除外する「オーナー名/リポジトリ名」形式のリスト。
 json|false|false|JSON形式で出力するかどうか。
@@ -515,7 +509,7 @@ json|false|false|JSON形式で出力するかどうか。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレット。
 
 #### 出力
 

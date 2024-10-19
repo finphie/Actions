@@ -19,8 +19,9 @@ jobs:
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
-          no-archived: true
           source: true
+          no-archived: true
+          visibility: public
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
 

@@ -2,34 +2,30 @@ name: Get GitHub repositories
 description: GitHubリポジトリ名を取得するアクションです。
 
 inputs:
-  archived:
-    description: アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
+  source:
+    description: フォークではないリポジトリを取得する。forkと同時に有効にはできない。
     required: false
     default: 'false'
   fork:
     description: フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
     required: false
     default: 'false'
-  language:
-    description: 指定された言語が主要なリポジトリを取得する。
-    required: false
-    default: ''
-  limit:
-    description: 取得するリポジトリの最大数。
-    required: false
-    default: '1000'
-  no-archived:
-    description: アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
+  archived:
+    description: アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
     required: false
     default: 'false'
-  source:
-    description: フォークではないリポジトリを取得する。forkと同時に有効にはできない。
+  no-archived:
+    description: アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
     required: false
     default: 'false'
   visibility:
     description: 指定された可視性（public/private/internal）のリポジトリを取得する。
     required: false
     default: public
+  language:
+    description: 指定された言語が主要なリポジトリを取得する。
+    required: false
+    default: ''
   exclude:
     description: 除外する「オーナー名/リポジトリ名」形式のリスト。
     required: false
@@ -52,13 +48,12 @@ runs:
       shell: pwsh
       run: |
         ${{ github.action_path }}/GetGitHubRepositories.ps1 `
-            ${{ inputs.archived == 'true' && '-Archived' || '' }} `
-            ${{ inputs.fork == 'true' && '-Fork' || '' }} `
-            -Language '${{ inputs.language }}' `
-            -Limit ${{ inputs.limit }} `
-            ${{ inputs.no-archived == 'true' && '-NoArchived' || '' }} `
             ${{ inputs.source == 'true' && '-Source' || '' }} `
+            ${{ inputs.fork == 'true' && '-Fork' || '' }} `
+            ${{ inputs.archived == 'true' && '-Archived' || '' }} `
+            ${{ inputs.no-archived == 'true' && '-NoArchived' || '' }} `
             -Visibility ${{ inputs.visibility }} `
+            -Language '${{ inputs.language }}' `
             -Exclude '${{ inputs.exclude }}' `
             ${{ inputs.json == 'true' && '-Json' || '' }} `
             -Verbose `

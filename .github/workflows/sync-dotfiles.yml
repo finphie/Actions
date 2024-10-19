@@ -41,9 +41,10 @@ jobs:
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
-          language: C#
-          no-archived: true
           source: true
+          no-archived: true
+          visibility: public
+          language: C#
           exclude:
             ${{ github.repository }}
             finphie/dotfiles
