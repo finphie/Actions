@@ -8,6 +8,10 @@ inputs:
   source-repository:
     description: ソース元のリポジトリ。
     required: true
+  delete:
+    description: 既存のラベルを削除するかどうか。
+    required: false
+    default: 'false'
 
 runs:
   using: composite
@@ -18,5 +22,6 @@ runs:
         ${{ github.action_path }}/CopyGitHubLabels.ps1 `
             -Repositories '${{ inputs.repositories }}' `
             -SourceRepository '${{ inputs.source-repository }}' `
+            ${{ inputs.delete == 'true' && '-Delete' || '' }} `
             -Verbose `
             -ErrorAction Stop

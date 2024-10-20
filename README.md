@@ -190,8 +190,9 @@ jobs:
           repositories: |
             finphie/dotfiles
           source-repository: finphie/Actions
+          delete: false
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 ```
 
 #### 引数
@@ -200,12 +201,13 @@ jobs:
 -|-|-|-
 repositories|**true**|-|リポジトリのリスト。
 source-repository|**true**|-|ソース元のリポジトリ。
+delete|false|false|既存のラベルを削除するかどうか。
 
 #### 環境変数
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+GITHUB_TOKEN|**true**|-|「Issues」または「Pull requests」に「Read and write」アクセスを許可したトークン。
 
 #### 出力
 

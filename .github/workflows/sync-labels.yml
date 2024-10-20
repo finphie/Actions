@@ -32,8 +32,8 @@ jobs:
         uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0
         id: app-token
         with:
-          app-id: ${{ vars.SYNC_LABELS_APP_ID }}
-          private-key: ${{ secrets.SYNC_LABELS_PRIVATE_KEY }}
+          app-id: ${{ vars.LABELS_SYNC_APP_ID }}
+          private-key: ${{ secrets.LABELS_SYNC_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
       - name: Sync labels
@@ -41,5 +41,6 @@ jobs:
         with:
           repositories: ${{ steps.get.outputs.repositories }}
           source-repository: ${{ github.repository }}
+          delete: true
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
