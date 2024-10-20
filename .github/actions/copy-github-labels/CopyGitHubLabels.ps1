@@ -40,17 +40,17 @@ function New-GitHubLabel
 
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [Hashtable]$source
+        [Hashtable]$label
     )
 
-    Write-Verbose "Create label: $($source['name'])"
+    Write-Verbose "Create label: $($label['name'])"
 
     if (!$PSCmdlet.ShouldProcess('gh label create'))
     {
         return
     }
 
-    gh label create $source['name'] --repo $repository --description $source['description'] --color $source['color']
+    gh label create $label['name'] --repo $repository --description $label['description'] --color $label['color']
 }
 
 function Update-GitHubLabel
@@ -123,7 +123,7 @@ foreach ($repository in $repositoryList)
 
         if ($null -eq $label)
         {
-            New-GitHubLabel -Repository $repository -Source $sourceLabel
+            New-GitHubLabel -Repository $repository -Label $sourceLabel
             continue
         }
 
