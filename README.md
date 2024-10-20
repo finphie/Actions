@@ -207,7 +207,7 @@ delete|false|false|既存のラベルを削除するかどうか。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|「Issues」または「Pull requests」に「Read and write」アクセスを許可したトークン。
+GITHUB_TOKEN|**true**|-|IssuesまたはPull requestsに書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。
 
 #### 出力
 
@@ -273,7 +273,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: finphie/dotfiles
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.TOKEN }}
 
       - name: Create pull request
         uses: finphie/Actions/.github/actions/create-pull-request@main
@@ -283,7 +283,7 @@ jobs:
           branch: create-pull-request
           labels: test
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 ```
 
 #### 引数
@@ -299,7 +299,7 @@ labels|false||ラベルのリスト。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレットまたは「public_repo」スコープを許可したGitHub Personal Access Token。（他のリポジトリにPRを出す場合はPAT必須）
+GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。
 
 #### 出力
 
@@ -511,7 +511,7 @@ json|false|false|JSON形式で出力するかどうか。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレット。
+GITHUB_TOKEN|**true**|-|Metadataスコープの読み取り許可が付与されたトークン。
 
 #### 出力
 
@@ -769,7 +769,7 @@ jobs:
           branch: sync-github-repositories
           labels: sync
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 ```
 
 #### 引数
@@ -787,7 +787,7 @@ labels|false|chore|ラベルのリスト。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|「public_repo」スコープを許可したGitHub Personal Access Token。
+GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。
 
 #### 出力
 
@@ -834,7 +834,7 @@ files|**true**|-|アップロード対象のファイルリスト。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-GITHUB_TOKEN|**true**|-|GITHUB_TOKENシークレット。
+GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。
 
 #### 出力
 
