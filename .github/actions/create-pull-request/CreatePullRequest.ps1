@@ -21,6 +21,7 @@ if (!(Test-Diff))
     exit
 }
 
+Invoke-GitRmCached
 Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'

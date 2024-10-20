@@ -165,13 +165,14 @@ function Invoke-GitRmCached
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([string[]])]
     param (
-        [Parameter(Mandatory)]
         [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path
+        [string]$path = '.'
     )
 
-    if ($PSCmdlet.ShouldProcess('git'))
+    if (!$PSCmdlet.ShouldProcess('git'))
     {
-        git rm --cached $path
+        return
     }
+
+    git rm --cached $path
 }
