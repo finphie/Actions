@@ -130,7 +130,7 @@ $addedFiles | ForEach-Object { Copy-File -SourceFilePath $_[0] -TargetFilePath $
 $deletedFiles | ForEach-Object { Remove-File -FilePath $_ }
 
 [string]$newHash = Get-HeadHash -Path $sourcePath
-[hashtable]$json = @{
+[Hashtable]$json = @{
     'hash' = $newHash
 }
 

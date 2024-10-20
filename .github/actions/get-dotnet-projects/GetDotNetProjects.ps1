@@ -26,7 +26,7 @@ function Get-ProjectList
     param (
         [Parameter(Mandatory)]
         [ValidateNotNull()]
-        [hashtable]$settings,
+        [Hashtable]$settings,
 
         [Parameter(Mandatory)]
         [ValidateNotNull()]
@@ -96,7 +96,7 @@ function Get-GitHubOutput
 
 Write-Verbose "SolutionName: $solutionName"
 
-[hashtable]$settings = Get-JsonFile -Path $settingsFilePath
+[Hashtable]$settings = Get-JsonFile -Path $settingsFilePath
 [string[]]$list = Get-List -Value $projects -WithoutConnma | Where-Object { $_.StartsWith($solutionName) }
 [OrderedDictionary[]]$projectList = Get-ProjectList -Settings $settings -ProjectList $list
 
