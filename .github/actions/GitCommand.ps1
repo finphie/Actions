@@ -115,10 +115,13 @@ function Get-RepositoryFile
     [OutputType([string[]])]
     param (
         [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
-        [string]$path = '.'
+        [string]$path = '.',
+
+        [ValidatePattern('^[0-9a-fA-F]{40}$')]
+        [string]$hash = 'HEAD'
     )
 
-    [string[]]$repositoryFiles = git -C $path ls-files
+    [string[]]$repositoryFiles = git -C $path ls-tree -r $hash --name-only
     return $repositoryFiles
 }
 
