@@ -159,3 +159,19 @@ function Test-Diff
     # 終了コード0は差分なし、1は差分ありを表す。
     return $LastExitCode -eq 1
 }
+
+function Invoke-GitRmCached
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([string[]])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        [string]$path
+    )
+
+    if ($PSCmdlet.ShouldProcess('git'))
+    {
+        git rm --cached $path
+    }
+}

@@ -61,6 +61,10 @@ $fileNamesToDelete | ForEach-Object { Remove-File -FilePath (Join-Path $targetPa
 $headSourceFileNames | ForEach-Object { Copy-File -SourceFilePath (Join-Path $sourcePath $_) -TargetFilePath (Join-Path $targetPath $_) }
 $ignoreFiles | ForEach-Object { Remove-File -FilePath (Join-Path $targetPath $_) }
 
+# ファイル名の大文字・小文字変更をgitに検出させる。
+$gitRmFiles = $headSourceFileNames | Where-Object {$_ -cnotin $sourceFileNames -and $_ -in $sourceFileNames }
+$gitRmFiles | ForEach-Object { Invoke-GitRmCached -Path (Join-Path $targetPath $_) }
+
 [string]$newHash = Get-HeadHash -Path $sourcePath
 [Hashtable]$json = @{
     'hash' = $newHash
