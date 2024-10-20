@@ -63,7 +63,7 @@ function Get-GitHubRepositoryList
     # そのため、REST APIを使用してリポジトリの一覧を取得する。
     # この場合は、Metadataに対するRead権限のみで良い。
     # https://docs.github.com/ja/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user
-    [string]$json = gh api 'users/{owner}/repos'
+    [string]$json = gh api 'users/{owner}/repos' --paginate
     [Hashtable[]]$repositories = $json | ConvertFrom-Json -AsHashtable
 
     return $repositories
