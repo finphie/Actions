@@ -52,8 +52,7 @@ function Get-GitHubRepositoryList
 {
     [CmdletBinding()]
     [OutputType([Hashtable[]])]
-    param (
-    )
+    param ()
 
     # gh repo listでは、GraphQLを使用してリポジトリの一覧を取得している。
     # しかしながら以下の制限がある。
