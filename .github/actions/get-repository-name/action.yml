@@ -1,0 +1,24 @@
+name: Get repository name
+description: リポジトリ名を取得するアクションです。
+
+inputs:
+  repository:
+    description: owner/repoまたはrepo形式のリポジトリ名。
+    required: true
+
+outputs:
+  repository-name:
+    description: リポジトリ名。
+    value: ${{ steps.x.outputs.repository-name }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get repository name
+      id: x
+      shell: pwsh
+      run: |
+        ${{ github.action_path }}/GetRepositoryName.ps1 `
+            -Repository '${{ inputs.repository }}' `
+            -Verbose `
+            -ErrorAction Stop

@@ -18,6 +18,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [dotnet-publish](#dotnet-publish)
   - [get-dotnet-projects](#get-dotnet-projects)
   - [get-github-repositories](#get-github-repositories)
+  - [get-repository-name](#get-repository-name)
   - [git-push](#git-push)
   - [git-versioning](#git-versioning)
   - [pascal-to-kebab](#pascal-to-kebab)
@@ -518,6 +519,47 @@ GITHUB_TOKEN|**true**|-|Metadataスコープの読み取り許可が付与され
 名前|説明
 -|-
 repositories|「オーナー名/リポジトリ名」のリスト。
+
+### get-repository-name
+
+リポジトリ名を取得するアクションです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository name
+        id: get-repository-name
+        uses: finphie/Actions/.github/actions/get-repository-name@main
+        with: 
+          repository: finphie/Actions
+
+      - run: |
+          echo '${{ steps.get-repository-name.outputs.repository-name }}'
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+repository|**true**|-|owner/repoまたはrepo形式のリポジトリ名。
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+名前|説明
+-|-
+repository-name|リポジトリ名。
 
 ### git-push
 
