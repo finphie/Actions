@@ -47,4 +47,5 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ steps.get.outputs.text }}:v${{ inputs.version }}
             ghcr.io/${{ github.repository_owner }}/${{ steps.get.outputs.text }}:v${{ inputs.version-major }}
         env:
+          DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
