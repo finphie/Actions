@@ -1075,6 +1075,8 @@ on:
 
 permissions:
   packages: write
+  id-token: write
+  attestations: write
 
 jobs:
   main:
@@ -1206,6 +1208,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   main:
