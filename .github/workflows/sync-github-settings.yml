@@ -69,6 +69,6 @@ jobs:
         uses: finphie/GitHubSettingsSync@v3.0.0
         with:
           repository: ${{ matrix.repository }}
-          path: ./.github/github-settings.json
+          path: /.github/github-settings.json
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
