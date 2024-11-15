@@ -1346,7 +1346,7 @@ NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 ### sync-secrets.yml
 
-各リポジトリのシークレットを同期するワークフローです。
+各リポジトリのシークレットを同期するワークフローです。[GitHubSecretsSync](https://github.com/finphie/GitHubSecretsSync)を使用します。
 
 ## 作者
 
