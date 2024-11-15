@@ -50,6 +50,13 @@ jobs:
         repository: ${{ fromJSON(needs.check.outputs.repositories) }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: |
+            .github/github-settings.json
+          sparse-checkout-cone-mode: false
+
       - name: Get target repository name
         id: get-repository-name
         uses: finphie/Actions/.github/actions/get-repository-name@main
@@ -69,6 +76,6 @@ jobs:
         uses: finphie/GitHubSettingsSync@v3.0.0
         with:
           repository: ${{ matrix.repository }}
-          path: /.github/github-settings.json
+          path: .github/github-settings.json
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
