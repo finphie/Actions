@@ -2,51 +2,73 @@ name: Sync(GitHub settings)
 
 on:
   workflow_dispatch:
+    inputs:
+      repository:
+        description: リポジトリ名
+        required: false
+        type: string
+        default: All
 
 permissions: {}
 
 jobs:
-  main:
-    name: Main
+  check:
+    name: Check
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    outputs:
+      repositories: ${{ github.event.inputs.repository == 'All' && steps.get.outputs.repositories || format('["{0}/{1}"]', github.repository_owner, github.event.inputs.repository) }}
+
     steps:
       - name: Checkout repository
+        if: github.event.inputs.repository == 'All'
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Get repositories
+        if: github.event.inputs.repository == 'All'
         uses: ./.github/actions/get-github-repositories
         id: get
         with:
           source: true
           no-archived: true
           visibility: public
+          json: true
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  main:
+    name: Main
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      max-parallel: 3
+      fail-fast: false
+      matrix:
+        repository: ${{ fromJSON(needs.check.outputs.repositories) }}
+
+    steps:
+      - name: Get target repository name
+        id: get-repository-name
+        uses: finphie/Actions/.github/actions/get-repository-name@main
+        with:
+          repository: ${{ matrix.repository }}
+
+      - name: Create token
+        uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0
+        id: app-token
+        with:
+          app-id: ${{ vars.SETTINGS_SYNC_APP_ID }}
+          private-key: ${{ secrets.SETTINGS_SYNC_PRIVATE_KEY }}
+          repositories: |
+            ${{ steps.get-repository-name.outputs.repository-name }}
 
       - name: Sync github settings
-        uses: finphie/GitHubSettingsSync@v2.0.0
+        uses: finphie/GitHubSettingsSync@v3.0.0
         with:
-          repositories: ${{ steps.get.outputs.repositories }}
-          has-projects: false
-          has-wiki: false
-          has-discussions: true
-          allow-merge-commit: true
-          allow-squash-merge: true
-          allow-rebase-merge: false
-          delete-branch-on-merge: true
-          allow-update-branch: true
-          merge-commit-title: PullRequestTitle
-          merge-commit-message: PullRequestBody
-          squash-merge-commit-title: PullRequestTitle
-          squash-merge-commit-message: PullRequestBody
-          branch-protection: true
-          branch-protection-required-linear-history: true
-          branch-protection-required-conversation-resolution: true
-          branch-protection-required-reviews: true
-          branch-protection-required-reviews-dismiss-stale-reviews: true
-          branch-protection-required-reviews-require-code-owner-reviews: true
-          branch-protection-required-reviews-required-approving-review-count: 1
+          repository: ${{ matrix.repository }}
+          path: ./.github/github-settings.json
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLIC_REPOSITORY_PAT }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
