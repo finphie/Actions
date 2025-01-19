@@ -134,14 +134,14 @@ jobs:
     steps:
       - name: Compress archive
         uses: finphie/Actions/.github/actions/compress-archive@main
-        with: 
+        with:
           path: target-path
           destination-path: a.zip
           root: true
 
       - name: Compress archive
         uses: finphie/Actions/.github/actions/compress-archive@main
-        with: 
+        with:
           path: target-path
           type: zip
           destination-path: destination-directory
@@ -187,7 +187,7 @@ jobs:
     steps:
       - name: Copy GitHub labels
         uses: finphie/Actions/.github/actions/copy-github-labels@main
-        with: 
+        with:
           repositories: |
             finphie/dotfiles
           source-repository: finphie/Actions
@@ -248,7 +248,7 @@ jobs:
 
       - name: Create pull request
         uses: finphie/Actions/.github/actions/create-pull-request@main
-        with: 
+        with:
           path: ${{ github.workspace }}
           commit-message: Commit message
           branch: create-pull-request
@@ -278,7 +278,7 @@ jobs:
 
       - name: Create pull request
         uses: finphie/Actions/.github/actions/create-pull-request@main
-        with: 
+        with:
           path: ${{ github.workspace }}
           commit-message: Commit message
           branch: create-pull-request
@@ -326,7 +326,7 @@ jobs:
 
       - name: .NET Pack
         uses: finphie/Actions/.github/actions/dotnet-pack@main
-        with: 
+        with:
           dotnet-version: '9.0.100'
           configuration: Release
           version: '1.0.0'
@@ -372,7 +372,7 @@ jobs:
 
       - name: .NET Publish
         uses: finphie/Actions/.github/actions/dotnet-publish@main
-        with: 
+        with:
           dotnet-version: '9.0.100'
           project: ProjectName
           configuration: Release
@@ -429,7 +429,7 @@ jobs:
       - name: Get .NET projects
         id: get-dotnet-projects
         uses: finphie/Actions/.github/actions/get-dotnet-projects@main
-        with: 
+        with:
           solution-name: ${{ github.event.repository.name }}
           projects: |
             Project1,Console
@@ -479,7 +479,7 @@ jobs:
       - name: Get GitHub repositories
         id: get-github-repositories
         uses: finphie/Actions/.github/actions/get-github-repositories@main
-        with: 
+        with:
           archived: false
           fork: false
           language: ''
@@ -538,7 +538,7 @@ jobs:
       - name: Get repository name
         id: get-repository-name
         uses: finphie/Actions/.github/actions/get-repository-name@main
-        with: 
+        with:
           repository: finphie/Actions
 
       - run: |
@@ -584,7 +584,7 @@ jobs:
 
       - name: Git push
         uses: finphie/Actions/.github/actions/git-push@main
-        with: 
+        with:
           commit-message: Commit message
 ```
 
@@ -623,7 +623,7 @@ jobs:
       - name: Git versioning
         id: git-versioning
         uses: finphie/Actions/.github/actions/git-versioning@main
-        with: 
+        with:
           file-name: version.json
           hash: ${{ github.sha }}
           revision: ${{ github.run_number }}
@@ -678,7 +678,7 @@ jobs:
       - name: Pascal to kebab
         id: pascal-to-kebab
         uses: finphie/Actions/.github/actions/pascal-to-kebab@main
-        with: 
+        with:
           text: Text
 
       - run: |
@@ -722,7 +722,7 @@ jobs:
       - name: Read file
         id: read-file
         uses: finphie/Actions/.github/actions/read-file@main
-        with: 
+        with:
           file-path: text.txt
 
       - run: |
@@ -763,7 +763,8 @@ jobs:
       - name: Run MSBuild target
         id: run-msbuild-target
         uses: finphie/Actions/.github/actions/run-msbuild-target@main
-        with: 
+        with:
+          dotnet-version: '9.0.100'
           target: TargetName
 
       - run: |
@@ -774,6 +775,7 @@ jobs:
 
 名前|必須|デフォルト|説明
 -|-|-|-
+dotnet-version|false|9.0.100|インストールする.NET SDKバージョン。
 target|**true**|-|MSBuildターゲット名。
 
 #### 環境変数
@@ -803,7 +805,7 @@ jobs:
     steps:
       - name: Sync repositories
         uses: finphie/Actions/.github/actions/sync-repositories@main
-        with: 
+        with:
           source-path: source-repository
           target-path: target-repository
           settings-file-path: target-repository/dotfiles.json
@@ -856,7 +858,7 @@ jobs:
 
       - name: Upload release assets
         uses: finphie/Actions/.github/actions/upload-release-assets@main
-        with: 
+        with:
           tag: v1.0.0
           files: |
             **/*.zip
