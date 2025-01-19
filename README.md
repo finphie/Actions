@@ -36,6 +36,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [deploy-docker.yml](#deploy-dockeryml)
   - [deploy-dotnet.yml](#deploy-dotnetyml)
   - [get-version.yml](#get-versionyml)
+  - [normalize.yml](#normalizeyml)
   - [release.yml](#releaseyml)
   - [upload-artifacts-dotnet.yml](#upload-artifacts-dotnetyml)
   - [upload-nuget-library.yml](#upload-nuget-libraryyml)
@@ -1197,6 +1198,34 @@ release|安定版リリースかどうか。
 tag|gitタグ名。
 dotnet|.NETファイルが含まれているかどうか。
 docker|Dockerfileが含まれているかどうか。
+
+### normalize.yml
+
+改行コードを正規化する再利用可能なワークフローです。
+
+```yaml
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    uses: finphie/Actions/.github/workflows/normalize.yml@main
+```
+
+#### 引数
+
+なし
+
+#### 環境変数
+
+なし
+
+#### 出力
+
+なし
 
 ### release.yml
 

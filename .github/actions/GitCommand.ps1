@@ -1,4 +1,26 @@
-﻿function Invoke-GitCommitAndPush
+﻿function Invoke-GitAdd
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
+    param (
+        [switch]$normalize
+    )
+
+    if (!$PSCmdlet.ShouldProcess('git'))
+    {
+        return
+    }
+
+    if ($normalize)
+    {
+        git add --renormalize .
+        return
+    }
+
+    git add .
+}
+
+function Invoke-GitCommitAndPush
 {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([void])]
@@ -7,7 +29,8 @@
         [ValidateNotNullOrEmpty()]
         [string]$commitMessage,
 
-        [string]$branchName = ''
+        [string]$branchName = '',
+        [switch]$normalize
     )
 
     if (!$PSCmdlet.ShouldProcess('git'))
@@ -19,7 +42,7 @@
 
     if ($branchName -eq '')
     {
-        git add .
+        Invoke-GitAdd -Normalize:$normalize
         git commit -m $commitMessage
         git push
 
@@ -29,7 +52,7 @@
     Write-Verbose "Branch: $branchName"
 
     git checkout -b $branchName
-    git add .
+    Invoke-GitAdd -Normalize:$normalize
     git commit -m $commitMessage
     git push origin $branchName
 }
