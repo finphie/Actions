@@ -7,7 +7,7 @@ on:
         description: インストールする.NET SDKバージョン。
         required: false
         type: string
-        default: 9.0.100
+        default: 9.0.x
       version:
         description: バージョンを表す文字列。
         required: true
