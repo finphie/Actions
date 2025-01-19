@@ -167,7 +167,7 @@ function Test-Diff
     [OutputType([bool])]
     param ()
 
-    git add -N .
+    git add -N --renormalize .
     git diff --name-only --exit-code
 
     # 終了コードが2以上の場合は、何らかのエラー発生のはず。
