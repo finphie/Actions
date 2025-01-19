@@ -50,6 +50,7 @@ jobs:
     name: Publish
     needs: check
     if: needs.check.outputs.projects != ''
+
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.check.outputs.projects) }}

@@ -34,10 +34,9 @@ jobs:
           no-archived: true
           visibility: public
           language: C#
-          exclude:
+          exclude: |
             ${{ github.repository }}
             finphie/dotfiles
-            finphie/CryHydrangea
           json: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
