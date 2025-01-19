@@ -13,6 +13,11 @@
       "architecture": "x64"
     },
     {
+      "os": "linux",
+      "architecture": "arm64",
+      "runs-on": "ubuntu-24.04-arm"
+    },
+    {
       "os": "osx",
       "architecture": "x64"
     },
