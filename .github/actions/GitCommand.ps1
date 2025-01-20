@@ -185,7 +185,7 @@ function Invoke-GitRmCached
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([string[]])]
     param (
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
         [string]$path = '.'
     )
 
@@ -194,5 +194,5 @@ function Invoke-GitRmCached
         return
     }
 
-    git rm --cached $path
+    git rm -r --cached $path
 }
