@@ -15,7 +15,7 @@ param (
 . $rootPath/Utility.ps1
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
-if (!(Test-Diff))
+if (!(Test-Diff -Normalize))
 {
     Write-Verbose 'Skip'
     exit

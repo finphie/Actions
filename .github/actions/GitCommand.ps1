@@ -165,13 +165,24 @@ function Test-Diff
 {
     [CmdletBinding()]
     [OutputType([bool])]
-    param ()
+    param (
+        [switch]$normalize
+    )
 
-    git add -N --renormalize .
+    if ($normalize)
+    {
+        git add -N --renormalize .
+    }
+    else
+    {
+        git add -N .
+    }
+
     git diff --name-only --exit-code
+    [int]$exitCode = $LastExitCode
 
     # 終了コードが2以上の場合は、何らかのエラー発生のはず。
-    if ($LastExitCode -gt 1)
+    if ($exitCode -gt 1)
     {
         Write-Error 'Error: git diff command'
         return
@@ -180,7 +191,7 @@ function Test-Diff
     $global:LastExitCode = $null
 
     # 終了コード0は差分なし、1は差分ありを表す。
-    return $LastExitCode -eq 1
+    return $exitCode -eq 1
 }
 
 function Invoke-GitRmCached
