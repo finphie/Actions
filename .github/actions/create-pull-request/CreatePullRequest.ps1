@@ -15,7 +15,7 @@ param (
 . $rootPath/Utility.ps1
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
-if (!(Test-Diff -Normalize))
+if (!(Test-Diff))
 {
     Write-Verbose 'Skip'
     exit
@@ -26,7 +26,9 @@ Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
 [string]$branchName = "$branch/$date"
-Invoke-GitCommitAndPush -CommitMessage $commitMessage -BranchName $branchName -Normalize
+
+Invoke-GitSwitch -BranchName $branchName
+Invoke-GitCommitAndPush -CommitMessage $commitMessage
 
 Write-Verbose 'Create pull request'
 

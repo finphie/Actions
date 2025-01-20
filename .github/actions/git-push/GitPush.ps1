@@ -9,11 +9,11 @@ param (
 . $rootPath/GitCommand.ps1
 
 # 差分なしの場合、以降の処理をスキップして正常終了する。
-if (!(Test-Diff -Normalize))
+if (!(Test-Diff))
 {
     Write-Verbose 'Skip'
     exit
 }
 
 Set-GitConfig
-Invoke-GitCommitAndPush -CommitMessage $commitMessage -Normalize
+Invoke-GitCommitAndPush -CommitMessage $commitMessage

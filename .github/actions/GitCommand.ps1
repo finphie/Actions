@@ -2,8 +2,24 @@
 {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([void])]
+    param ()
+
+    if (!$PSCmdlet.ShouldProcess('git'))
+    {
+        return
+    }
+
+    git add .
+}
+
+function Invoke-GitSwitch
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
-        [switch]$normalize
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$branchName
     )
 
     if (!$PSCmdlet.ShouldProcess('git'))
@@ -11,13 +27,8 @@
         return
     }
 
-    if ($normalize)
-    {
-        git add --renormalize .
-        return
-    }
-
-    git add .
+    Write-Verbose "Branch: $branchName"
+    git switch -c $branchName
 }
 
 function Invoke-GitCommitAndPush
@@ -27,10 +38,7 @@ function Invoke-GitCommitAndPush
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$commitMessage,
-
-        [string]$branchName = '',
-        [switch]$normalize
+        [string]$commitMessage
     )
 
     if (!$PSCmdlet.ShouldProcess('git'))
@@ -40,19 +48,7 @@ function Invoke-GitCommitAndPush
 
     Write-Verbose "Commit message: $commitMessage"
 
-    if ($branchName -eq '')
-    {
-        Invoke-GitAdd -Normalize:$normalize
-        git commit -m $commitMessage
-        git push
-
-        return
-    }
-
-    Write-Verbose "Branch: $branchName"
-
-    git checkout -b $branchName
-    Invoke-GitAdd -Normalize:$normalize
+    Invoke-GitAdd
     git commit -m $commitMessage
     git push origin $branchName
 }
@@ -165,19 +161,9 @@ function Test-Diff
 {
     [CmdletBinding()]
     [OutputType([bool])]
-    param (
-        [switch]$normalize
-    )
+    param ()
 
-    if ($normalize)
-    {
-        git add -N --renormalize .
-    }
-    else
-    {
-        git add -N .
-    }
-
+    git add -N .
     git diff --name-only --exit-code
     [int]$exitCode = $LastExitCode
 
