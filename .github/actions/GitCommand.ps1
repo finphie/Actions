@@ -2,8 +2,24 @@
 {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([void])]
+    param ()
+
+    if (!$PSCmdlet.ShouldProcess('git'))
+    {
+        return
+    }
+
+    git add .
+}
+
+function Invoke-GitSwitch
+{
+    [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([void])]
     param (
-        [switch]$normalize
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$branchName
     )
 
     if (!$PSCmdlet.ShouldProcess('git'))
@@ -11,13 +27,8 @@
         return
     }
 
-    if ($normalize)
-    {
-        git add --renormalize .
-        return
-    }
-
-    git add .
+    Write-Verbose "Branch: $branchName"
+    git switch -c $branchName
 }
 
 function Invoke-GitCommitAndPush
@@ -27,10 +38,7 @@ function Invoke-GitCommitAndPush
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$commitMessage,
-
-        [string]$branchName = '',
-        [switch]$normalize
+        [string]$commitMessage
     )
 
     if (!$PSCmdlet.ShouldProcess('git'))
@@ -40,19 +48,7 @@ function Invoke-GitCommitAndPush
 
     Write-Verbose "Commit message: $commitMessage"
 
-    if ($branchName -eq '')
-    {
-        Invoke-GitAdd -Normalize:$normalize
-        git commit -m $commitMessage
-        git push
-
-        return
-    }
-
-    Write-Verbose "Branch: $branchName"
-
-    git checkout -b $branchName
-    Invoke-GitAdd -Normalize:$normalize
+    Invoke-GitAdd
     git commit -m $commitMessage
     git push origin $branchName
 }
@@ -167,11 +163,12 @@ function Test-Diff
     [OutputType([bool])]
     param ()
 
-    git add -N --renormalize .
+    git add -N .
     git diff --name-only --exit-code
+    [int]$exitCode = $LastExitCode
 
     # 終了コードが2以上の場合は、何らかのエラー発生のはず。
-    if ($LastExitCode -gt 1)
+    if ($exitCode -gt 1)
     {
         Write-Error 'Error: git diff command'
         return
@@ -180,7 +177,7 @@ function Test-Diff
     $global:LastExitCode = $null
 
     # 終了コード0は差分なし、1は差分ありを表す。
-    return $LastExitCode -eq 1
+    return $exitCode -eq 1
 }
 
 function Invoke-GitRmCached
@@ -188,7 +185,7 @@ function Invoke-GitRmCached
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([string[]])]
     param (
-        [ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage='"{0}" does not exist.')]
+        [ValidateScript({ Test-Path $_ -PathType Container }, ErrorMessage='"{0}" does not exist.')]
         [string]$path = '.'
     )
 
@@ -197,5 +194,5 @@ function Invoke-GitRmCached
         return
     }
 
-    git rm --cached $path
+    git rm -r --cached $path
 }

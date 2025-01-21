@@ -16,4 +16,4 @@ if (!(Test-Diff))
 }
 
 Set-GitConfig
-Invoke-GitCommitAndPush -CommitMessage $commitMessage -Normalize
+Invoke-GitCommitAndPush -CommitMessage $commitMessage

@@ -26,7 +26,9 @@ Set-GitConfig
 
 [string]$date = Get-Date -AsUTC -Format 'yyyyMMddHHmmss'
 [string]$branchName = "$branch/$date"
-Invoke-GitCommitAndPush -CommitMessage $commitMessage -BranchName $branchName -Normalize
+
+Invoke-GitSwitch -BranchName $branchName
+Invoke-GitCommitAndPush -CommitMessage $commitMessage
 
 Write-Verbose 'Create pull request'
 
