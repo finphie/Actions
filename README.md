@@ -1318,6 +1318,8 @@ suffix|**true**|-|アップロードする成果物名の末尾に追加する�
 
 ### upload-nuget-library.yml
 
+NuGetとAzure Artifactにアップロードする再利用可能なワークフローです。`nuget.config`に`NuGet`と`Azure`キーの設定が必要となります。
+
 ```yaml
 on:
   push:
