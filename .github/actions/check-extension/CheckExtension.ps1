@@ -32,7 +32,7 @@ function Test-Extension
         [bool]$recurse
     )
 
-    [string[]]$include = $extensions | ForEach-Object { "$fileName.$_" }
+    [string[]]$include = $extensions.Count -ne 0 ? ($extensions | ForEach-Object { "$fileName.$_" }) : $fileName
 
     # Test-Pathは隠しファイルを取得できない。
     [string[]]$files = (Get-ChildItem (Join-Path $path '*') -File -Force -Recurse:$recurse -Include $include -ErrorAction SilentlyContinue).FullName |
