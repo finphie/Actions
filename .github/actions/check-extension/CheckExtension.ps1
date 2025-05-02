@@ -25,16 +25,17 @@ function Test-Extension
         [ValidateNotNullOrEmpty()]
         [string]$fileName = '*',
 
-        [string]$extension,
+        [ValidateNotNull()]
+        [string[]]$extensions = @(),
 
         [Parameter(Mandatory)]
         [bool]$recurse
     )
 
-    [string]$fullFileName = $extension -eq '' ? $fileName : "$fileName.$extension"
+    [string[]]$include = $extensions | ForEach-Object { "$fileName.$_" }
 
     # Test-Pathは隠しファイルを取得できない。
-    [string[]]$files = (Get-ChildItem (Join-Path $path '*') -File -Force -Recurse:$recurse -Include $fullFileName -ErrorAction SilentlyContinue).FullName |
+    [string[]]$files = (Get-ChildItem (Join-Path $path '*') -File -Force -Recurse:$recurse -Include $include -ErrorAction SilentlyContinue).FullName |
         Where-Object { ($_ -Replace '\\', '/') -notlike '*/.git/*' }
 
     if ($files.Count -eq 0)
@@ -60,20 +61,20 @@ function Get-GitHubOutput
     )
 
     [OrderedDictionary]$outputs = [Ordered]@{
-        'dotnet' = Test-Extension -Path $path -Extension 'sln' -Recurse $recurse
-        'powershell' = Test-Extension -Path $path -Extension 'ps1' -Recurse $recurse
-        'python' = Test-Extension -Path $path -Extension 'py' -Recurse $recurse
-        'html' = Test-Extension -Path $path -Extension 'html' -Recurse $recurse
-        'css' = Test-Extension -Path $path -Extension 'css' -Recurse $recurse
-        'javascript' = Test-Extension -Path $path -Extension 'js' -Recurse $recurse
-        'typescript' = Test-Extension -Path $path -Extension 'ts' -Recurse $recurse
-        'json' = Test-Extension -Path $path -Extension 'json' -Recurse $recurse
-        'yaml' = Test-Extension -Path $path -Extension 'yml' -Recurse $recurse
-        'markdown' = Test-Extension -Path $path -Extension 'md' -Recurse $recurse
+        'dotnet' = Test-Extension -Path $path -Extensions 'sln', 'slnx' -Recurse $recurse
+        'powershell' = Test-Extension -Path $path -Extensions 'ps1' -Recurse $recurse
+        'python' = Test-Extension -Path $path -Extensions 'py' -Recurse $recurse
+        'html' = Test-Extension -Path $path -Extensions 'html' -Recurse $recurse
+        'css' = Test-Extension -Path $path -Extensions 'css' -Recurse $recurse
+        'javascript' = Test-Extension -Path $path -Extensions 'js' -Recurse $recurse
+        'typescript' = Test-Extension -Path $path -Extensions 'ts' -Recurse $recurse
+        'json' = Test-Extension -Path $path -Extensions 'json' -Recurse $recurse
+        'yaml' = Test-Extension -Path $path -Extensions 'yml' -Recurse $recurse
+        'markdown' = Test-Extension -Path $path -Extensions 'md' -Recurse $recurse
         'docker' = Test-Extension -Path $path -FileName 'Dockerfile' -Recurse $recurse
-        'nuget' = Test-Extension -Path $path -Extension 'nupkg' -Recurse $recurse
-        'zip' = Test-Extension -Path $path -Extension 'zip' -Recurse $recurse
-        'exe' = Test-Extension -Path $path -Extension 'exe' -Recurse $recurse
+        'nuget' = Test-Extension -Path $path -Extensions 'nupkg' -Recurse $recurse
+        'zip' = Test-Extension -Path $path -Extensions 'zip' -Recurse $recurse
+        'exe' = Test-Extension -Path $path -Extensions 'exe' -Recurse $recurse
     }
 
     return $outputs
