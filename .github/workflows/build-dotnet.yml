@@ -60,4 +60,4 @@ jobs:
         shell: pwsh
         run: |
           dotnet test --configuration ${{ inputs.configuration }} --no-build
-          if ($LastExitCode -ne 8) { exit $LastExitCode }
+          if ($LastExitCode -eq 8) { exit 0 }
