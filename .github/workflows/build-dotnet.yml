@@ -57,4 +57,7 @@ jobs:
 
       - name: .NET Test
         if: steps.check.outputs.dotnet == 'true'
-        run: dotnet test --configuration ${{ inputs.configuration }} --no-build
+        shell: pwsh
+        run: |
+          dotnet test --configuration ${{ inputs.configuration }} --no-build
+          if ($LastExitCode -ne 8) { exit $LastExitCode }
