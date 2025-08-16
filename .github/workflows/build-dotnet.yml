@@ -7,7 +7,7 @@ on:
         description: インストールする.NET SDKバージョン。
         required: false
         type: string
-        default: 10.0.100-preview.6.25358.103
+        default: 10.0.100-preview.7.25380.108
       configuration:
         description: ビルド構成。
         required: false

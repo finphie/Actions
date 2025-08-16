@@ -5,7 +5,7 @@ inputs:
   dotnet-version:
     description: インストールする.NET SDKバージョン。
     required: false
-    default: 10.0.100-preview.6.25358.103
+    default: 10.0.100-preview.7.25380.108
   project:
     description: プロジェクト名。
     required: true
