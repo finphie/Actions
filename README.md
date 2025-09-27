@@ -14,6 +14,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [compress-archive](#compress-archive)
   - [copy-github-labels](#copy-github-labels)
   - [create-pull-request](#create-pull-request)
+  - [create-release](#create-release)
   - [dotnet-pack](#dotnet-pack)
   - [dotnet-publish](#dotnet-publish)
   - [get-dotnet-projects](#get-dotnet-projects)
@@ -302,6 +303,52 @@ labels|false||ラベルのリスト。
 名前|必須|デフォルト|説明
 -|-|-|-
 GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。
+
+#### 出力
+
+なし
+
+### create-release
+
+リリースを作成するアクションです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create release
+        uses: finphie/Actions/.github/actions/create-release@main
+        with:
+          title: Version 1.0.0
+          tag: v1.0.0
+          files: |
+            **/*.zip
+            **/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+```
+
+#### 引数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+title|**true**|-|リリースのタイトル。
+tag|**true**|-|対象のgitタグ。
+files|false||アップロード対象のファイルリスト。
+
+#### 環境変数
+
+名前|必須|デフォルト|説明
+-|-|-|-
+GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。
 
 #### 出力
 

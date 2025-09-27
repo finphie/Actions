@@ -6,11 +6,15 @@ function Get-List
     [OutputType([string[]])]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
         [string]$value,
 
         [switch]$withoutConnma
     )
+
+    if ([string]::IsNullOrEmpty($value))
+    {
+        return [string[]]@()
+    }
 
     [char[]]$separator = @(' ', "`n", "`r")
 

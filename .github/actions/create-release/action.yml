@@ -1,0 +1,28 @@
+name: Create release
+description: リリースを作成するアクションです。
+
+inputs:
+  title:
+    description: リリースのタイトル。
+    required: true
+  tag:
+    description: 対象のgitタグ。
+    required: true
+  files:
+    description: アップロード対象のファイルリスト。
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Create release
+      shell: pwsh
+      working-directory: ${{ inputs.path }}
+      run: |
+        ${{ github.action_path }}/CreateRelease.ps1 `
+            -Title '${{ inputs.title }}' `
+            -Tag '${{ inputs.tag }}' `
+            -Files '${{ inputs.files }}' `
+            -Verbose `
+            -ErrorAction Stop

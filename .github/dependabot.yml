@@ -13,6 +13,7 @@ updates:
       - /.github/actions/compress-archive
       - /.github/actions/copy-github-labels
       - /.github/actions/create-pull-request
+      - /.github/actions/create-release
       - /.github/actions/dotnet-pack
       - /.github/actions/dotnet-publish
       - /.github/actions/get-dotnet-projects

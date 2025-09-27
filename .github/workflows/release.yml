@@ -27,17 +27,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      - name: Create release notes
-        uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5 # v6.1.0
-        with:
-          publish: true
-          prerelease: false
-          name: Version ${{ inputs.version }}
-          tag: ${{ inputs.tag }}
-          version: ${{ inputs.version }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Download artifacts
         id: download-artifact
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
@@ -60,10 +49,10 @@ jobs:
             ${{ runner.temp }}/**/*.tar.gz
             ${{ runner.temp }}/**/*.exe
 
-      - name: Upload release assets
-        if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
-        uses: finphie/Actions/.github/actions/upload-release-assets@main
+      - name: Create release
+        uses: finphie/Actions/.github/actions/create-release@main
         with:
+          title: Version ${{ inputs.version }}
           tag: ${{ inputs.tag }}
           files: |
             ${{ runner.temp }}/**/*.zip
