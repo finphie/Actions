@@ -1173,6 +1173,7 @@ jobs:
       release: true
       suffix: v1.0.0
     secrets:
+      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
 ```
 
@@ -1193,6 +1194,7 @@ suffix|**true**|-|アップロードする成果物名の末尾に追加する�
 
 名前|必須|デフォルト|説明
 -|-|-|-
+NUGET_USER|**true**|-|NuGetのユーザー名。
 AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
 
 #### 出力
@@ -1385,6 +1387,7 @@ jobs:
       version: '1.0.0'
       release: true
     secrets:
+      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
 ```
 
@@ -1404,6 +1407,7 @@ release|**true**|-|安定版リリースかどうか。
 
 名前|必須|デフォルト|説明
 -|-|-|-
+NUGET_USER|**true**|-|NuGetのユーザー名。
 AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
 
 #### 出力

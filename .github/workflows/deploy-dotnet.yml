@@ -21,6 +21,9 @@ on:
         required: true
         type: string
     secrets:
+      NUGET_USER:
+        description: NuGetのユーザー名。
+        required: true
       AZURE_ARTIFACT_PAT:
         description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
         required: true
@@ -42,6 +45,7 @@ jobs:
       version: ${{ inputs.version }}
       release: ${{ inputs.release }}
     secrets:
+      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
 
   publish:

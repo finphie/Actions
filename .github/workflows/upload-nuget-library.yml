@@ -17,6 +17,9 @@ on:
         required: true
         type: boolean
     secrets:
+      NUGET_USER:
+        description: NuGetのユーザー名。
+        required: true
       AZURE_ARTIFACT_PAT:
         description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
         required: true
@@ -61,7 +64,7 @@ jobs:
         uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
         id: login
         with:
-          user: ${{ github.repository_owner }}
+          user: ${{ secrets.NUGET_USER }}
 
       - name: Push(NuGet)
         if: steps.pack.outputs.success == 'true' && inputs.release
