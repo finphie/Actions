@@ -3,7 +3,7 @@ name: Sync(labels)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: 0 0 */3 * *
 
 permissions: {}
 
@@ -13,13 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    permissions: {}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Get repositories
-        uses: ./.github/actions/get-github-repositories
         id: get
+        uses: ./.github/actions/get-github-repositories
         with:
           source: true
           no-archived: true
@@ -29,8 +31,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create token
-        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
         id: app-token
+        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2.1.4
         with:
           app-id: ${{ vars.LABELS_SYNC_APP_ID }}
           private-key: ${{ secrets.LABELS_SYNC_PRIVATE_KEY }}

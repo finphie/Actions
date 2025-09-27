@@ -27,6 +27,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
 
+    permissions: {}
+
     strategy:
       fail-fast: false
       matrix:

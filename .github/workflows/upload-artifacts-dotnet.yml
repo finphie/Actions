@@ -26,7 +26,7 @@ on:
         description: プラットフォームバージョンを表す文字列。
         required: false
         type: string
-        default: null
+        default: ''
       os:
         description: OSの名前。（ランタイム識別子）
         required: true
@@ -48,7 +48,7 @@ on:
         description: アップロードする成果物名の末尾に追加する文字列。
         required: false
         type: string
-        default: null
+        default: ''
 
 permissions: {}
 
@@ -65,6 +65,8 @@ jobs:
       ${{ (startsWith(inputs.os, 'win') && 'windows') || (startsWith(inputs.os, 'osx') && 'macos') || 'linux' }}(${{ inputs.architecture }})
     runs-on: ${{ inputs.runs-on }}
     timeout-minutes: 30
+
+    permissions: {}
 
     steps:
       - name: Checkout repository

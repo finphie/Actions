@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    permissions: {}
+
     outputs:
       version: ${{ steps.git-versioning.outputs.version }}
       version-major: ${{ steps.git-versioning.outputs.version-major }}

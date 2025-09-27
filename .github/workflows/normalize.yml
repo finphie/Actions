@@ -3,14 +3,16 @@ name: Normalize line endings
 on:
   workflow_call:
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   main:
     name: Main
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository

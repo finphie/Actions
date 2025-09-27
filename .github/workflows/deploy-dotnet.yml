@@ -35,13 +35,19 @@ jobs:
     name: Check
     uses: finphie/Actions/.github/workflows/check-dotnet-platform.yml@main
 
+    permissions: {}
+
   pack:
     name: Push(NuGet)
     uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
+
+    permissions: {}
+
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
       version: ${{ inputs.version }}
       release: ${{ inputs.release }}
+
     secrets:
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
@@ -50,12 +56,14 @@ jobs:
     name: Publish
     needs: check
     if: needs.check.outputs.projects != ''
+    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
+
+    permissions: {}
 
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.check.outputs.projects) }}
 
-    uses: finphie/Actions/.github/workflows/upload-artifacts-dotnet.yml@main
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
       runs-on: ${{ (matrix.runs-on != '' && matrix.runs-on) || (startsWith(matrix.os, 'win') && 'windows-latest') || (startsWith(matrix.os, 'osx') && 'macos-latest') || 'ubuntu-latest' }}

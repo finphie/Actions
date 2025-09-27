@@ -7,7 +7,7 @@ on:
         description: 設定ファイルのパス。
         required: false
         type: string
-        default: null
+        default: ''
     outputs:
       projects:
         description: upload-artifacts-dotnet.ymlワークフローの引数となるJSON文字列を出力する。
@@ -20,6 +20,8 @@ jobs:
     name: Main
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    permissions: {}
 
     outputs:
       projects: ${{ steps.get-dotnet-projects.outputs.projects }}

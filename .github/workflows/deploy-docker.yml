@@ -12,16 +12,18 @@ on:
         required: true
         type: string
 
-permissions:
-  packages: write
-  id-token: write
-  attestations: write
+permissions: {}
 
 jobs:
   main:
     name: Main
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    permissions:
+      packages: write
+      id-token: write
+      attestations: write
 
     steps:
       - name: Checkout repository
