@@ -45,9 +45,9 @@ jobs:
         uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
         with:
           subject-path: |
-            ${{ runner.temp }}/**/*.zip
-            ${{ runner.temp }}/**/*.tar.gz
-            ${{ runner.temp }}/**/*.exe
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.zip
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.tar.gz
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.exe
 
       - name: Create release
         uses: finphie/Actions/.github/actions/create-release@main
@@ -55,8 +55,8 @@ jobs:
           title: Version ${{ inputs.version }}
           tag: ${{ inputs.tag }}
           files: |
-            ${{ runner.temp }}/**/*.zip
-            ${{ runner.temp }}/**/*.tar.gz
-            ${{ runner.temp }}/**/*.exe
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.zip
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.tar.gz
+            ${{ steps.download-artifact.outputs.download-path }}/**/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
