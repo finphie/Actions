@@ -92,10 +92,10 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-path|false|${{ github.workspace }}|検索対象のディレクトリ。
-recurse|false|false|再帰検索するかどうか。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|path|false|${{ github.workspace }}|検索対象のディレクトリ。|
+|recurse|false|false|再帰検索するかどうか。|
 
 #### 環境変数
 
@@ -103,21 +103,21 @@ recurse|false|false|再帰検索するかどうか。
 
 #### 出力
 
-名前|説明
--|-
-dotnet|.NETファイルが含まれているかどうか。
-powershell|PowerShellファイルが含まれているかどうか。
-python|Pythonファイルが含まれているかどうか。
-html|HTMLファイルが含まれているかどうか。
-javascript|JavaScriptファイルが含まれているかどうか。
-typescript|TypeScriptファイルが含まれているかどうか。
-json|JSONファイルが含まれているかどうか。
-yaml|YAMLファイルが含まれているかどうか。
-markdown|Markdownファイルが含まれているかどうか。
-docker|Dockerfileが含まれているかどうか。
-nuget|NuGetパッケージファイルが含まれているかどうか。
-zip|zipファイルが含まれているかどうか。
-exe|exeファイルが含まれているかどうか。
+|名前|説明|
+|-|-|
+|dotnet|.NETファイルが含まれているかどうか。|
+|powershell|PowerShellファイルが含まれているかどうか。|
+|python|Pythonファイルが含まれているかどうか。|
+|html|HTMLファイルが含まれているかどうか。|
+|javascript|JavaScriptファイルが含まれているかどうか。|
+|typescript|TypeScriptファイルが含まれているかどうか。|
+|json|JSONファイルが含まれているかどうか。|
+|yaml|YAMLファイルが含まれているかどうか。|
+|markdown|Markdownファイルが含まれているかどうか。|
+|docker|Dockerfileが含まれているかどうか。|
+|nuget|NuGetパッケージファイルが含まれているかどうか。|
+|zip|zipファイルが含まれているかどうか。|
+|exe|exeファイルが含まれているかどうか。|
 
 ### compress-archive
 
@@ -155,14 +155,14 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-path|**true**|-|圧縮対象のファイルが存在するディレクトリ。
-type|false|zip|圧縮形式。zip/gzipのいずれか。
-destination-path|false||rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。
-root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。
-suffix|false||zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。
-exclude|false||ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|path|**true**|-|圧縮対象のファイルが存在するディレクトリ。|
+|type|false|zip|圧縮形式。zip/gzipのいずれか。|
+|destination-path|false||rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。|
+|root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。|
+|suffix|false||zipファイル名の末尾に追加する文字列。rootがfalseの場合のみ有効。|
+|exclude|false||ディレクトリ内のファイルが1個の場合、圧縮対象とせずコピーを行うファイルのリスト。rootがfalseの場合のみ有効。|
 
 #### 環境変数
 
@@ -200,17 +200,17 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-repositories|**true**|-|リポジトリのリスト。
-source-repository|**true**|-|ソース元のリポジトリ。
-delete|false|false|既存のラベルを削除するかどうか。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|repositories|**true**|-|リポジトリのリスト。|
+|source-repository|**true**|-|ソース元のリポジトリ。|
+|delete|false|false|既存のラベルを削除するかどうか。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|IssuesまたはPull requestsに書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|IssuesまたはPull requestsに書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -291,18 +291,18 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-path|false|${{ github.workspace }}|リポジトリのパス。
-commit-message|**true**|-|コミットメッセージ。
-branch|false|create-pull-request|ブランチ名。
-labels|false||ラベルのリスト。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|path|false|${{ github.workspace }}|リポジトリのパス。|
+|commit-message|**true**|-|コミットメッセージ。|
+|branch|false|create-pull-request|ブランチ名。|
+|labels|false||ラベルのリスト。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -338,17 +338,17 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-title|**true**|-|リリースのタイトル。
-tag|**true**|-|対象のgitタグ。
-files|false||アップロード対象のファイルリスト。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|title|**true**|-|リリースのタイトル。|
+|tag|**true**|-|対象のgitタグ。|
+|files|false||アップロード対象のファイルリスト。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。|
 
 #### 出力
 
@@ -383,12 +383,12 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-configuration|false|Release|ビルド構成。
-version|**true**|-|バージョンを表す文字列。
-output-directory|false|pack|出力先ディレクトリ。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|configuration|false|Release|ビルド構成。|
+|version|**true**|-|バージョンを表す文字列。|
+|output-directory|false|pack|出力先ディレクトリ。|
 
 #### 環境変数
 
@@ -396,9 +396,9 @@ output-directory|false|pack|出力先ディレクトリ。
 
 #### 出力
 
-名前|説明
--|-
-success|nupkgファイルの生成に成功したかどうか。
+|名前|説明|
+|-|-|
+|success|nupkgファイルの生成に成功したかどうか。|
 
 ### dotnet-publish
 
@@ -435,18 +435,18 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-project|**true**|-|プロジェクト名。
-configuration|false|Release|ビルド構成。
-version|**true**|-|バージョンを表す文字列。
-target-framework-moniker|false|net9.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。
-target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。
-target-platform-version|false||プラットフォームバージョンを表す文字列。
-runtime|**true**|-|ランタイム識別子。
-workload-restore|false|false|dotnet workload restoreを実行するかどうか。
-output-directory|false|publish|出力先ディレクトリ。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|project|**true**|-|プロジェクト名。|
+|configuration|false|Release|ビルド構成。|
+|version|**true**|-|バージョンを表す文字列。|
+|target-framework-moniker|false|net9.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。|
+|target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。|
+|target-platform-version|false||プラットフォームバージョンを表す文字列。|
+|runtime|**true**|-|ランタイム識別子。|
+|workload-restore|false|false|dotnet workload restoreを実行するかどうか。|
+|output-directory|false|publish|出力先ディレクトリ。|
 
 #### 環境変数
 
@@ -493,11 +493,11 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-solution-name|false|-|ソリューション名。
-projects|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。
-settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|solution-name|false|-|ソリューション名。|
+|projects|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。|
+|settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。|
 
 #### 環境変数
 
@@ -505,9 +505,9 @@ settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/defa
 
 #### 出力
 
-名前|説明
--|-
-projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。
+|名前|説明|
+|-|-|
+|projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。|
 
 ### get-github-repositories
 
@@ -545,28 +545,28 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。
-fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。
-archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。
-no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。
-language|false||指定された言語が主要なリポジトリを取得する。
-visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。
-exclude|false||除外する「オーナー名/リポジトリ名」形式のリスト。
-json|false|false|JSON形式で出力するかどうか。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|source|false|false|フォークではないリポジトリを取得する。forkと同時に有効にはできない。|
+|fork|false|false|フォークしたリポジトリを取得する。sourceと同時に有効にはできない。|
+|archived|false|false|アーカイブされたリポジトリを取得する。no-archivedと同時に有効にはできない。|
+|no-archived|false|false|アーカイブされていないリポジトリを取得する。archivedと同時に有効にはできない。|
+|language|false||指定された言語が主要なリポジトリを取得する。|
+|visibility|false|public|指定された可視性（public/private/internal）のリポジトリを取得する。|
+|exclude|false||除外する「オーナー名/リポジトリ名」形式のリスト。|
+|json|false|false|JSON形式で出力するかどうか。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|Metadataスコープの読み取り許可が付与されたトークン。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|Metadataスコープの読み取り許可が付与されたトークン。|
 
 #### 出力
 
-名前|説明
--|-
-repositories|「オーナー名/リポジトリ名」のリスト。
+|名前|説明|
+|-|-|
+|repositories|「オーナー名/リポジトリ名」のリスト。|
 
 ### get-repository-name
 
@@ -595,9 +595,9 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-repository|**true**|-|owner/repoまたはrepo形式のリポジトリ名。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|repository|**true**|-|owner/repoまたはrepo形式のリポジトリ名。|
 
 #### 環境変数
 
@@ -605,9 +605,9 @@ repository|**true**|-|owner/repoまたはrepo形式のリポジトリ名。
 
 #### 出力
 
-名前|説明
--|-
-repository-name|リポジトリ名。
+|名前|説明|
+|-|-|
+|repository-name|リポジトリ名。|
 
 ### git-push
 
@@ -638,9 +638,9 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-commit-message|**true**|-|コミットメッセージ。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|commit-message|**true**|-|コミットメッセージ。|
 
 #### 環境変数
 
@@ -687,11 +687,11 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-file-name|false|version.json|バージョンを設定しているJSONファイルの名前。
-hash|false|${{ github.sha }}|基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。
-revision|false|${{ github.run_number }}|リビジョン番号を表す数値。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|file-name|false|version.json|バージョンを設定しているJSONファイルの名前。|
+|hash|false|${{ github.sha }}|基点とするコミットハッシュ値。このハッシュ値以降のコミットで、JSONファイルが更新されている場合は安定版リリースとなり、リビジョン番号を省略したバージョン形式となる。|
+|revision|false|${{ github.run_number }}|リビジョン番号を表す数値。|
 
 #### 環境変数
 
@@ -699,14 +699,14 @@ revision|false|${{ github.run_number }}|リビジョン番号を表す数値。
 
 #### 出力
 
-名前|説明
--|-
-version|バージョンを表す文字列。
-version-major|メジャー番号を表す数値。
-version-minor|マイナー番号を表す数値。
-version-build|ビルド番号を表す数値。
-version-revision|リビジョン番号を表す数値。
-release|安定版リリースかどうか。
+|名前|説明|
+|-|-|
+|version|バージョンを表す文字列。|
+|version-major|メジャー番号を表す数値。|
+|version-minor|マイナー番号を表す数値。|
+|version-build|ビルド番号を表す数値。|
+|version-revision|リビジョン番号を表す数値。|
+|release|安定版リリースかどうか。|
 
 ### pascal-to-kebab
 
@@ -735,9 +735,9 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-text|**true**|-|変換対象の文字列。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|text|**true**|-|変換対象の文字列。|
 
 #### 環境変数
 
@@ -745,9 +745,9 @@ text|**true**|-|変換対象の文字列。
 
 #### 出力
 
-名前|説明
--|-
-text|変換後の文字列。
+|名前|説明|
+|-|-|
+|text|変換後の文字列。|
 
 ### read-file
 
@@ -779,9 +779,9 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-file-path|**true**|-|テキストファイルのパス。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|file-path|**true**|-|テキストファイルのパス。|
 
 #### 環境変数
 
@@ -789,9 +789,9 @@ file-path|**true**|-|テキストファイルのパス。
 
 #### 出力
 
-名前|説明
--|-
-text|ファイル内容。
+|名前|説明|
+|-|-|
+|text|ファイル内容。|
 
 ### run-msbuild-target
 
@@ -821,10 +821,10 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-target|**true**|-|MSBuildターゲット名。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|target|**true**|-|MSBuildターゲット名。|
 
 #### 環境変数
 
@@ -832,9 +832,9 @@ target|**true**|-|MSBuildターゲット名。
 
 #### 出力
 
-名前|説明
--|-
-lines|MSBuildターゲット実行時に出力された文字列。
+|名前|説明|
+|-|-|
+|lines|MSBuildターゲット実行時に出力された文字列。|
 
 ### sync-repositories
 
@@ -866,20 +866,20 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-source-path|**true**|-|ソース元リポジトリのパス。
-target-path|**true**|-|同期先リポジトリのパス。
-settings-file-path|**true**|-|JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。
-commit-message|**true**|-|コミットメッセージ。
-branch|false|sync-github-repositories|ブランチ名。
-labels|false|chore|ラベルのリスト。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|source-path|**true**|-|ソース元リポジトリのパス。|
+|target-path|**true**|-|同期先リポジトリのパス。|
+|settings-file-path|**true**|-|JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。|
+|commit-message|**true**|-|コミットメッセージ。|
+|branch|false|sync-github-repositories|ブランチ名。|
+|labels|false|chore|ラベルのリスト。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -917,16 +917,16 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-tag|**true**|-|対象のgitタグ。
-files|**true**|-|アップロード対象のファイルリスト。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|tag|**true**|-|対象のgitタグ。|
+|files|**true**|-|アップロード対象のファイルリスト。|
 
 #### 環境変数
 
-名前|必須|デフォルト|説明
--|-|-|-
-GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。|
 
 #### 出力
 
@@ -954,10 +954,10 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-configuration|false|Release|ビルド構成。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|configuration|false|Release|ビルド構成。|
 
 #### 環境変数
 
@@ -1099,9 +1099,9 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。|
 
 #### 環境変数
 
@@ -1109,9 +1109,9 @@ settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/defa
 
 #### 出力
 
-名前|説明
--|-
-projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。
+|名前|説明|
+|-|-|
+|projects|[upload-artifacts-dotnet.yml](.github/workflows/upload-artifacts-dotnet.yml)ワークフローの引数となるJSON文字列を出力する。|
 
 ### deploy-docker.yml
 
@@ -1138,10 +1138,10 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-version|**true**|-|バージョンを表す文字列。
-version-major|**true**|-|メジャーバージョンを表す数値。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|version|**true**|-|バージョンを表す文字列。|
+|version-major|**true**|-|メジャーバージョンを表す数値。|
 
 #### 環境変数
 
@@ -1178,12 +1178,12 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-version|**true**|-|バージョンを表す文字列。
-release|**true**|-|安定版リリースかどうか。
-suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|version|**true**|-|バージョンを表す文字列。|
+|release|**true**|-|安定版リリースかどうか。|
+|suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。|
 
 #### 環境変数
 
@@ -1191,10 +1191,10 @@ suffix|**true**|-|アップロードする成果物名の末尾に追加する�
 
 #### シークレット
 
-名前|必須|デフォルト|説明
--|-|-|-
-AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
-NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
+|NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。|
 
 #### 出力
 
@@ -1237,14 +1237,14 @@ jobs:
 
 #### 出力
 
-名前|説明
--|-
-version|バージョンを表す文字列。
-version-major|メジャー番号を表す数値。
-release|安定版リリースかどうか。
-tag|gitタグ名。
-dotnet|.NETファイルが含まれているかどうか。
-docker|Dockerfileが含まれているかどうか。
+|名前|説明|
+|-|-|
+|version|バージョンを表す文字列。|
+|version-major|メジャー番号を表す数値。|
+|release|安定版リリースかどうか。|
+|tag|gitタグ名。|
+|dotnet|.NETファイルが含まれているかどうか。|
+|docker|Dockerfileが含まれているかどうか。|
 
 ### normalize.yml
 
@@ -1299,10 +1299,10 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-version|**true**|-|バージョンを表す文字列。
-tag|**true**|-|gitタグ名。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|version|**true**|-|バージョンを表す文字列。|
+|tag|**true**|-|gitタグ名。|
 
 #### 環境変数
 
@@ -1342,18 +1342,18 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-runs-on|false|ubuntu-latest|ランナー環境。
-project|**true**|-|プロジェクト名。
-target-platform-identifier|false|none|プラットフォーム識別子。
-target-platform-version|false|-|プラットフォームバージョンを表す文字列。
-os|**true**|-|OSの名前。（ランタイム識別子）
-architecture|**true**|-|アーキテクチャ名。（ランタイム識別子）
-workload-restore|false|false|dotnet workload restoreを実行するかどうか。
-version|**true**|-|バージョンを表す文字列。
-suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|runs-on|false|ubuntu-latest|ランナー環境。|
+|project|**true**|-|プロジェクト名。|
+|target-platform-identifier|false|none|プラットフォーム識別子。|
+|target-platform-version|false|-|プラットフォームバージョンを表す文字列。|
+|os|**true**|-|OSの名前。（ランタイム識別子）|
+|architecture|**true**|-|アーキテクチャ名。（ランタイム識別子）|
+|workload-restore|false|false|dotnet workload restoreを実行するかどうか。|
+|version|**true**|-|バージョンを表す文字列。|
+|suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。|
 
 #### 環境変数
 
@@ -1389,11 +1389,11 @@ jobs:
 
 #### 引数
 
-名前|必須|デフォルト|説明
--|-|-|-
-dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。
-version|**true**|-|バージョンを表す文字列。
-release|**true**|-|安定版リリースかどうか。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|version|**true**|-|バージョンを表す文字列。|
+|release|**true**|-|安定版リリースかどうか。|
 
 #### 環境変数
 
@@ -1401,10 +1401,10 @@ release|**true**|-|安定版リリースかどうか。
 
 #### シークレット
 
-名前|必須|デフォルト|説明
--|-|-|-
-AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
-NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
+|NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。|
 
 #### 出力
 
