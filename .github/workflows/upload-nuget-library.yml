@@ -17,11 +17,11 @@ on:
         required: true
         type: boolean
     secrets:
-      NUGET_USER:
-        description: NuGetのユーザー名。
-        required: true
       AZURE_ARTIFACT_PAT:
         description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+        required: true
+      NUGET_API_KEY:
+        description: 「Push」スコープを許可したNuGet APIキー。
         required: true
 
 permissions: {}
@@ -34,8 +34,6 @@ jobs:
     name: Push(NuGet)
     runs-on: windows-latest
     timeout-minutes: 30
-    permissions:
-      id-token: write
 
     steps:
       - name: Checkout repository
@@ -48,13 +46,6 @@ jobs:
           dotnet-version: ${{ inputs.dotnet-version }}
           version: ${{ inputs.version }}
           output-directory: ${{ env.OUTPUT_DIRECTORY }}
-
-      - name: NuGet Login
-        if: steps.pack.outputs.success == 'true' && inputs.release
-        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
 
       - name: Push(Azure Artifacts)
         if: steps.pack.outputs.success == 'true'
@@ -72,4 +63,4 @@ jobs:
         run: dotnet nuget push "${{ env.OUTPUT_DIRECTORY }}/**/*.nupkg" --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE
         env:
           SOURCE: NuGet
-          TOKEN: ${{ steps.login.outputs.NUGET_API_KEY }}
+          TOKEN: ${{ secrets.NUGET_API_KEY }}

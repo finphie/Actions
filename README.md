@@ -1161,8 +1161,7 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
+permissions: {}
 
 jobs:
   main:
@@ -1173,8 +1172,8 @@ jobs:
       release: true
       suffix: v1.0.0
     secrets:
-      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 ```
 
 #### 引数
@@ -1194,8 +1193,8 @@ suffix|**true**|-|アップロードする成果物名の末尾に追加する�
 
 名前|必須|デフォルト|説明
 -|-|-|-
-NUGET_USER|**true**|-|NuGetのユーザー名。
 AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 
@@ -1366,9 +1365,7 @@ suffix|**true**|-|アップロードする成果物名の末尾に追加する�
 
 ### upload-nuget-library.yml
 
-NuGetとAzure Artifactにアップロードする再利用可能なワークフローです。`nuget.config`に`NuGet`と`Azure`キーの設定が必要です。
-
-またNuGetへのアップロードには、Trusted Publishingを使用します。
+NuGetとAzure Artifactにアップロードする再利用可能なワークフローです。`nuget.config`に`NuGet`と`Azure`キーの設定が必要となります。
 
 ```yaml
 on:
@@ -1376,8 +1373,7 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
+permissions: {}
 
 jobs:
   main:
@@ -1387,8 +1383,8 @@ jobs:
       version: '1.0.0'
       release: true
     secrets:
-      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 ```
 
 #### 引数
@@ -1407,8 +1403,8 @@ release|**true**|-|安定版リリースかどうか。
 
 名前|必須|デフォルト|説明
 -|-|-|-
-NUGET_USER|**true**|-|NuGetのユーザー名。
 AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。
 
 #### 出力
 

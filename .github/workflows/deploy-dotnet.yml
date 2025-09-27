@@ -21,11 +21,11 @@ on:
         required: true
         type: string
     secrets:
-      NUGET_USER:
-        description: NuGetのユーザー名。
-        required: true
       AZURE_ARTIFACT_PAT:
         description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
+        required: true
+      NUGET_API_KEY:
+        description: 「Push」スコープを許可したNuGet APIキー。
         required: true
 
 permissions: {}
@@ -38,20 +38,17 @@ jobs:
   pack:
     name: Push(NuGet)
     uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
-    permissions:
-      id-token: write
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
       version: ${{ inputs.version }}
       release: ${{ inputs.release }}
     secrets:
-      NUGET_USER: ${{ secrets.NUGET_USER }}
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
   publish:
     name: Publish
     needs: check
-    permissions: {}
     if: needs.check.outputs.projects != ''
 
     strategy:
