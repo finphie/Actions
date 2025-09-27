@@ -24,9 +24,6 @@ on:
       AZURE_ARTIFACT_PAT:
         description: 「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。
         required: true
-      NUGET_API_KEY:
-        description: 「Push」スコープを許可したNuGet APIキー。
-        required: true
 
 permissions: {}
 
@@ -44,7 +41,6 @@ jobs:
       release: ${{ inputs.release }}
     secrets:
       AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
   publish:
     name: Publish
