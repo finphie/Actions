@@ -1161,7 +1161,8 @@ on:
     branches:
       - main
 
-permissions: {}
+permissions:
+  id-token: write
 
 jobs:
   main:
@@ -1373,7 +1374,8 @@ on:
     branches:
       - main
 
-permissions: {}
+permissions:
+  id-token: write
 
 jobs:
   main:

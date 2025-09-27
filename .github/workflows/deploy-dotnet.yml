@@ -35,6 +35,8 @@ jobs:
   pack:
     name: Push(NuGet)
     uses: finphie/Actions/.github/workflows/upload-nuget-library.yml@main
+    permissions:
+      id-token: write
     with:
       dotnet-version: ${{ inputs.dotnet-version }}
       version: ${{ inputs.version }}
@@ -45,6 +47,7 @@ jobs:
   publish:
     name: Publish
     needs: check
+    permissions: {}
     if: needs.check.outputs.projects != ''
 
     strategy:
