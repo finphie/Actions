@@ -49,6 +49,13 @@ jobs:
           version: ${{ inputs.version }}
           output-directory: ${{ env.OUTPUT_DIRECTORY }}
 
+      - name: NuGet Login
+        if: steps.pack.outputs.success == 'true' && inputs.release
+        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push(Azure Artifacts)
         if: steps.pack.outputs.success == 'true'
         shell: pwsh
@@ -58,13 +65,6 @@ jobs:
         env:
           SOURCE: Azure
           TOKEN: ${{ secrets.AZURE_ARTIFACT_PAT }}
-
-      - name: NuGet Login
-        if: steps.pack.outputs.success == 'true' && inputs.release
-        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
 
       - name: Push(NuGet)
         if: steps.pack.outputs.success == 'true' && inputs.release
