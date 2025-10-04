@@ -366,7 +366,7 @@ permissions: {}
 
 jobs:
   main:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
