@@ -53,7 +53,7 @@ jobs:
         if: steps.pack.outputs.success == 'true'
         shell: pwsh
         run: |
-          dotnet nuget update source $Env:SOURCE --username ${{ github.repository_owner }} --password $Env:TOKEN
+          dotnet nuget update source $Env:SOURCE --username ${{ github.repository_owner }} --password $Env:TOKEN --store-password-in-clear-text
           dotnet nuget push "${{ env.OUTPUT_DIRECTORY }}/**/*.nupkg" --api-key $Env:TOKEN --skip-duplicate --source $Env:SOURCE
         env:
           SOURCE: Azure
