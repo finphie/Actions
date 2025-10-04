@@ -157,7 +157,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|path|**true**|-|圧縮対象のファイルが存在するディレクトリ。|
+|path|**true**||圧縮対象のファイルが存在するディレクトリ。|
 |type|false|zip|圧縮形式。zip/gzipのいずれか。|
 |destination-path|false||rootがtrueの場合は、出力先ファイルパス。falseの場合は、出力先ディレクトリ。|
 |root|false|true|path内のディレクトリ毎にzipファイルを作成するかどうか。|
@@ -202,15 +202,15 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|repositories|**true**|-|リポジトリのリスト。|
-|source-repository|**true**|-|ソース元のリポジトリ。|
+|repositories|**true**||リポジトリのリスト。|
+|source-repository|**true**||ソース元のリポジトリ。|
 |delete|false|false|既存のラベルを削除するかどうか。|
 
 #### 環境変数
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|IssuesまたはPull requestsに書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
+|GITHUB_TOKEN|**true**||IssuesまたはPull requestsに書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -294,7 +294,7 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |path|false|${{ github.workspace }}|リポジトリのパス。|
-|commit-message|**true**|-|コミットメッセージ。|
+|commit-message|**true**||コミットメッセージ。|
 |branch|false|create-pull-request|ブランチ名。|
 |labels|false||ラベルのリスト。|
 
@@ -302,7 +302,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。|
+|GITHUB_TOKEN|**true**||ContentsとPull requestsスコープの書き込み許可が付与されたトークン。他のリポジトリにPRを出す場合、GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -340,15 +340,15 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|title|**true**|-|リリースのタイトル。|
-|tag|**true**|-|対象のgitタグ。|
+|title|**true**||リリースのタイトル。|
+|tag|**true**||対象のgitタグ。|
 |files|false||アップロード対象のファイルリスト。|
 
 #### 環境変数
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。|
+|GITHUB_TOKEN|**true**||Contentsスコープの書き込み許可が付与されたトークン。|
 
 #### 出力
 
@@ -387,7 +387,7 @@ jobs:
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
 |configuration|false|Release|ビルド構成。|
-|version|**true**|-|バージョンを表す文字列。|
+|version|**true**||バージョンを表す文字列。|
 |output-directory|false|pack|出力先ディレクトリ。|
 
 #### 環境変数
@@ -438,13 +438,13 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
-|project|**true**|-|プロジェクト名。|
+|project|**true**||プロジェクト名。|
 |configuration|false|Release|ビルド構成。|
-|version|**true**|-|バージョンを表す文字列。|
+|version|**true**||バージョンを表す文字列。|
 |target-framework-moniker|false|net9.0|ターゲットフレームワーク。net9.0/net8.0/net7.0/net6.0のいずれか。|
 |target-platform-identifier|false|none|プラットフォーム識別子。none/windows/android/maccatalyst/ios/tvos/tizenのいずれか。|
 |target-platform-version|false||プラットフォームバージョンを表す文字列。|
-|runtime|**true**|-|ランタイム識別子。|
+|runtime|**true**||ランタイム識別子。|
 |workload-restore|false|false|dotnet workload restoreを実行するかどうか。|
 |output-directory|false|publish|出力先ディレクトリ。|
 
@@ -496,7 +496,7 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |solution-name|false|-|ソリューション名。|
-|projects|**true**|-|「プロジェクト名,プラットフォーム名」区切りのリスト。|
+|projects|**true**||「プロジェクト名,プラットフォーム名」区切りのリスト。|
 |settings-file-path|false|[default.json](.github/actions/get-dotnet-projects/default.json)|設定ファイルのパス。|
 
 #### 環境変数
@@ -560,7 +560,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|Metadataスコープの読み取り許可が付与されたトークン。|
+|GITHUB_TOKEN|**true**||Metadataスコープの読み取り許可が付与されたトークン。|
 
 #### 出力
 
@@ -597,7 +597,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|repository|**true**|-|owner/repoまたはrepo形式のリポジトリ名。|
+|repository|**true**||owner/repoまたはrepo形式のリポジトリ名。|
 
 #### 環境変数
 
@@ -640,7 +640,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|commit-message|**true**|-|コミットメッセージ。|
+|commit-message|**true**||コミットメッセージ。|
 
 #### 環境変数
 
@@ -737,7 +737,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|text|**true**|-|変換対象の文字列。|
+|text|**true**||変換対象の文字列。|
 
 #### 環境変数
 
@@ -781,7 +781,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|file-path|**true**|-|テキストファイルのパス。|
+|file-path|**true**||テキストファイルのパス。|
 
 #### 環境変数
 
@@ -824,7 +824,7 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
-|target|**true**|-|MSBuildターゲット名。|
+|target|**true**||MSBuildターゲット名。|
 
 #### 環境変数
 
@@ -868,10 +868,10 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|source-path|**true**|-|ソース元リポジトリのパス。|
-|target-path|**true**|-|同期先リポジトリのパス。|
-|settings-file-path|**true**|-|JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。|
-|commit-message|**true**|-|コミットメッセージ。|
+|source-path|**true**||ソース元リポジトリのパス。|
+|target-path|**true**||同期先リポジトリのパス。|
+|settings-file-path|**true**||JSON設定ファイルのパス。このファイルの"hash"の値から前回同期位置を特定する。|
+|commit-message|**true**||コミットメッセージ。|
 |branch|false|sync-github-repositories|ブランチ名。|
 |labels|false|chore|ラベルのリスト。|
 
@@ -879,7 +879,7 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|ContentsとPull requestsスコープの書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
+|GITHUB_TOKEN|**true**||ContentsとPull requestsスコープの書き込み許可が付与されたトークン。GitHub Actions内で自動生成されるトークンは使用不可。|
 
 #### 出力
 
@@ -919,14 +919,14 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|tag|**true**|-|対象のgitタグ。|
-|files|**true**|-|アップロード対象のファイルリスト。|
+|tag|**true**||対象のgitタグ。|
+|files|**true**||アップロード対象のファイルリスト。|
 
 #### 環境変数
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|GITHUB_TOKEN|**true**|-|Contentsスコープの書き込み許可が付与されたトークン。|
+|GITHUB_TOKEN|**true**||Contentsスコープの書き込み許可が付与されたトークン。|
 
 #### 出力
 
@@ -1140,8 +1140,8 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|version|**true**|-|バージョンを表す文字列。|
-|version-major|**true**|-|メジャーバージョンを表す数値。|
+|version|**true**||バージョンを表す文字列。|
+|version-major|**true**||メジャーバージョンを表す数値。|
 
 #### 環境変数
 
@@ -1181,9 +1181,9 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
-|version|**true**|-|バージョンを表す文字列。|
-|release|**true**|-|安定版リリースかどうか。|
-|suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。|
+|version|**true**||バージョンを表す文字列。|
+|release|**true**||安定版リリースかどうか。|
+|suffix|**true**||アップロードする成果物名の末尾に追加する文字列。|
 
 #### 環境変数
 
@@ -1193,8 +1193,8 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
-|NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。|
+|AZURE_ARTIFACT_PAT|**true**||「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
+|NUGET_API_KEY|**true**||「Push」スコープを許可したNuGet APIキー。|
 
 #### 出力
 
@@ -1301,8 +1301,8 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|version|**true**|-|バージョンを表す文字列。|
-|tag|**true**|-|gitタグ名。|
+|version|**true**||バージョンを表す文字列。|
+|tag|**true**||gitタグ名。|
 
 #### 環境変数
 
@@ -1346,14 +1346,14 @@ jobs:
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
 |runs-on|false|ubuntu-latest|ランナー環境。|
-|project|**true**|-|プロジェクト名。|
+|project|**true**||プロジェクト名。|
 |target-platform-identifier|false|none|プラットフォーム識別子。|
 |target-platform-version|false|-|プラットフォームバージョンを表す文字列。|
-|os|**true**|-|OSの名前。（ランタイム識別子）|
-|architecture|**true**|-|アーキテクチャ名。（ランタイム識別子）|
+|os|**true**||OSの名前。（ランタイム識別子）|
+|architecture|**true**||アーキテクチャ名。（ランタイム識別子）|
 |workload-restore|false|false|dotnet workload restoreを実行するかどうか。|
-|version|**true**|-|バージョンを表す文字列。|
-|suffix|**true**|-|アップロードする成果物名の末尾に追加する文字列。|
+|version|**true**||バージョンを表す文字列。|
+|suffix|**true**||アップロードする成果物名の末尾に追加する文字列。|
 
 #### 環境変数
 
@@ -1392,8 +1392,8 @@ jobs:
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
 |dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
-|version|**true**|-|バージョンを表す文字列。|
-|release|**true**|-|安定版リリースかどうか。|
+|version|**true**||バージョンを表す文字列。|
+|release|**true**||安定版リリースかどうか。|
 
 #### 環境変数
 
@@ -1403,8 +1403,8 @@ jobs:
 
 |名前|必須|デフォルト|説明|
 |-|-|-|-|
-|AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
-|NUGET_API_KEY|**true**|-|「Push」スコープを許可したNuGet APIキー。|
+|AZURE_ARTIFACT_PAT|**true**||「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
+|NUGET_API_KEY|**true**||「Push」スコープを許可したNuGet APIキー。|
 
 #### 出力
 
