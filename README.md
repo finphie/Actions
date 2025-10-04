@@ -16,6 +16,7 @@ GitHub Actions関連ファイルの管理と、各種設定の同期を行うリ
   - [create-pull-request](#create-pull-request)
   - [create-release](#create-release)
   - [dotnet-pack](#dotnet-pack)
+  - [dotnet-pack-and-nuget-push](#dotnet-pack-and-nuget-push)
   - [dotnet-publish](#dotnet-publish)
   - [get-dotnet-projects](#get-dotnet-projects)
   - [get-github-repositories](#get-github-repositories)
@@ -399,6 +400,59 @@ jobs:
 |名前|説明|
 |-|-|
 |success|nupkgファイルの生成に成功したかどうか。|
+
+### dotnet-pack-and-nuget-push
+
+dotnet packとnuget pushコマンドを実行するアクションです。
+
+```yaml
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+
+jobs:
+  main:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: .NET Pack and NuGet Push
+        uses: finphie/Actions/.github/actions/dotnet-pack-and-nuget-push@main
+        with:
+          dotnet-version: 10.0.100-rc.1.25451.107
+          configuration: Release
+          version: '1.0.0'
+          output-directory: pack
+          release: 'false'
+          nuget-user: ${{ github.repository_owner }}
+        env:
+          AZURE_ARTIFACT_PAT: ${{ secrets.AZURE_ARTIFACT_PAT }}
+```
+
+#### 引数
+
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|dotnet-version|false|10.0.100-rc.1.25451.107|インストールする.NET SDKバージョン。|
+|configuration|false|Release|ビルド構成。|
+|version|**true**|-|バージョンを表す文字列。|
+|output-directory|false|pack|出力先ディレクトリ。|
+|release|**true**||安定版リリースかどうか。|
+|nuget-user|false|${{ github.repository_owner }}|NuGetのユーザー名。|
+
+#### 環境変数
+
+|名前|必須|デフォルト|説明|
+|-|-|-|-|
+|AZURE_ARTIFACT_PAT|**true**|-|「Packaging」スコープの読み書きを許可したAzure DevOps Personal Access Token。|
+
+#### 出力
+
+なし
 
 ### dotnet-publish
 
