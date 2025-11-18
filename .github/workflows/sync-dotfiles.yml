@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Checkout repository
         if: github.event.inputs.repository == 'All'
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
       - name: Get repositories
         if: github.event.inputs.repository == 'All'
@@ -65,7 +65,7 @@ jobs:
 
     steps:
       - name: Checkout ${{ env.SOURCE_REPOSITORY }} repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           repository: ${{ env.SOURCE_REPOSITORY }}
           path: ${{ env.SOURCE_REPOSITORY_PATH }}
@@ -87,7 +87,7 @@ jobs:
             ${{ steps.get-repository-name.outputs.repository-name }}
 
       - name: Checkout ${{ env.TARGET_REPOSITORY }} repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           repository: ${{ env.TARGET_REPOSITORY }}
           path: ${{ env.TARGET_REPOSITORY_PATH }}
