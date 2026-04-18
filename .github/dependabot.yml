@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - dependencies
 
@@ -27,5 +29,7 @@ updates:
       - /.github/actions/upload-release-assets
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - dependencies
