@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       - name: Download artifacts
         id: download-artifact
@@ -43,7 +45,8 @@ jobs:
           recurse: true
 
       - name: Generate artifact attestation
-        if: steps.check-extension.outputs.zip == 'true' || steps.check-extension.outputs.exe == 'true'
+        if: steps.check-extension.outputs.zip == 'true' ||
+          steps.check-extension.outputs.exe == 'true'
         uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
         with:
           subject-path: |

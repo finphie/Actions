@@ -26,6 +26,8 @@ jobs:
       - name: Checkout repository
         if: github.event.inputs.repository == 'All'
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       - name: Get repositories
         if: github.event.inputs.repository == 'All'
@@ -67,6 +69,7 @@ jobs:
       - name: Checkout ${{ env.SOURCE_REPOSITORY }} repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
+          persist-credentials: false
           repository: ${{ env.SOURCE_REPOSITORY }}
           path: ${{ env.SOURCE_REPOSITORY_PATH }}
           fetch-depth: 0
@@ -89,6 +92,7 @@ jobs:
       - name: Checkout ${{ env.TARGET_REPOSITORY }} repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
+          persist-credentials: false
           repository: ${{ env.TARGET_REPOSITORY }}
           path: ${{ env.TARGET_REPOSITORY_PATH }}
           token: ${{ steps.app-token.outputs.token }}
