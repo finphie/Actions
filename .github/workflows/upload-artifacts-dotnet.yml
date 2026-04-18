@@ -7,7 +7,7 @@ on:
         description: インストールする.NET SDKバージョン。
         required: false
         type: string
-        default: 10.0.100-rc.2.25502.107
+        default: 11.0.100-preview.3.26207.106
       runs-on:
         description: ランナー環境。
         required: false
