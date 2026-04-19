@@ -46,15 +46,24 @@ runs:
     - name: Get GitHub repositories
       id: x
       shell: pwsh
+      env:
+        SOURCE: ${{ inputs.source }}
+        FORK: ${{ inputs.fork }}
+        ARCHIVED: ${{ inputs.archived }}
+        NO_ARCHIVED: ${{ inputs.no-archived }}
+        VISIBILITY: ${{ inputs.visibility }}
+        LANGUAGE: ${{ inputs.language }}
+        EXCLUDE: ${{ inputs.exclude }}
+        JSON: ${{ inputs.json }}
       run: |
-        ${{ github.action_path }}/GetGitHubRepositories.ps1 `
-            ${{ inputs.source == 'true' && '-Source' || '' }} `
-            ${{ inputs.fork == 'true' && '-Fork' || '' }} `
-            ${{ inputs.archived == 'true' && '-Archived' || '' }} `
-            ${{ inputs.no-archived == 'true' && '-NoArchived' || '' }} `
-            -Visibility ${{ inputs.visibility }} `
-            -Language '${{ inputs.language }}' `
-            -Exclude '${{ inputs.exclude }}' `
-            ${{ inputs.json == 'true' && '-Json' || '' }} `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{
+          Source = $Env:SOURCE -eq 'true'
+          Fork = $Env:FORK -eq 'true'
+          Archived = $Env:ARCHIVED -eq 'true'
+          NoArchived = $Env:NO_ARCHIVED -eq 'true'
+          Visibility = $Env:VISIBILITY
+          Language = $Env:LANGUAGE
+          Exclude = $Env:EXCLUDE
+          Json = $Env:JSON -eq 'true'
+        }
+        ${{ github.action_path }}/GetGitHubRepositories.ps1 @parameters -Verbose -ErrorAction Stop
