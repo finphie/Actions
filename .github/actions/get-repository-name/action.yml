@@ -20,7 +20,7 @@ runs:
       env:
         REPOSITORY: ${{ inputs.repository }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           Repository = $Env:REPOSITORY
         }
         ${{ github.action_path }}/GetRepositoryName.ps1 @parameters -Verbose -ErrorAction Stop

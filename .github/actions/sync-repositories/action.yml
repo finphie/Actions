@@ -33,7 +33,7 @@ runs:
         TARGET_PATH: ${{ inputs.target-path }}
         SETTINGS_FILE_PATH: ${{ inputs.settings-file-path }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           SourcePath = $Env:SOURCE_PATH
           TargetPath = $Env:TARGET_PATH
           SettingsFilePath = $Env:SETTINGS_FILE_PATH

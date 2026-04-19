@@ -20,7 +20,7 @@ runs:
       env:
         TEXT: ${{ inputs.text }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           Text = $Env:TEXT
         }
         ${{ github.action_path }}/PascalToKebab.ps1 @parameters -Verbose -ErrorAction Stop

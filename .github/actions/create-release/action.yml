@@ -24,7 +24,7 @@ runs:
         TAG: ${{ inputs.tag }}
         FILES: ${{ inputs.files }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           Title = $Env:TITLE
           Tag = $Env:TAG
           Files = $Env:FILES

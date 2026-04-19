@@ -30,7 +30,7 @@ runs:
         PROJECTS: ${{ inputs.projects }}
         SETTINGS_FILE_PATH: ${{ inputs.settings-file-path != '' && inputs.settings-file-path || format('{0}/{1}', github.action_path, (github.repository_owner == 'finphie' && 'finphie.json' || 'default.json')) }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           SolutionName = $Env:SOLUTION_NAME
           Projects = $Env:PROJECTS
           SettingsFilePath = $Env:SETTINGS_FILE_PATH

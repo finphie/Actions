@@ -20,7 +20,7 @@ runs:
       env:
         FILE_PATH: ${{ inputs.file-path }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           FilePath = $Env:FILE_PATH
         }
         ${{ github.action_path }}/ReadFile.ps1 @parameters -Verbose -ErrorAction Stop

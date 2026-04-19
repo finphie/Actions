@@ -14,7 +14,7 @@ runs:
       env:
         COMMIT_MESSAGE: ${{ inputs.commit-message }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           CommitMessage = $Env:COMMIT_MESSAGE
         }
         ${{ github.action_path }}/GitPush.ps1 @parameters -Verbose -ErrorAction Stop

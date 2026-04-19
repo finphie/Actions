@@ -46,7 +46,7 @@ runs:
         HASH: ${{ inputs.hash }}
         REVISION: ${{ inputs.revision }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           VersionFileName = $Env:VERSION_FILE_NAME
           Hash = $Env:HASH
           Revision = $Env:REVISION

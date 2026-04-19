@@ -29,7 +29,7 @@ runs:
         BRANCH: ${{ inputs.branch }}
         LABELS: ${{ inputs.labels }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           CommitMessage = $Env:COMMIT_MESSAGE
           Branch = $Env:BRANCH
           Labels = $Env:LABELS

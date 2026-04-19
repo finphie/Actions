@@ -29,7 +29,7 @@ runs:
       env:
         TARGET: ${{ inputs.target }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           Target = $Env:TARGET
         }
         ${{ github.action_path }}/RunMSBuildTarget.ps1 @parameters -Verbose -ErrorAction Stop
