@@ -37,11 +37,14 @@ runs:
         DOTNET_NOLOGO: true
         DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
         DOTNET_CLI_TELEMETRY_OPTOUT: true
+        CONFIGURATION: ${{ inputs.configuration }}
+        OUTPUT_DIRECTORY: ${{ inputs.output-directory }}
+        VERSION: ${{ inputs.version }}
       run: |
         dotnet pack `
-            --configuration '${{ inputs.configuration }}' `
-            --output '${{ inputs.output-directory }}' `
-            -p:Version=${{ inputs.version }}
+            --configuration $Env:CONFIGURATION `
+            --output $Env:OUTPUT_DIRECTORY `
+            -p:Version=$Env:VERSION
 
     - name: Check extension
       id: check-extension

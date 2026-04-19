@@ -31,16 +31,19 @@ runs:
     - name: Compress archive
       shell: pwsh
       env:
-        DESTINATION_FILE_PARAMETER: ${{ format('-DestinationFilePath "{0}"', inputs.destination-path) }}
-        DESTINATION_DIRECTORY_PARAMETER: ${{ format('-DestinationDirectoryPath "{0}"', inputs.destination-path) }}
-        SUFFIX_PARAMETER: ${{ format('-Suffix "{0}"', inputs.suffix) }}
-        EXCLUDE_PARAMETER: ${{ format('-Exclude "{0}"', inputs.exclude) }}
+        TARGET_PATH: ${{ inputs.path }}
+        TYPE: ${{ inputs.type }}
+        DESTINATION_PATH: ${{ inputs.destination-path }}
+        ROOT: ${{ inputs.root }}
+        SUFFIX: ${{ inputs.root != 'true' && inputs.suffix || '' }}
+        EXCLUDE: ${{ inputs.root != 'true' && inputs.exclude || '' }}
       run: |
-        ${{ github.action_path }}/CompressArchive.ps1 `
-            -Path '${{ inputs.path }}' `
-            -Type '${{ inputs.type }}' `
-            ${{ inputs.root == 'true' && env.DESTINATION_FILE_PARAMETER || env.DESTINATION_DIRECTORY_PARAMETER }} `
-            ${{ inputs.root != 'true' && env.SUFFIX_PARAMETER || '' }} `
-            ${{ inputs.root != 'true' && env.EXCLUDE_PARAMETER || '' }} `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{
+          Path = $Env:TARGET_PATH
+          Type = $Env:TYPE
+          Suffix = $Env:SUFFIX
+          Exclude = $Env:EXCLUDE
+        }
+        $parameters[$Env:ROOT -eq 'true' ? 'DestinationFilePath' : 'DestinationDirectoryPath'] = $Env:DESTINATION_PATH
+
+        ${{ github.action_path }}/CompressArchive.ps1 @parameters -Verbose -ErrorAction Stop

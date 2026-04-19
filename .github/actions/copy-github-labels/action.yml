@@ -23,9 +23,9 @@ runs:
         SOURCE_REPOSITORY: ${{ inputs.source-repository }}
         DELETE: ${{ inputs.delete }}
       run: |
-        $parameters = @{ 
+        $parameters = @{
           Repositories = $Env:REPOSITORIES
           SourceRepository = $Env:SOURCE_REPOSITORY
-          Delete = [bool]::Parse($Env:DELETE)
+          Delete = $Env:DELETE -eq 'true'
         }
         ${{ github.action_path }}/CopyGitHubLabels.ps1 @parameters -Verbose -ErrorAction Stop
