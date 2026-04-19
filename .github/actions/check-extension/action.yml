@@ -58,9 +58,12 @@ runs:
     - name: Check extension
       id: x
       shell: pwsh
+      env:
+        DIRECTORY_PATH: ${{ inputs.path }}
+        RECURSE: ${{ inputs.recurse }}
       run: |
-        ${{ github.action_path }}/CheckExtension.ps1 `
-            -Path '${{ inputs.path }}' `
-            ${{ inputs.recurse == 'true' && '-Recurse' || '' }} `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{
+          Path = $Env:DIRECTORY_PATH,
+          Recurse = [bool]::Parse($Env:RECURSE)
+        }
+        ${{ github.action_path }}/CheckExtension.ps1 @parameters -Verbose -ErrorAction Stop

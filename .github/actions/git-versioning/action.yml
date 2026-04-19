@@ -41,10 +41,14 @@ runs:
     - name: Get version
       id: x
       shell: pwsh
+      env:
+        VERSION_FILE_NAME: ${{ inputs.file-name }}
+        HASH: ${{ inputs.hash }}
+        REVISION: ${{ inputs.revision }}
       run: |
-        ${{ github.action_path }}/Version.ps1 `
-            -VersionFileName '${{ inputs.file-name }}' `
-            -Hash '${{ inputs.hash }}' `
-            -Revision ${{ inputs.revision }} `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          VersionFileName = $Env:VERSION_FILE_NAME
+          Hash = $Env:HASH
+          Revision = $Env:REVISION
+        }
+        ${{ github.action_path }}/Version.ps1 @parameters -Verbose -ErrorAction Stop

@@ -19,10 +19,14 @@ runs:
     - name: Create release
       shell: pwsh
       working-directory: ${{ inputs.path }}
+      env:
+        TITLE: ${{ inputs.title }}
+        TAG: ${{ inputs.tag }}
+        FILES: ${{ inputs.files }}
       run: |
-        ${{ github.action_path }}/CreateRelease.ps1 `
-            -Title '${{ inputs.title }}' `
-            -Tag '${{ inputs.tag }}' `
-            -Files '${{ inputs.files }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          Title = $Env:TITLE
+          Tag = $Env:TAG
+          Files = $Env:FILES
+        }
+        ${{ github.action_path }}/CreateRelease.ps1 @parameters -Verbose -ErrorAction Stop

@@ -28,13 +28,17 @@ runs:
   steps:
     - name: Sync repositories
       shell: pwsh
+      env:
+        SOURCE_PATH: ${{ inputs.source-path }}
+        TARGET_PATH: ${{ inputs.target-path }}
+        SETTINGS_FILE_PATH: ${{ inputs.settings-file-path }}
       run: |
-        ${{ github.action_path }}/SyncRepositories.ps1 `
-            -SourcePath '${{ inputs.source-path }}' `
-            -TargetPath '${{ inputs.target-path }}' `
-            -SettingsFilePath '${{ inputs.settings-file-path }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          SourcePath = $Env:SOURCE_PATH
+          TargetPath = $Env:TARGET_PATH
+          SettingsFilePath = $Env:SETTINGS_FILE_PATH
+        }
+        ${{ github.action_path }}/SyncRepositories.ps1 @parameters -Verbose -ErrorAction Stop
 
     - name: Create pull request
       uses: finphie/Actions/.github/actions/create-pull-request@main

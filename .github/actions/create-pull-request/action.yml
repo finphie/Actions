@@ -24,10 +24,14 @@ runs:
     - name: Create pull request
       shell: pwsh
       working-directory: ${{ inputs.path }}
+      env:
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}
+        BRANCH: ${{ inputs.branch }}
+        LABELS: ${{ inputs.labels }}
       run: |
-        ${{ github.action_path }}/CreatePullRequest.ps1 `
-            -CommitMessage '${{ inputs.commit-message }}' `
-            -Branch '${{ inputs.branch }}' `
-            -Labels '${{ inputs.labels }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          CommitMessage = $Env:COMMIT_MESSAGE
+          Branch = $Env:BRANCH
+          Labels = $Env:LABELS
+        }
+        ${{ github.action_path }}/CreatePullRequest.ps1 @parameters -Verbose -ErrorAction Stop

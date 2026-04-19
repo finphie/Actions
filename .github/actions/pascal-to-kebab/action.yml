@@ -17,8 +17,10 @@ runs:
     - name: Pascal to kebab
       id: x
       shell: pwsh
+      env:
+        TEXT: ${{ inputs.text }}
       run: |
-        ${{ github.action_path }}/PascalToKebab.ps1 `
-            -Text '${{ inputs.text }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          Text = $Env:TEXT
+        }
+        ${{ github.action_path }}/PascalToKebab.ps1 @parameters -Verbose -ErrorAction Stop

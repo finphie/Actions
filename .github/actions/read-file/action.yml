@@ -17,8 +17,10 @@ runs:
     - name: Read file
       id: x
       shell: pwsh
+      env:
+        FILE_PATH: ${{ inputs.file-path }}
       run: |
-        ${{ github.action_path }}/ReadFile.ps1 `
-            -FilePath '${{ inputs.file-path }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          FilePath = $Env:FILE_PATH
+        }
+        ${{ github.action_path }}/ReadFile.ps1 @parameters -Verbose -ErrorAction Stop

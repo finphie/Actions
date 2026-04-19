@@ -18,10 +18,14 @@ runs:
   steps:
     - name: Copy GitHub labels
       shell: pwsh
+      env:
+        REPOSITORIES: ${{ inputs.repositories }}
+        SOURCE_REPOSITORY: ${{ inputs.source-repository }}
+        DELETE: ${{ inputs.delete }}
       run: |
-        ${{ github.action_path }}/CopyGitHubLabels.ps1 `
-            -Repositories '${{ inputs.repositories }}' `
-            -SourceRepository '${{ inputs.source-repository }}' `
-            ${{ inputs.delete == 'true' && '-Delete' || '' }} `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          Repositories = $Env:REPOSITORIES
+          SourceRepository = $Env:SOURCE_REPOSITORY
+          Delete = [bool]::Parse($Env:DELETE)
+        }
+        ${{ github.action_path }}/CopyGitHubLabels.ps1 @parameters -Verbose -ErrorAction Stop

@@ -17,8 +17,10 @@ runs:
     - name: Get repository name
       id: x
       shell: pwsh
+      env:
+        REPOSITORY: ${{ inputs.repository }}
       run: |
-        ${{ github.action_path }}/GetRepositoryName.ps1 `
-            -Repository '${{ inputs.repository }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          Repository = $Env:REPOSITORY
+        }
+        ${{ github.action_path }}/GetRepositoryName.ps1 @parameters -Verbose -ErrorAction Stop

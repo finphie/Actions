@@ -11,8 +11,10 @@ runs:
   steps:
     - name: Git push
       shell: pwsh
+      env:
+        COMMIT_MESSAGE: ${{ inputs.commit-message }}
       run: |
-        ${{ github.action_path }}/GitPush.ps1 `
-            -CommitMessage '${{ inputs.commit-message }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          CommitMessage = $Env:COMMIT_MESSAGE
+        }
+        ${{ github.action_path }}/GitPush.ps1 @parameters -Verbose -ErrorAction Stop

@@ -26,8 +26,10 @@ runs:
     - name: Run MSBuild target
       id: x
       shell: pwsh
+      env:
+        TARGET: ${{ inputs.target }}
       run: |
-        ${{ github.action_path }}/RunMSBuildTarget.ps1 `
-            -Target '${{ inputs.target }}' `
-            -Verbose `
-            -ErrorAction Stop
+        $parameters = @{ 
+          Target = $Env:TARGET
+        }
+        ${{ github.action_path }}/RunMSBuildTarget.ps1 @parameters -Verbose -ErrorAction Stop
