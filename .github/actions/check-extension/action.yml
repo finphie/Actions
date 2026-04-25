@@ -63,7 +63,7 @@ runs:
         RECURSE: ${{ inputs.recurse }}
       run: |
         $parameters = @{
-          Path = $Env:DIRECTORY_PATH,
+          Path = $Env:DIRECTORY_PATH
           Recurse = $Env:RECURSE -eq 'true'
         }
         ${{ github.action_path }}/CheckExtension.ps1 @parameters -Verbose -ErrorAction Stop
